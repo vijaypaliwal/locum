@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AutoComplete.Models.Sessions>
+           
+           @{
+               
+               var DisplayAddress = Model.First().Practices;           
+               }
+
+               
+<table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td> Name 
+        </td>
+        <td>@DisplayAddress.Name</td>
+    </tr>
+     <tr>
+        <td> Address 
+        </td>
+        <td>@DisplayAddress.streetAdd @DisplayAddress.town </td>
+    </tr>
+    <tr>
+        <td> Email
+        </td>
+        <td>@DisplayAddress.cEmail</td>
+    </tr>
+</table>
+
+<table width="100%" class="CSSTableGenerator">
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            startTime
+        </td>
+        <td>
+            EndTime
+        </td>
+        <td>
+            fees
+        </td>
+        
+     
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Practices.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fees)
+        </td>
+      
+    
+    </tr>
+}
+
+</table>

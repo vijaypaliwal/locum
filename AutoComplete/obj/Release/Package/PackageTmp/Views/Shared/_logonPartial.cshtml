@@ -1,0 +1,32 @@
+﻿
+
+@{
+      var  person=Session["person"] as AutoComplete.Models.Person; 
+    
+    }
+
+
+    @if (Request.IsAuthenticated)
+    {
+         <li data-role="dropdown" class="loginheader"><a href="#"> WELCOME - <strong> @User.Identity.Name</strong></a>
+                <ul class="dropdown-menu" style="overflow: hidden;">
+                    <li> @Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+                    <li> @Html.ActionLink("Log Off", "LogOff", "Account")</li>                   
+                </ul>
+            </li>
+    }
+    else
+    {
+        <li data-role="dropdown" style="float:right;"><a href="#">Guest </a>           
+            <ul class="dropdown-menu" style="overflow: hidden;">
+                <li>
+                    @Html.ActionLink("Log On", "LogOn", "Account")
+                </li>
+                <li>
+                    @Html.ActionLink("Join Locum", "Create", "Person")
+                </li>
+            </ul>
+        </li>
+    }
+
+

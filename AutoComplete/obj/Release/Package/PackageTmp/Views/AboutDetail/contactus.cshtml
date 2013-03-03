@@ -1,0 +1,123 @@
+﻿@model AutoComplete.Models.ContactUs
+           
+@{
+  //  Layout = "~/Views/Shared/_ELayout.cshtml"; 
+    }
+
+@using (Ajax.BeginForm("ContactUs", "AboutDetail", null,
+        new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "updatePForm" }))
+{
+    @Html.ValidationSummary(true)  
+    
+    
+    <table style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="top" width="50%">
+                <table width="100%" cellpadding="4" cellspacing="4">
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Name)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Name)
+                                @Html.ValidationMessageFor(model => model.Name)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Subject)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Subject)
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Email)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Email)
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.website)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.website)
+                                @Html.ValidationMessageFor(model => model.website)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+            </td>
+            <td valign="top" width="50%">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Message)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.TextAreaFor(model => model.Message, new { @class = "tarea" })
+                                @Html.ValidationMessageFor(model => model.Message)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="">
+                                Are You human being ?
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editor-field">
+                                @Html.Raw(Html.GenerateCaptcha("captcha", "blue"))
+                                @Html.ValidationMessage("captcha")
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+  
+    <p>
+        <input style="margin-left: 805px;" type="submit" value="Send" />
+    </p>
+    
+}
+<style type="text/css">
+    .tarea
+    {
+        margin: 2px;
+        height: 75px;
+        width: 300px;
+    }
+</style>

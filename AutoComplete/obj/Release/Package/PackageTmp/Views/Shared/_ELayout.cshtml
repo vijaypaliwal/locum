@@ -1,0 +1,439 @@
+﻿@* Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies. *@
+
+@{
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+    var userName = "test";
+    try
+    {
+        userName=Membership.GetUser().UserName;
+    }catch
+    {
+        userName = "";
+    }
+    var  person=Session["person"] as AutoComplete.Models.Person; 
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Locum Assistant - @ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/2011.3.1129/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link id="ThemeUrl" href="@Url.Content("~/Content/2011.3.1129/kendo.metro.min.css")" rel="stylesheet" type="text/css" />
+    @RenderSection("css", false)
+    <script src="@Url.Content("~/Scripts/2011.3.1129/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/2011.3.1129/kendo.all.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/jquery-ui-1.8.16.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/examples.js")" type="text/javascript"></script>
+    @RenderSection("javascript", false)
+    @*<script type="text/javascript">
+        var themeName = "metroblack";
+        function getCookie(c_name) {
+            var i, x, y, ARRcookies = document.cookie.split(";");
+            for (i = 0; i < ARRcookies.length; i++) {
+                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                x = x.replace(/^\s+|\s+$/g, "");
+                if (x == c_name) {
+                    return unescape(y);
+                }
+            }
+        }
+
+        function setCookie(c_name, value, exdays) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+            document.cookie = c_name + "=" + c_value;
+        }
+
+        function checkCookie() {
+            var username = getCookie("theme");
+            if (username != null && username != "") {
+                setCookie("theme", username, 365);
+                $("#ThemeUrl").attr("href", "/Content/2011.3.1129/kendo." + username + ".min.css");
+
+            }
+            else {
+                username = themeName;
+                if (username != null && username != "") {
+                    setCookie("theme", username, 365);
+                    $("#ThemeUrl").attr("href", "/Content/2011.3.1129/kendo." + username + ".min.css");
+
+                }
+            }
+        }
+        $(document).ready(function () {
+            var data = [
+
+              { text: "Metro Black", value: "metroblack" },
+                        { text: "Metro", value: "metro" },
+                      
+                         { text: "Hakama", value: "hakama" },
+                        { text: "Silver", value: "silver" },
+                        { text: "Blue Opal", value: "blueOpal" },
+                        { text: "Texture", value: "textures" },
+                        { text: "Black", value: "black" },
+                        { text: "Default", value: "default" }
+                    ];
+
+            // create DropDownList from input HTML element
+            $("#Themes").kendoDropDownList({
+                optionLabel: "Select theme...",
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: data,
+                index: 0,
+                change: onChange
+            });
+            var color = $("#Themes").data("kendoDropDownList");
+            // color.select(getCookie("theme"));
+            // create DropDownList from select HTML element
+            function onChange() {
+                var value = $("#Themes").val();
+                setCookie("theme", value, 365);
+                checkCookie();
+            };
+
+
+            checkCookie();
+        });
+    
+    </script>*@
+    <script>
+        var temp = true;
+        var vname = 0;
+        $(document).ready(function () {
+
+            $("#menu").kendoMenu();
+//            vname = setInterval(function () {
+//                var url = "/Home/CheckSession";
+//                if (temp == false)
+//                    clearInterval(vname);
+//                $.get(url, null, handlerFunction);
+//                function handlerFunction(result) {
+//                    if (result == "False") {
+//                        alert("your session time out please login to continue");
+//                        temp = false;
+//                        window.location.href = "/Account/logon";
+//                    }
+//                }
+//                if (temp == false)
+//                    clearInterval(vname);
+//            }, 5000);
+
+        });
+       
+    </script>
+    <style type="text/css">
+    #next{
+	display: block;
+	width: 47px;
+	height: 43px;
+	background: url(@Url.Content("~/img/arrow.png"));
+	position: relative;
+	top: 257px;
+	left: 95%;
+}
+
+#next:hover{
+	background: url(@Url.Content("~/img/arrowmo.png"));
+}
+    </style>
+ 
+</head>
+
+<body id="container" class="k-state-selected">
+    <div id="overlay" class="png-fix">
+        <div id="title">
+            <a href="@Url.Action("Index","Home")"> <img src="@Url.Content("~/img/Logo/Logo41.png")" /></a>  
+        </div>
+        <div id="header" style="margin: 10px;" data-role="header">
+            @Html.Partial("_partialMenu")
+            @Html.Partial("_logonPartial", new AutoComplete.Models.LogOnModel())
+        </div>
+        @RenderSection("slider", false)
+        <div id="content">
+            @RenderBody()
+        </div>
+        <footer style="position: fixed;" class="k-header">
+            <div class="centered-content">
+
+            <table style="width:100%;" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td> <ul id="footer-navi">
+                    <li class="active k-link"><a class="l-home" href="/">Home</a></li>
+                    <li><a  href="@Url.Action("Api","Home")">About us</a></li>
+                     <li><a  href="@Url.Action("OuterContactUs","AboutDetail")">Contact us</a></li>
+
+                        @if (person != null)
+                        {
+                     <li><a  href="@Url.Action("Logoff", "Account")">Logout</a></li>
+                    
+                        }
+
+                        else {
+                            
+                       <li><a  href="@Url.Action("Logon", "Account")">Login</a></li>
+                      <li><a  href="@Url.Action("Create", "Person")">Join Locum</a></li>
+                        }
+
+                 
+                </ul></td>
+         <td><a target="_blank" style="line-height:30px; text-decoration:none; color:#fff;" href="http://shivamitconsultancy.com/">Copyright ©2011-2012 SHIVAM ITCS India. All rights reserved.</a> </td>
+          <td>   <div class="social-icons fhpage">                    
+                    <ul>                    
+                        <li><a title="Twitter" class="twitter" href="http://twitter.com/#!/shivamconsult">Twitter</a></li>
+                        <li><a title="Facebook" class="fb" href="http://www.facebook.com/shivamconsult">Facebook</a></li>
+                        <li><a title="Google plus" class="gp" href="https://plus.google.com/117798269023828336983/posts"></a></li>
+                           
+                        <li><a title="RSS" class="rss" href="/blogs/blogs.rss">RSS</a></li>
+                    </ul>
+                </div></td>
+    </tr>
+</table>
+
+
+
+               
+               @* <p class="desc">
+                    Kendo UI framework is developed by Telerik - a leading provider of UI components
+                    for web, desktop and mobile applications. Trusted by over 100,000 customers worldwide
+                    for our devotion to quality and industry-best technical support, Telerik helps professionals
+                    maximize their productivity and "deliver more than expected" every day.</p>*@
+            @*    <div class="social-icons fhpage">                    
+                    <ul>                    
+                        <li><a title="Twitter" class="twitter" href="http://twitter.com/#!/shivamconsult">Twitter</a></li>
+                        <li><a title="Facebook" class="fb" href="http://www.facebook.com/shivamconsult">Facebook</a></li>
+                        <li><a title="Google plus" class="gp" href="https://plus.google.com/117798269023828336983/posts"></a></li>
+                           
+                        <li><a title="RSS" class="rss" href="/blogs/blogs.rss">RSS</a></li>
+                    </ul>
+                </div>*@
+         
+              
+              
+        </div>
+            <!-- /end of .centered-content -->
+        </footer>
+    </div>
+</body>
+</html>
+<style type="text/css">
+    footer
+    {
+        height: 42px;
+        width: 100%;
+        
+        background-color: #000;
+        line-height: 20px;
+        clear: both;
+        position: relative;
+        z-index: 1;
+        bottom: 0;
+        left: 0;
+        margin: 0px auto;
+      
+    }
+    footer p, footer ul
+    {
+        padding: 0;
+        margin: 0;
+    }
+    
+    footer .centered-content
+    {
+        height: 100%;
+        position: relative;
+        text-align: center;
+        margin: 5px;
+    }
+    
+    footer .desc
+    {
+        position: absolute;
+        bottom: 86px;
+        left: 0;
+        width: 620px;
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    footer .copy
+    {
+        position: absolute;
+        bottom: 24px;
+        left: 0;
+        font-size: 11px;
+        color: #7f7f7f;
+    }
+    
+    footer .pp-bg
+    {
+        position: absolute;
+        left: -6px;
+        bottom: 40px;
+        font-size: 11px;
+    }
+    
+    footer .pp-bg a
+    {
+        color: #959595;
+        padding: 0 6px;
+    }
+    
+    footer .pp-bg a:hover
+    {
+        color: #a5a5a5;
+    }
+    
+    
+    
+    /* social icons */
+    
+    footer .social-icons
+    {
+        position: absolute;
+        right: 0;
+        bottom: 72px;
+        width: 180px;
+        height: 65px;
+    }
+    
+    footer .social-icons.fhpage
+    {
+        width: 290px;
+        height: 110px;
+        bottom: 10px;
+    }
+    
+    
+    footer .social-icons span, footer .social-icons strong
+    {
+        position: absolute; /*overflow:hidden;
+	
+	background: url("/Img/sprite.png?v=02102012") -130px -520px no-repeat;*/
+    }
+    
+    footer .social-icons strong
+    {
+        display: none;
+        top: 0;
+        right: 0;
+        width: 210px;
+        height: 37px;
+        background-position: -130px -520px;
+    }
+    
+    footer .social-icons.fhpage strong
+    {
+        display: block;
+    }
+    
+    footer .social-icons span
+    {
+        top: 0;
+        left: 0;
+        width: 115px;
+        height: 24px;
+        background-position: -225px -496px;
+    }
+    
+    footer .social-icons.fhpage span
+    {
+        top: auto;
+        bottom: 0;
+    }
+    
+    
+    footer .social-icons ul
+    {
+        position: absolute;
+        right: 3px;
+        bottom: 0;
+        overflow: hidden;
+    }
+    footer .social-icons li
+    {
+        float: left;
+        margin-left: 9px;
+        list-style: none;
+    }
+    
+    footer .social-icons a
+    {
+        display: block;
+        width: 32px;
+        height: 32px;
+        background: url("/img/sprite.png?v=02102012") no-repeat;
+        text-indent: -100px;
+        overflow: hidden;
+    }
+    
+    footer .social-icons .twitter
+    {
+        -webkit-transition: all 0.9s ease;
+        background-position: 0 -520px;
+        
+    }
+    
+    footer .social-icons .twitter:hover
+    {
+       
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+writing-mode: lr-tb;
+      
+    }
+    
+    footer .social-icons .fb
+    {
+        background-position: -32px -520px;
+         -webkit-transition: all 0.9s ease;
+    }
+    footer .social-icons .fb:hover
+    {
+       -webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+writing-mode: lr-tb;
+    }
+    footer .social-icons .gp
+    {
+        background-position: -64px -520px;
+        -webkit-transition: all 0.9s ease;
+    }
+    
+     footer .social-icons .gp:hover
+    {
+ -webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+writing-mode: lr-tb;
+    }
+    footer .social-icons .rss
+    {
+    background-position: -96px -520px;
+    -webkit-transition: all 0.9s ease;
+    }
+    
+      footer .social-icons .rss:hover
+    {
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+writing-mode: lr-tb;
+    }
+</style>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#footer-navi").kendoMenu();
+    });
+</script>
+
+

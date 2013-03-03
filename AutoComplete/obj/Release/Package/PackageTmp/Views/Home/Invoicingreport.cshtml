@@ -1,0 +1,112 @@
+﻿@model AutoComplete.Models.InvoiceDetail
+@{
+    ViewBag.Title = "Invoicingreport";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("form").submit(function (event) {
+
+            /* stop form from submitting normally */
+            event.preventDefault();
+            $("#resultData").empty();
+            $("#loadingImg").toggle("slow");
+            /* get some values from elements on the page: */
+            var $form = $(this),
+            url = $form.attr('action');
+
+            /* Send the data using post and put the results in a div */
+            $.post(url, $("Form").serialize(),
+                      function (data) {
+                          var content = $(data);
+                          $("#loadingImg").toggle("slow");
+                          $("#resultData").empty().append(content);
+                      }
+                 );
+        });
+
+
+    });
+</script>
+@using (Html.BeginForm("InvoicingreportTable","Invoice"))
+{
+    @Html.ValidationSummary(true)
+    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.startDate)
+    </div>
+                  
+    <div class="editor-field">
+        @Html.EditorFor(model => model.startDate)
+        @Html.ValidationMessageFor(model => model.startDate)
+    </div>
+                  
+    <div class="editor-label">
+        @Html.LabelFor(model => model.endDate)
+    </div>
+                   
+    <div class="editor-field">
+        @Html.EditorFor(model => model.endDate)
+        @Html.ValidationMessageFor(model => model.endDate)
+    </div>
+                  
+    <div class="editor-label">
+        @Html.LabelFor(model => model.IsPensionFormAinclude)
+    </div>
+                  
+    <div class="editor-field">
+        @Html.EditorFor(model => model.IsPensionFormAinclude)
+        @Html.ValidationMessageFor(model => model.IsPensionFormAinclude)
+    </div>
+                  
+    <div class="editor-label">
+        @Html.LabelFor(model => model.InvoicedDate)
+    </div>
+                   
+    <div class="editor-field">
+        @Html.EditorFor(model => model.InvoicedDate)
+        @Html.ValidationMessageFor(model => model.InvoicedDate)
+    </div>
+                 
+    <div class="editor-label">
+        @Html.LabelFor(model => model.PaidDate)
+    </div>
+                  
+    <div class="editor-field">
+        @Html.EditorFor(model => model.PaidDate)
+        @Html.ValidationMessageFor(model => model.PaidDate)
+    </div>
+                  
+    <div class="editor-label">
+        @Html.LabelFor(model => model.IsPaid)
+    </div>
+                   
+    <div class="editor-field">
+        @Html.EditorFor(model => model.IsPaid)
+        @Html.ValidationMessageFor(model => model.IsPaid)
+    </div>
+                    
+    <div class="editor-label">
+        @Html.LabelFor(model => model.InPracticesID)
+    </div>
+                   
+    <div class="editor-field">
+        @Html.EditorFor(model => model.InPracticesID)
+        @Html.ValidationMessageFor(model => model.InPracticesID)
+    </div>
+                    
+    <p>
+        <input type="submit" value="Get Invoice" />
+    </p>
+    
+}
+<br />
+<br />
+<div id="resultData">
+</div>
+<div id="loadingImg" style="display: none;">
+    <img src="@Url.Content("~/images/loading-image.gif")" style="margin:0 auto;" />
+</div>

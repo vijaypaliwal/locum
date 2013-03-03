@@ -1,0 +1,86 @@
+﻿@model AutoComplete.Models.Practices
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<style>
+    .editor-label
+    {
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+    }
+    .editor-field
+    {
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+<div class="editor-label">
+    Name</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Name)
+</div>
+<div class="editor-label">
+    CAtPractice</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CAtPractice)
+</div>
+<div class="editor-label">
+    CPosition</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.CPosition)
+</div>
+<div class="editor-label">
+    cphone</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.cphone)
+</div>
+<div class="editor-label">
+    cEmail</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.cEmail)
+</div>
+<div class="editor-label">
+    cWebsite</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.cWebsite)
+</div>
+<div class="editor-label">
+    isshowCurrentPractice</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.isshowCurrentPractice)
+</div>
+<div class="editor-label">
+    streetAdd</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.streetAdd)
+</div>
+<div class="editor-label">
+    town</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.town)
+</div>
+<div class="editor-label">
+    city</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.city)
+</div>
+<div class="editor-label">
+    postCode</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.postCode)
+</div>
+<div class="editor-label">
+    VArea</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.VArea)
+</div>
+<div class="editor-label">
+    Pphone</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Pphone)
+</div>
+<div class="editor-label">
+    person</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.person.Title)
+</div>

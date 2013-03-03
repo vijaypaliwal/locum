@@ -1,0 +1,53 @@
+﻿@model AutoComplete.Models.InvoiceDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>InvoiceDetail</legend>
+
+    <div class="display-label">startDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.startDate)
+    </div>
+
+    <div class="display-label">endDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.endDate)
+    </div>
+
+    <div class="display-label">IsPensionFormAinclude</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsPensionFormAinclude)
+    </div>
+
+    <div class="display-label">InvoicedDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InvoicedDate)
+    </div>
+
+    <div class="display-label">PaidDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaidDate)
+    </div>
+
+    <div class="display-label">IsPaid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsPaid)
+    </div>
+
+    <div class="display-label">Appointment</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Appointment.Notes)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

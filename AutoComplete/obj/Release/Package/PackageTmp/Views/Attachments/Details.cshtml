@@ -1,0 +1,30 @@
+﻿@model AutoComplete.Models.Attachments
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Attachments</legend>
+
+    <div class="display-label">person</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person.Title)
+    </div>
+
+    <div class="display-label">title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">path</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.path)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

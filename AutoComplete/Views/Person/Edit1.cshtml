@@ -1,0 +1,172 @@
+﻿@model AutoComplete.Models.Person
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var className = $("input").attr("class");
+        $("input").attr("class", "k-input " + className);
+        $("select").kendoDropDownList();
+    });
+
+</script>
+
+
+<style type="text/css">
+.span11
+{
+    width:100%  !important;
+    margin:0px !important;
+}
+</style>
+<div class="grid">
+    <div class="row">
+        <div class="span3">
+       
+    <a href="@Url.Action("Changepassword","Account")" class="k-button">Change password</a>
+
+        </div>
+        <div class="span8 bg-color-blue fg-color-white">
+            <p class="long-text" style="margin:5px;">
+             some text goes here some text goes heresome text goes heresome text goes here some text goes here some text goes heresome text goes heresome text goes here
+             some text goes here some text goes heresome text goes heresome text goes here
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Ajax.BeginForm("Edit1", "Person", null,
+        new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+            OnSuccess = "updateSuccess"
+        }, new { @id = "updatePForm" }))
+{
+    @Html.ValidationSummary(true)
+    
+
+    @Html.HiddenFor(model => model.ID)
+
+    @Html.HiddenFor(model=>model.Password)
+
+     @Html.HiddenFor(model => model.UserName)
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Title)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Title)
+        @Html.ValidationMessageFor(model => model.Title)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.FirstName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LastName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.GMC)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.GMC)
+        @Html.ValidationMessageFor(model => model.GMC)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.qualification)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.qualification)
+        @Html.ValidationMessageFor(model => model.qualification)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.streetAdd)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.streetAdd)
+        @Html.ValidationMessageFor(model => model.streetAdd)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.town)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.town)
+        @Html.ValidationMessageFor(model => model.town)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.city)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.city)
+        @Html.ValidationMessageFor(model => model.city)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.postCode)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.postCode)
+        @Html.ValidationMessageFor(model => model.postCode)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.country)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.country)
+        @Html.ValidationMessageFor(model => model.country)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.phone)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.phone)
+        @Html.ValidationMessageFor(model => model.phone)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Email)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+   
+    
+    
+    
+    
+    <input type="submit" name="name" value="Change" />
+    
+    
+
+}
+
+

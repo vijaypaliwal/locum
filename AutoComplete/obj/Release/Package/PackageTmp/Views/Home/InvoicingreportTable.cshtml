@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+@{
+    ViewBag.Title = "Invoicingreport";
+}
+<h2>
+    Invoicingreport</h2>
+<p style="float: right; margin-right: 10px;">
+    <a href="@Url.Action("CreateReport", "Invoice", new { writer = "Pdf" })" target="_blank">
+        <img src="@Url.Content("~/img/pdf.png")" height="25" width="25" alt="Alternate Text" title="Download As PDF" />
+    </a><a href="@Url.Action("CreateReport", "Invoice", new { writer = "excel" })" target="_blank">
+        <img src="@Url.Content("~/img/Excel.png")"   height="25" width="25" alt="Alternate Text" title="Download As Excel" />
+    </a><a href="@Url.Action("CreateReport", "Invoice", new { writer = "html" })" target="_blank">
+        <img src="@Url.Content("~/img/html.png")"   height="25" width="25"  alt="Alternate Text" title="Save as HTML" />
+    </a>
+</p>
+<table>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            InvoicedDate
+        </th>
+        <th>
+            Surgery
+        </th>
+        <th>
+            Session
+        </th>
+        <th>
+            Fees
+        </th>        
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoicedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.Parctice.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.startTime) -@Html.DisplayFor(modelItem => item.Appointment.sessionDetail.EndTime) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.fees) 
+            </td>           
+            <td>
+             @*   @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                select
+            </td>
+        </tr>
+    }
+</table>

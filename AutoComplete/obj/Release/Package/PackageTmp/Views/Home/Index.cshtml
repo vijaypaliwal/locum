@@ -1,0 +1,547 @@
+﻿@* Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies. *@
+@{
+    ViewBag.Title = "Home";
+
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+
+
+    var userName = "test";
+
+    var news = db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() : null;
+  
+    var person = Session["person"] as AutoComplete.Models.Person;
+
+    var user = Session["user"] as AutoComplete.Models.User;
+    var news1 = db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() : null;
+
+                                        // Layout = "~/Views/Shared/_ELayout.cshtml";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="page-region-content">
+    <div class="grid">
+        <h1 class="fg-color-red">
+            Locum<small>Assistant</small></h1>
+        <div class="row">
+            <div class="span8">
+                <div style="border: 2px solid #2d89ef;" class="hero-unit">
+                    <div id="carousel1" class="carousel" data-role="carousel" data-param-duration="300">
+                        <div class="slides">
+                            <div class="slide" id="slide1" style="left: -580px;">
+                                <h2>
+                                    Welcome to Locum Assistant!</h2>
+                                <p class="bg-color-blueDark padding20 fg-color-white">
+                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant.
+                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant</p>
+                                <h3>
+                                    To start: Locum Assistant.com</h3>
+                                <p class="tertiary-info-text">
+                                    &lt; Welcome to Locum Assistant"&gt;
+                                </p>
+                            </div>
+                            <div class="slide" id="slide2" style="display: block; left: -580px;">
+                                <h2 class="fg-color-darken">
+                                    Locum Assistant</h2>
+                                <p class="bg-color-pink padding20 fg-color-white">
+                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant<strong>LOCUM:</strong>
+                                </p>
+                                <div class="span3 place-left">
+                                    <ul class="unstyled sprite-details">
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                    </ul>
+                                </div>
+                                <div class="span3 place-left">
+                                    <ul class="unstyled sprite-details">
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slide" id="slide3" style="display: block; left: 0px;">
+                                <h2>
+                                    Locum Assistant</h2>
+                                <p class="bg-color-red fg-color-white padding20">
+                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
+                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
+                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
+                                </p>
+                                <p>
+                                    <a href="@Url.Action("Create", "Person")">Join</a> Locum.</p>
+                            </div>
+                        </div>
+                        <div class="markers">
+                            <ul>
+                                <li class=""><a href="javascript:void(0)" data-num="0"></a></li>
+                                <li class=""><a href="javascript:void(0)" data-num="1"></a></li>
+                                <li class="active"><a href="javascript:void(0)" data-num="2"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                if (db.Users.Where(u => u.Username == userName).FirstOrDefault() != null)
+                {
+                <div class="span4 place-center bg-color-blueLight" style="padding: 5px">
+                    <!--
+                      Login Form
+                    -->
+                    <p style="text-align: justify;">
+                        Welcome To Locum, locum is software company specialized is developing software for
+                        the health sector. Locum is a Multinational Company it has 100 branches in all around worlds
+                    </p>
+                    <p style="text-align: justify;">
+                        Welcome To Locum, locum is software company specialized is developing software for
+                        the health sector. Locum is a Multinational Company it has 100 branches in all around worlds
+                    </p>
+                    <p style="text-align: justify;">
+                        Welcome To Locum, locum is software company specialized is developing software for
+                        the health sector. Locum is a Multinational Company.
+                    </p>
+                </div>
+                }
+            }
+
+            else
+            { 
+            
+                <div class="span4 place-center bg-color-blueLight" style="padding: 5px">
+                    <!--
+                      Login Form
+                    -->
+                    @Html.Partial("LogOnPartial")
+                </div>
+            }
+        </div>
+    </div>
+    <div class="grid">
+        <div class="row">
+            @Html.Partial("Slider")
+            <div class="span2">
+                <h1>
+                    News<small>Events</small></h1>
+              @Html.Partial("NewsEvents",news)
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    /**
+    * Carousel - jQuery plugin for MetroUiCss framework
+    */
+
+    (function ($) {
+
+        $.Carousel = function (element, options) {
+
+            // default settings
+            var defaults = {
+                // auto slide change
+                auto: true,
+                // slide change period
+                period: 3000,
+                // animation duration
+                duration: 1000,
+                // animation effect (fade, slide, switch, slowdown)
+                effect: 'slide',
+                // animation direction (left, right) for some kinds of animation effect
+                direction: 'left',
+                // markers below the carousel
+                markers: 'on',
+                // prev and next arrows
+                arrows: 'on',
+                // stop sliding when cursor over the carousel
+                stop: 'on'
+            };
+
+            var plugin = this;
+            // plugin settings
+            plugin.settings = {};
+
+            var $element = $(element); // reference to the jQuery version of DOM element
+
+            var slides, // all slides DOM objects
+            currentSlideIndex, // index of current slide
+            slideInPosition, // slide start position before it's appear
+            slideOutPosition, // slide position after it's disappear
+            parentWidth,
+            parentHeight,
+            animationInProgress,
+            autoSlideTimer,
+            markers,
+            stopAutoSlide = false;
+
+            // initialization
+            plugin.init = function () {
+
+                plugin.settings = $.extend({}, defaults, options);
+
+                slides = $element.find('.slides:first-child > .slide');
+
+                // if only one slide
+                if (slides.length <= 1) {
+                    return;
+                }
+
+                currentSlideIndex = 0;
+
+                // parent block dimensions
+                parentWidth = $element.innerWidth();
+                parentHeight = $element.innerHeight();
+                // slides positions, used for some kinds of animation
+                slideInPosition = getSlideInPosition();
+                slideOutPosition = getSlideOutPosition();
+
+                // prepare slide elements
+                slides.each(function (index, slide) {
+                    $slide = $(slide);
+                    // each slide must have position:absolute
+                    // if not, set it
+                    if ($slide.css('position') !== 'absolute') {
+                        $slide.css('position', 'absolute');
+                    }
+                    // disappear all slides, except first
+                    if (index !== 0) {
+                        $slide.hide();
+                    }
+                });
+
+                if (plugin.settings.arrows === 'on') {
+                    // prev next buttons handlers
+                    $element.find('span.control.left').on('click', function () {
+                        changeSlide('left');
+                        startAutoSlide();
+                    });
+                    $element.find('span.control.right').on('click', function () {
+                        changeSlide('right');
+                        startAutoSlide();
+                    });
+                } else {
+                    $element.find('span.control').hide();
+                }
+
+                // markers
+                if (plugin.settings.markers === 'on') {
+                    insertMarkers();
+                }
+
+                // enable auto slide
+                if (plugin.settings.auto === true) {
+                    startAutoSlide();
+
+                    // stop sliding when cursor over the carousel
+                    if (plugin.settings.stop === 'on') {
+                        $element.on('mouseenter', function () {
+                            stopAutoSlide = true;
+                        });
+                        $element.on('mouseleave', function () {
+                            stopAutoSlide = false;
+                            startAutoSlide();
+                        });
+                    }
+                }
+            };
+
+            /**
+            * returns start position for appearing slide {left: xxx}
+            */
+            var getSlideInPosition = function () {
+                var pos;
+                if (plugin.settings.direction === 'left') {
+                    pos = {
+                        'left': parentWidth
+                    }
+                } else if (plugin.settings.direction === 'right') {
+                    pos = {
+                        'left': -parentWidth
+                    }
+                }
+                return pos;
+            };
+
+            /**
+            * returns end position of disappearing slide {left: xxx}
+            */
+            var getSlideOutPosition = function () {
+                var pos;
+                if (plugin.settings.direction === 'left') {
+                    pos = {
+                        'left': -parentWidth
+                    }
+                } else if (plugin.settings.direction === 'right') {
+                    pos = {
+                        'left': parentWidth
+                    }
+                }
+                return pos;
+            };
+
+            /**
+            * start or restart auto change
+            */
+            var startAutoSlide = function () {
+                clearInterval(autoSlideTimer);
+                // start slide changer timer
+                autoSlideTimer = setInterval(function () {
+                    if (stopAutoSlide) {
+                        return;
+                    }
+                    changeSlide();
+                }, plugin.settings.period);
+            };
+
+            /**
+            * inserts markers below the carousel
+            */
+            var insertMarkers = function () {
+                var div, ul, li, i;
+
+                div = $('<div class="markers"></div>');
+                ul = $('<ul></ul>').appendTo(div);
+
+                for (i = 0; i < slides.length; i++) {
+                    li = $('<li><a href="javascript:void(0)" data-num="' + i + '"></a></li>');
+                    if (i === 0) {
+                        li.addClass('active');
+                    }
+                    li.appendTo(ul);
+                }
+
+                markers = ul.find('li');
+
+                ul.find('li a').on('click', function () {
+                    var $this = $(this),
+                    index;
+
+                    // index of appearing slide
+                    index = $this.data('num');
+                    if (index === currentSlideIndex) {
+                        return;
+                    }
+
+                    changeSlide(undefined, 'switch', index);
+                    startAutoSlide();
+                });
+
+                div.appendTo($element);
+            };
+
+            /**
+            * changes slide to next
+            */
+            var changeSlide = function (direction, effect, slideIndex) {
+
+                var outSlide, // disappearin slide element
+                inSlide, // appearing slide element
+                nextSlideIndex,
+                delta = 1,
+                slideDirection = 1;
+
+                effect = effect || plugin.settings.effect;
+                // correct slide direction, used for 'slide' and 'slowdown' effects
+                if ((effect === 'slide' || effect === 'slowdown') && typeof direction !== 'undefined' && direction !== plugin.settings.direction) {
+                    slideDirection = -1;
+                }
+                if (direction === 'left') {
+                    delta = -1;
+                }
+
+                outSlide = $(slides[currentSlideIndex]);
+
+                nextSlideIndex = typeof slideIndex !== 'undefined' ? slideIndex : currentSlideIndex + delta;
+                if (nextSlideIndex >= slides.length) {
+                    nextSlideIndex = 0;
+                }
+                if (nextSlideIndex < 0) {
+                    nextSlideIndex = slides.length - 1;
+                }
+
+                inSlide = $(slides[nextSlideIndex]);
+
+                if (animationInProgress === true) {
+                    return;
+                }
+
+                // switch effect is quickly, no need to wait
+                if (effect !== 'switch') {
+                    // when animation in progress no other animation occur
+                    animationInProgress = true;
+                    setTimeout(function () {
+                        animationInProgress = false;
+                    }, plugin.settings.duration)
+                }
+
+                // change slide with selected effect
+                switch (effect) {
+                    case 'switch':
+                        changeSlideSwitch(outSlide, inSlide);
+                        break;
+                    case 'slide':
+                        changeSlideSlide(outSlide, inSlide, slideDirection);
+                        break;
+                    case 'fade':
+                        changeSlideFade(outSlide, inSlide);
+                        break;
+                    case 'slowdown':
+                        changeSlideSlowdown(outSlide, inSlide, slideDirection);
+                        break;
+                }
+
+                currentSlideIndex = nextSlideIndex;
+
+                // switch marker
+                if (plugin.settings.markers === 'on') {
+                    markers.removeClass('active');
+                    $(markers.get(currentSlideIndex)).addClass('active');
+                }
+
+            };
+            /**
+            * switch effect
+            */
+            var changeSlideSwitch = function (outSlide, inSlide) {
+                inSlide.show().css({ 'left': 0 });
+                outSlide.hide();
+            };
+            /**
+            * slide effect
+            */
+            var changeSlideSlide = function (outSlide, inSlide, slideDirection) {
+                var unmovedPosition = { 'left': 0 },
+                duration = plugin.settings.duration;
+
+                if (slideDirection !== -1) {
+                    inSlide.css(slideInPosition);
+                    inSlide.show();
+                    outSlide.animate(slideOutPosition, duration);
+                    inSlide.animate(unmovedPosition, duration);
+                } else {
+                    inSlide.css(slideOutPosition);
+                    inSlide.show();
+                    outSlide.animate(slideInPosition, duration);
+                    inSlide.animate(unmovedPosition, duration);
+                }
+            };
+            /**
+            * slowdown slide effect (custom easing 'doubleSqrt')
+            */
+            var changeSlideSlowdown = function (outSlide, inSlide, slideDirection) {
+                var unmovedPosition = { 'left': 0 },
+                options;
+
+                options = {
+                    'duration': plugin.settings.duration,
+                    'easing': 'doubleSqrt'
+                };
+
+                if (slideDirection !== -1) {
+                    inSlide.css(slideInPosition);
+                    inSlide.show();
+                    outSlide.animate(slideOutPosition, options);
+                    inSlide.animate(unmovedPosition, options);
+                } else {
+                    inSlide.css(slideOutPosition);
+                    inSlide.show();
+                    outSlide.animate(slideInPosition, options);
+                    inSlide.animate(unmovedPosition, options);
+                }
+            };
+            /**
+            * fade effect
+            */
+            var changeSlideFade = function (outSlide, inSlide) {
+                inSlide.fadeIn(plugin.settings.duration);
+                outSlide.fadeOut(plugin.settings.duration);
+            };
+
+            plugin.init();
+
+        };
+
+        $.fn.Carousel = function (options) {
+            return this.each(function () {
+                if (undefined == $(this).data('Carousel')) {
+                    var plugin = new $.Carousel(this, options);
+                    $(this).data('Carousel', plugin);
+                }
+            });
+        };
+
+        // easing effect for jquery animation
+        $.easing.doubleSqrt = function (t, millisecondsSince, startValue, endValue, totalDuration) {
+            var res = Math.sqrt(Math.sqrt(t));
+            return res;
+        };
+
+    })(jQuery);
+
+
+    $(window).ready(function () {
+        var allCarousels = $('[data-role=carousel], .carousel');
+        allCarousels.each(function (index, carousel) {
+            var params = {};
+            $carousel = $(carousel);
+            params.auto = $carousel.data('paramAuto');
+            params.period = $carousel.data('paramPeriod');
+            params.duration = $carousel.data('paramDuration');
+            params.effect = $carousel.data('paramEffect');
+            params.direction = $carousel.data('paramDirection');
+            params.markers = $carousel.data('paramMarkers');
+            params.arrows = $carousel.data('paramArrows');
+            params.stop = $carousel.data('paramStop');
+
+            $carousel.Carousel(params);
+        })
+
+    });
+</script>
+@*<h2>
+    KendoUI AutoComplete Basic Usage</h2>
+@using (Html.BeginForm("Show", "Home"))
+{
+    @Html.LabelFor(m => m.Name) <text> </text>
+    @Html.TextBoxFor(m => m.Name)
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <input type="submit" value="Submit" />
+}*@ 
+
+
+<link href="../../Content/Footer/style.css" rel="stylesheet" type="text/css" />
+<script src="../../Content/Footer/jquery.totemticker.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$('#vertical-ticker').totemticker({
+				row_height	:	'100px',
+				next		:	'#ticker-next',
+				previous	:	'#ticker-previous',
+				stop		:	'#stop',
+				start		:	'#start',
+				mousestop	:	true,
+			});
+		});
+	</script>

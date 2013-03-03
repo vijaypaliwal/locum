@@ -1,0 +1,103 @@
+﻿@model IEnumerable<AutoComplete.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+
+<script type="text/x-kendo-template" id="Tooltemplate">
+                <div class="toolbar">
+                    <label class="PracticesD-label" for="PracticesD">Show Sessions for Practice:</label>
+                    <input type="search" id="PracticesD" style="width: 230px"></input>
+                </div>
+ </script>
+
+
+
+<script type="text/javascript">
+
+  var dropDown = $(".k-grid").find("#PracticesD").kendoDropDownList({
+                        dataTextField: "Name",
+                        dataValueField: "ID",
+                        autoBind: false,
+                        optionLabel: "All",
+                        dataSource: {
+                            type: "json",
+                            severFiltering: true,
+                            transport: {
+                                read: "@Url.Action("GetAllPractices")"
+                            }
+                        },
+                        change: function() {
+                            var value = this.value();
+                           
+                            if (value) {
+                                gridTemp.data("kendoGrid").dataSource.filter({ field: "PID", operator: "eq", value: value });
+                            } else {
+                                gridTemp.data("kendoGrid").dataSource.filter({});
+                            }
+                        }
+                    });
+    
+    });
+
+
+    </script>
+
+
+<table class="k-grid" style="width:100%;">
+    <tr>
+        <td>
+            <strong>   Parctice</strong>
+        </td>
+        <td>
+         <strong>   session Name </strong>
+        </td>
+        <td>
+           <strong> expences </strong>
+        </td>
+      
+        <td>
+          <strong> Fees </strong>
+        </td>
+      
+        <td>
+           <strong> start Date </strong>
+        </td>
+        <td>
+          <strong>  end Date </strong>
+        </td>
+        <td></td>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parctice.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sessionDetail.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expences)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.sessionDetail.fees)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.startDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endDate)
+        </td>
+        <td>
+         
+        </td>
+    </tr>
+}
+
+</table>

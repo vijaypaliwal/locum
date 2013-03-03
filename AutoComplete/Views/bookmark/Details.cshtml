@@ -1,0 +1,36 @@
+﻿@model AutoComplete.Models.bookmarks
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<style>
+    .editor-label
+    {
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+    }
+    .editor-field
+    {
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+<div class="editor-label">
+    Title</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Btitle)
+</div>
+<div class="editor-label">
+    Bookmark Type</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Btype)
+</div>
+<div class="editor-label">
+    URL</div>
+<div class="editor-field">
+    <a target="_blank" href="http://@Model.url/"> @Html.DisplayFor(model => model.url)</a>
+</div>
+<div class="editor-label">
+    Description</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Description)
+</div>

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AutoComplete.Models.SessionColor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Manage Your Session Colors
+</h1>
+
+
+@section bottomText
+{
+ <div class="page">
+        <div class="grid">
+            <div class="row">
+                <div class="span4 bg-color-blue">
+                    <img src="@Url.Content("~/img/simple.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Simple</h2>
+                </div>
+                <div class="span4 bg-color-green">
+                    <img src="@Url.Content("~/img/manageable.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Manageable</h2>
+                </div>
+                <div class="span4 bg-color-yellow">
+                    <img src="@Url.Content("~/img/custom.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Customaziable</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<p>
+    <a class="k-button" href="@Url.Action("Create","Sessioncolor")">Create Session Color</a>
+</p>
+<table id="grid">
+    <tr>
+        <th>
+            Color Code
+        </th>
+        <th>
+            Sessions
+        </th>
+        <th>
+        Action
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <div style="padding:5px 25px;background-color: @Html.DisplayFor(modelItem => item.Color); color:white; ">
+                <strong> @Html.DisplayFor(modelItem => item.Color)</strong></div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sessions.Name)
+        </td>
+        <td>
+
+         <a title="Edit" href="@Url.Action("Edit",new{id=item.ID})" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>Edit</a>    
+         <a title="Details" href="@Url.Action("Details", new { id = item.ID })" class="k-button k-button-icontext k-grid-detail"><span class="k-icon k-detail"></span>Details</a>    
+         <a title="delete" href="@Url.Action("Delete",new{id=item.ID})" class="k-button k-button-icontext k-grid-delete"><span class="k-icon k-delete"></span>Delete</a>    
+
+
+         
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+            
+        });
+    });
+            </script>

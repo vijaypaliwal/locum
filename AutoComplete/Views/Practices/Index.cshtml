@@ -1,0 +1,426 @@
+﻿@model IEnumerable<AutoComplete.Models.Practices>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<script type="text/javascript">
+
+    var dateRegExp = /^\/Date\((.*?)\)\/$/;
+
+    function toDate(value) {
+        var date = dateRegExp.exec(value);
+        return new Date(parseInt(date[1]));
+    }
+
+    var linkObj;
+    //$(".createAdmission").button();
+    $(function () {
+
+        $("#gtheme").click(function () {
+            $("#themeWrap").toggle("slow");
+            $(this).toggle("slow");
+
+        });
+        $('#UpdatePDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            minHeight: 430,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updatePForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+
+
+        $('#PracticesDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            minHeight: 410,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updateprForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+
+        $('#DetailDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Ok": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+
+        $('#MessageDialog').dialog({
+            autoOpen: false,
+            width: 500,
+            resizable: false,
+            modal: true,
+            button: {
+                "": function () {
+
+                }
+            }
+        });
+
+
+
+
+
+    });
+    function failure() {
+        alert("fail");
+
+    }
+
+    function updateSuccess(data) {
+
+
+        if (data== "True") {
+            //UpdateGrid()
+
+            //now we can close the dialog
+            $('#UpdatePDialog').dialog('close');
+            $('#UpdatePDialog').empty();
+            //Update grid
+            //debugger;
+            var grid = $("#cars-grid").data("kendoGrid");
+            // edit perticuler cel
+            grid.dataSource.read();
+            displayMessage();
+
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+    function updateprSuccess(data) {
+        if (data == "True") {
+            $('#ContactsDialog').dialog('close');
+            //UpdateGrid()           
+            //now we can close the dialog
+            $('#PracticesDialog').dialog('close');
+            $('#PracticesDialog').empty();
+            $('#PracticesDialog').html('');
+            //Update grid
+            //debugger;
+            var grid = $("#cars-grid").data("kendoGrid");
+            // edit perticuler cel
+            grid.dataSource.read();
+            displayMessage();
+
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+
+
+    function displayMessage() {
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
+    }
+
+    function UpdateGrid() {
+
+
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        //$("a").button();
+        $("#cars-grid").kendoGrid({
+        width:'100%',
+            pageable: true,
+            sortable: true,                    
+            groupable: true,
+            filterable: true,
+            columnMenu: true,
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("GetAllPractices", "Practices", new { locumID = ViewBag.LocumID })",
+                    dataType: "json"
+                },
+                pageSize: 5
+            },
+            rowTemplate: kendo.template($("#Template").html()),
+            dataBound: function (e) {
+                $(".k-grid-delete").click(function (e) {
+                    e.preventDefault();
+                    {
+
+                        DeleteConfirm($(this).attr("href"));
+                    }
+                });
+
+                $(".k-grid-edit").click(function (e) {
+
+                 waitingDialog({});
+                    e.preventDefault();
+                    //change the title of the dialgo
+                    linkObj = $(this);
+                    var dialogDiv = $('#UpdatePDialog');
+                    var viewUrl = linkObj.attr('href');
+                    $.get(viewUrl, function (data) {
+
+                        dialogDiv.html(data);
+                        //validation
+                        var $form = $("#updatePForm");
+                        // Unbind existing validation
+                        $form.unbind();
+                        $form.data("validator", null);
+                        // Check document for changes
+                        $.validator.unobtrusive.parse(document);
+                        // Re add validation with changes
+                        //$form.validate($form.data("unobtrusiveValidation").options);
+                        //open dialog
+                           closeWaitingDialog();
+                        dialogDiv.dialog('open');
+                    });
+                    return false;
+
+
+                });
+
+
+
+                $(".createAdmission").click(function (e) {
+                  waitingDialog({});
+                    e.preventDefault();
+                    //change the title of the dialgo
+                    linkObj = $(this);
+                    var dialogDiv = $('#PracticesDialog');
+                    var viewUrl = "/Practices/Create";
+                    $.get(viewUrl, function (data) {
+                        dialogDiv.html(data);
+                        //validation
+                        var $form = $("#updateprForm");
+                        // Unbind existing validation
+                        $form.unbind();
+                        $form.data("validator", null);
+                        // Check document for changes
+                        $.validator.unobtrusive.parse(document);
+                        // Re add validation with changes
+                        $form.validate($form.data("unobtrusiveValidation").options);
+                        //open dialog
+                   
+                        closeWaitingDialog();
+                        dialogDiv.dialog('open');
+
+                        //                  alert(data)
+
+                    });
+                    return false;
+
+
+                });
+
+
+
+                $(".k-grid-detail").click(function (e) {
+
+                 e.preventDefault();
+                    e.preventDefault();
+                    //change the title of the dialgo
+                    linkObj = $(this);
+                    var dialogDiv = $('#DetailDialog');
+                    var viewUrl = linkObj.attr('href');
+                    $.get(viewUrl, function (data) {
+
+                        dialogDiv.html(data);
+                         closeWaitingDialog();
+                        dialogDiv.dialog('open');
+                    });
+                    return false;
+
+
+                });
+            }
+        });
+
+    });
+    function KindoGrid() {
+
+    }
+      
+</script>
+<script type="text/javascript">
+
+    function DeleteConfirm(toDelete) {
+        var viewUrl = toDelete;
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Yes": function () {
+
+                    $(this).dialog("close");
+
+                    $.post(viewUrl, function (data) {
+
+                        var grid = $("#cars-grid").data("kendoGrid");
+                        // edit perticuler cel
+                        grid.dataSource.read();
+                    });
+                    return false;
+                },
+                "No": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog").dialog("open");
+    }
+
+   
+    
+    
+</script>
+<style type="text/css">
+.span11
+{
+    width:100%  !important;
+    margin:0px !important;
+}
+</style>
+<div class="grid">
+    <div class="row">
+        <div class="span3">
+       
+    <a href="#" class="createAdmission k-button">Create New Practices</a>
+
+        </div>
+        <div class="span8 bg-color-blue fg-color-white">
+            <p class="long-text" style="margin:5px;">
+             some text goes here some text goes heresome text goes heresome text goes here some text goes here some text goes heresome text goes heresome text goes here
+             some text goes here some text goes heresome text goes heresome text goes here
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="span11" > 
+
+
+<table id="cars-grid">
+    <thead>
+        <tr>
+            <th data-field="Name">
+                Name
+            </th>
+          
+         
+            <th data-field="EndDate">
+                Phone
+            </th>
+           
+            <th id="Action">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">
+                Loading...
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script id="Template" type="text/x-kendo-template">    
+    <tr>
+
+
+       <td>
+          #= Name#
+        </td>
+
+
+	      
+		
+        <td>
+          #=cphone#
+        
+      
+        </td>
+		
+     
+		
+     
+		
+        
+		
+<td>
+		 <a title="Delete" href="@Url.Action("Delete")/#= ID #" class="k-button k-button-icontext k-grid-delete"><span class="k-icon k-delete"></span>Delete</a>    
+	<a title="Edit" href="@Url.Action("Edit")/#= ID #" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>Edit</a>          
+		  <a title="Details" href="@Url.Action("Details")/#= ID #" class="k-button k-button-icontext k-grid-detail"><span class="k-icon k-detail"></span>Detail</a>        
+        </td>
+        
+    </tr>
+       
+    
+            
+
+</script>
+
+<div id="DetailDialog" title="Practice Detail">
+</div>
+<div id="UpdatePDialog" title="Edit Practice Detail">
+</div>
+<div id="PracticesDialog" title="New Practice">
+</div>
+<div id="dialog" title="Remove Practices" style="width:100%">
+  <div class="k-header">Do you really want to remove practice.</div>
+</div>
+<div id="MessageDialog" title="Success Message">
+    <p>
+        Action Perfomed succesfully.
+    </p>
+   
+</div>
+ <div id="update-message">
+    </div>
+</div>
+
+
+<style type="text/css">
+    #MessageDialog
+    {
+        text-align: center;
+        
+        font-size: 18px;
+        font-weight: 900;
+        display:none;
+    }
+</style>

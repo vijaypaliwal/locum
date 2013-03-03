@@ -1,0 +1,312 @@
+﻿@model AutoComplete.Models.InvoiceFileGenerator
+          @{
+    ViewBag.Title = "Invoicingreport";
+   
+
+    var name = Session["Person"] as AutoComplete.Models.Person;
+}
+
+<h2>Locum Assistant Pension B</h2>
+
+<p>Personal Details
+</p>
+<table id="grid">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+          sex
+        </th>
+        <th>
+           date of birth
+        </th>
+        <th>
+            Contact no
+        </th>
+
+        </tr>
+    <tr>
+        <td>
+      @name.FirstName  @name.LastName
+        
+        </td>
+      
+      
+        <td>
+            Male
+         
+        </td>
+
+     
+
+          <td>
+   25 march1963
+        </td>
+          <td>
+         @name.phone
+        </td>
+    
+    </tr>
+
+    <tr>
+        <td>
+      NL number
+        
+        </td>
+      
+        <td>
+  NL number
+        </td>
+      
+
+          <td>
+     NL number
+        </td>
+          <td>
+  NL number
+        </td>
+    
+    </tr>
+
+
+    <tr>
+        <td>
+     City : @name.city
+        
+        </td>
+
+        <td>
+  Country : @name.country
+         
+        </td>
+          <td>
+     Email : @name.Email
+        </td>
+          <td>
+
+           GMC : @name.GMC
+  
+        </td>
+    
+    </tr>
+</table>
+
+
+<p>Tiered Contribution Rate
+</p>
+
+<table border="1" width="100%">
+    <tr>
+        <td>
+            <strong>   Employing Authority Code </strong>
+        </td>
+        <td>
+           <strong>    Practice PCT or LHB </strong>
+        </td>
+        <td>
+          <strong>     First day Worked for this payment </strong>
+        </td>
+        <td>
+          <strong>     last day worked for this payment </strong>
+        </td>
+          <td>
+         <strong>    Date Gross Pay Received </strong>
+        </td>
+          <td>
+          <strong>   Toatal Gross Amount </strong> 
+        </td>
+
+        </tr>
+    <tr>
+        <td>
+      @name.GMC
+        
+        </td>
+      
+      
+        <td>
+  @name.GMC
+         
+        </td>
+
+     
+
+          <td>
+   25 march1963
+        </td>
+          <td>
+         @name.phone
+        </td>
+
+           <td>
+         @name.phone
+        </td>
+
+           <td>
+         @name.phone
+        </td>
+    
+    </tr>
+
+  <tr>
+        <td>
+   &nbsp;
+        
+        </td>
+      
+      
+        <td>
+   &nbsp;    
+         
+        </td>
+
+     
+
+          <td>
+  &nbsp;
+        </td>
+          <td>
+        &nbsp;
+        </td>
+
+           <td>
+      &nbsp;
+        </td>
+
+           <td>
+       &nbsp;
+        </td>
+    
+    </tr>
+
+    <tr>
+        <td>
+   &nbsp;
+        
+        </td>
+      
+      
+        <td>
+   &nbsp;    
+         
+        </td>
+
+     
+
+          <td>
+  &nbsp;
+        </td>
+          <td>
+        &nbsp;
+        </td>
+
+           <td>
+      &nbsp;
+        </td>
+
+           <td>
+       &nbsp;
+        </td>
+    
+    </tr>
+    <tr>
+        <td>
+   &nbsp;
+        
+        </td>
+      
+      
+        <td>
+   &nbsp;    
+         
+        </td>
+
+     
+
+          <td>
+  &nbsp;
+        </td>
+          <td>
+        &nbsp;
+        </td>
+
+           <td>
+      &nbsp;
+        </td>
+
+           <td>
+       &nbsp;
+        </td>
+    
+    </tr>
+    <tr>
+        <td>
+   &nbsp;
+        
+        </td>
+      
+      
+        <td>
+   &nbsp;    
+         
+        </td>
+
+     
+
+          <td>
+  &nbsp;
+        </td>
+          <td>
+        &nbsp;
+        </td>
+
+           <td>
+      &nbsp;
+        </td>
+
+           <td>
+       &nbsp;
+        </td>
+    
+    </tr>
+
+    <tr>
+        <td>
+   &nbsp;
+        
+        </td>
+      
+      
+        <td>
+   &nbsp;    
+         
+        </td>
+
+     
+
+          <td>
+  &nbsp;
+        </td>
+          <td>
+        &nbsp;
+        </td>
+
+           <td>
+      &nbsp;
+        </td>
+
+           <td>
+       &nbsp;
+        </td>
+    
+    </tr>
+</table>
+<br />
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+
+    });
+});
+</script>

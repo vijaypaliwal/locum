@@ -1,0 +1,211 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceFileGenerator>
+
+@{
+    ViewBag.Title = "unpaidinvoice";
+}
+
+<h2>unpaid invoice</h2>
+
+
+<table id="grid">
+    <tr>
+        <th>
+            FileName
+        </th>
+   
+        <th>
+            Generated Date
+        </th>
+        <th>
+            is InvoicePaid
+        </th>
+        <th>
+            Invoice PaidDate
+        </th>
+        <th>
+        mark as paid
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.GeneratedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isInvoicePaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoicePaidDate)
+        </td>
+        <td>
+          
+        <a class="edit-link" title="make Invoice as Paid" href="@Url.Action("makepaid", new { id = item.Id })">
+          Paid</a>
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+
+    });
+});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#UpdateDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updatePForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $('#SurveyDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Update": function () {
+                    window.location.reload();
+
+                    $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                    $("#updatePForm").submit();
+                    $('#UpdateDialog').dialog('close')
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $(".edit-link").click(function (e) {
+
+            alert("hello");
+
+
+            e.preventDefault();
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#UpdateDialog');
+            var viewUrl = linkObj.attr('href');
+            $.get(viewUrl, function (data) {
+
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updatePForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                // Check document for changes
+                $.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                //$form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                closeWaitingDialog();
+                dialogDiv.dialog('open');
+            });
+            return false;
+
+
+        });
+        $(".survey-link").click(function (e) {
+            e.preventDefault();
+            //change the title of the dialgo
+            linkObj = $(this);
+            var dialogDiv = $('#SurveyDialog');
+            var viewUrl = linkObj.attr('href');
+            alert(viewUrl);
+            $.get(viewUrl, function (data) {
+
+                alert(data);
+
+                dialogDiv.html(data);
+                //validation
+                //var $form = $("#updatePForm");
+                // Unbind existing validation
+                //$form.unbind();
+                //$form.data("validator", null);
+                // Check document for changes
+                //$.validator.unobtrusive.parse(document);
+                // Re add validation with changes
+                //$form.validate($form.data("unobtrusiveValidation").options);
+                //open dialog
+                dialogDiv.dialog('open');
+            });
+            return false;
+
+
+        });
+    });
+</script>
+<div id="UpdateDialog" title="Edit Patient Detail">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+   
+       // $("#tabs").tabs();
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+           $("#tabs").tabs({
+            collapsible: true,
+            
+
+           // event: "mouseover"
+        });
+
+        
+            var tabs = $( "#tabs" ).tabs();
+          tabs.find( ".ui-tabs-nav" ).sortable({
+            axis: "x",
+            stop: function() {
+                tabs.tabs( "refresh" );
+            }
+        });
+      
+    });    
+
+
+     function getContentTab(path,index) {
+            var url=path;
+            var targetDiv = "#tabs-" + index;
+            var ajaxLoading = "<img id='ajax-loader' src='@Url.Content("~/images/294.gif")' align='left' height='15' width='128'>";
+
+
+             for(var i=1;i<27;i++)
+            {
+             var DeleteDataFromDiv = "#tabs-" + i;
+               if(i==index)
+               {
+                    $(DeleteDataFromDiv).html(ajaxLoading);
+                    continue;
+               }
+              
+               $(DeleteDataFromDiv).empty();
+
+            }
+
+
+            $.get(url,null, function(result) {
+                $(targetDiv).html(result);
+            });
+        }
+        
+</script>

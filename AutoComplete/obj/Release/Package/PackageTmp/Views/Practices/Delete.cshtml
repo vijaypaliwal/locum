@@ -1,0 +1,88 @@
+﻿@model AutoComplete.Models.Practices
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Practices</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">CAtPractice</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CAtPractice)
+    </div>
+
+    <div class="display-label">CPosition</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CPosition)
+    </div>
+
+    <div class="display-label">cphone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cphone)
+    </div>
+
+    <div class="display-label">cEmail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cEmail)
+    </div>
+
+    <div class="display-label">cWebsite</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cWebsite)
+    </div>
+
+    <div class="display-label">isshowCurrentPractice</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.isshowCurrentPractice)
+    </div>
+
+    <div class="display-label">streetAdd</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.streetAdd)
+    </div>
+
+    <div class="display-label">town</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.town)
+    </div>
+
+    <div class="display-label">city</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.city)
+    </div>
+
+    <div class="display-label">postCode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.postCode)
+    </div>
+
+    <div class="display-label">VArea</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VArea)
+    </div>
+
+    <div class="display-label">Pphone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Pphone)
+    </div>
+
+    <div class="display-label">person</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person.Title)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

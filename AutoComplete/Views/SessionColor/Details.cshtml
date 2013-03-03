@@ -1,0 +1,22 @@
+﻿@model AutoComplete.Models.SessionColor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>SessionColor</legend>
+
+    <div class="display-label">Color</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Color)
+    </div>
+
+    <div class="display-label">Sessions</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sessions.Name)
+    </div>
+</fieldset>
+

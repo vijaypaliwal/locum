@@ -1,0 +1,25 @@
+﻿@model AutoComplete.Models.AboutPerson
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>AboutPerson</legend>
+
+    <div class="display-label">AboutDetail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AboutDetail)
+    </div>
+
+    <div class="display-label">person</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.person.Title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

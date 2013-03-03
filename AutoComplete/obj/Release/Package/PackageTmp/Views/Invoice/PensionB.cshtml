@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceFileGenerator>
+
+@{
+    ViewBag.Title = "PensionB";
+}
+
+<h2>List of Paid Invoices</h2>
+
+
+<table id="grid">
+    <tr>
+        <th>
+            FileName
+        </th>
+        <th>
+            Generated Date
+        </th>
+        <th>
+            isInvoice Paid
+        </th>
+        <th>
+            Invoice PaidDate
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.GeneratedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isInvoicePaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoicePaidDate)
+        </td>
+        <td>
+            <a href="@Url.Action("DetailPensionB", "Invoice", new { id = item.Id })">Details</a>
+        </td>
+    </tr>
+}
+
+</table>
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+
+    });
+});
+</script>

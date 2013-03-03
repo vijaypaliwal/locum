@@ -1,0 +1,56 @@
+﻿@model AutoComplete.Models.AdditionalSurgeries
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<style type="text/css">
+    .editor-label
+    {
+        font-weight: bold;
+    }
+</style>
+<div class="editor-label">
+    Name</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Name)
+</div>
+<div class="editor-label">
+    streetAdd</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.streetAdd)
+</div>
+<div class="editor-label">
+    town</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.town)
+</div>
+<div class="editor-label">
+    city</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.city)
+</div>
+<div class="editor-label">
+    postCode</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.postCode)
+</div>
+<div class="editor-label">
+    VArea</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.VArea)
+</div>
+<div class="editor-label">
+    SurgeryPhone</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.SurgeryPhone)
+</div>
+<div class="editor-label">
+    Rcdm</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Rcdm)
+</div>
+<div class="editor-label">
+    Practices</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Practices.Name)
+</div>

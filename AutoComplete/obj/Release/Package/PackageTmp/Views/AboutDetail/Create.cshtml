@@ -1,0 +1,213 @@
+﻿@model AutoComplete.Models.AboutPerson
+@{
+    ViewBag.Title = "Create";
+    var contact = new AutoComplete.Models.ContactUs();
+
+    var name = Session["Person"] as AutoComplete.Models.Person;
+}
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#MessageDialog').dialog({
+            autoOpen: false,
+            width: 500,
+            resizable: false,
+            modal: true,
+            button: {
+                "Ok": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        
+
+    });
+    function displayMessage() {
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
+    }
+    function updateSuccess(data) {
+        displayMessage();
+        $("#updatePForm").reset();
+    }
+
+</script>
+<div id="MessageDialog" title="Success Message">
+    <p>
+       Your message sent successfully.
+    </p>
+   
+</div>
+
+<style>
+    #MessageDialog,#dialog
+    {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 900;
+        display:none;
+    }
+</style>
+<style type="text/css">
+    .configuration .configHead, .configuration .infoHead
+    {
+        display: block;
+        font-size: 14px;
+        margin-top: 0;
+        text-indent: 0;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #999;
+        background-position: 0 -178px;
+    }
+    .configuration .infoHead
+    {
+        background-position: -107px -722px;
+    }
+    .configuration
+    {
+        float: right;
+        margin: 0 0 0 15px;
+        padding: 10px;
+        border: 1px solid inherit;
+        background-image: none;
+        -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.45), inset 0 0 30px rgba(0,0,0,0.07);
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.07);
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        min-width: 170px;
+        max-width: 300px;
+    }
+</style>
+
+
+<div class="" >
+<div class="">  <h1 class="fg-color-red">
+            Locum<small>Details</small></h1></div>
+    </div>
+
+
+  @*  <h2>
+    @name.Title @name.FirstName
+    @name.LastName <small> <span style="float:right;">@DateTime.Now.ToString("f")</span>   </small>
+</h2>*@
+
+
+
+
+
+      <div class="span11">
+                    <h5 class="fg-color-black">
+                        The following demo shows how to customize some of the native Editor tools (font
+            size, font name and block format) by modifying the tools' item collections, as well
+            as how to create completely custom tools..</h5>
+                </div>
+    <div id="tabstrip">
+        <ul>
+            <li class="k-state-active">About Me</li>
+            <li id="cal">My Availability</li>
+            <li>Contact Me</li>
+        </ul>
+        <div>
+            @using (Html.BeginForm("Create","AboutDetail"))
+            {
+   
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.PersonId)
+                @Html.ValidationSummary(true)
+   
+                <table width="100%" cellpadding="4" cellspacing="4">
+                    <tr>
+                        <td width="100%" id="DivEditor">
+                            <div class="editor-field">
+                                @Html.TextAreaFor(model => model.AboutDetail, new { @id = "editor", rows = "10", cols = "30" })
+                                @Html.ValidationMessageFor(model => model.AboutDetail)
+                            </div>
+                        </td>
+                        <td style="display: none;" width="100%" id="preAboutDetail">
+                            <div class="editor-field">
+                                @Html.Raw(Model.AboutDetail)
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+     
+                <p>
+                    <input type="submit" value="Create" />
+                    <a href="#" class="k-button" id="preview">Preview</a>
+                </p>
+    
+            }
+        </div>
+        <div style="width="100%">
+            Loading...
+        </div>
+        <div>
+            @Html.Partial("ContactUs", contact)
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    #editor
+    {
+        width: 350%;
+        position: relative;
+        height: 440px;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+
+        $("#cal").click(function () {
+            var path = "/Calendar/index";
+            $("#tabstrip-2").load("/Calendar/index");
+            
+        });
+
+        $("#preview").click(function () {
+            $("#DivEditor").toggle("slow");
+            $("#preAboutDetail").toggle("slow");
+        });
+        $("#tabstrip").kendoTabStrip({
+            animation: {
+                open: {
+                    effects: "fadeIn"
+                }
+            }
+
+        });
+    });
+        $(document).ready(function () {
+            // create Editor from textarea HTML element with default set of tools
+            $("#editor").kendoEditor();
+
+        });
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#tabstrip").tabs({
+            beforeLoad: function (event, ui) {
+                ui.jqXHR.error(function () {
+                    ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                        "If this wouldn't be a demo.");
+                });
+            }
+        })
+    });
+</script>

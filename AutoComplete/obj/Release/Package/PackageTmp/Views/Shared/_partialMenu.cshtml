@@ -1,0 +1,107 @@
+﻿@{
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+    var userName = "test";
+    try
+    {
+        userName=Membership.GetUser().UserName;
+    }catch
+    {
+        userName = "";
+    }
+    var  person=Session["person"] as AutoComplete.Models.Person; 
+}
+@if (Request.IsAuthenticated)
+{
+    if (db.Users.Where(u => u.Username == userName).FirstOrDefault() != null)
+    {
+    <ul id="menu">
+      <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li><a href="@Url.Action("OuterContactUs", "AboutDetail")">Contact Us</a> </li>
+        <li><a href="@Url.Action("index", "Person")">All Locum Details</a> </li>
+        <li><a href="@Url.Action("ChangePassword", "Account")">Change password</a></li>
+    </ul>
+    }
+    else
+    {
+    <ul id="menu">
+      @*  <li><a href="@Url.Action("Index", "Home")">Home</a></li>  *@  
+        @if(person !=null)
+        {   
+        <li><a href="@Url.Action("Create", "AboutDetail", new { id = person.ID})">Public Pages</a> </li>
+         <li><a href="@Url.Action("IndexLocum", "Home")">Options</a> </li>    
+        }
+            
+        <li><a href="@Url.Action("ChangePassword", "Account")">Change password</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul id="menu">
+        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li><a href="@Url.Action("APi", "Home")">About Us</a></li>
+          <li><a href="@Url.Action("OuterContactUs", "AboutDetail")">Contact Us</a></li>
+    
+        <li><a href="@Url.Action("logon", "Account")">Login</a></li>
+            <li><a href="@Url.Action("Create", "Person")">Join Locum</a> </li>
+
+               
+
+    </ul>
+    
+   
+}
+
+
+<style type="text/css">
+    .actions
+    {
+        position: absolute;
+        background: white;
+        display: none;
+       
+     
+        z-index: 1000;
+      
+     
+        padding: 0;
+        color: black;
+       
+    }
+    .actions ul li
+    {
+        border-bottom: 1px solid #000;
+    }
+    
+  
+    .actions ul li a
+    {
+        display: block;
+        padding: 2px 3px;
+        color: #000;
+    }
+    .actions ul li a:hover
+    {
+        background: #000;
+        color: #FFF;
+    }
+    .options
+    {
+        color: #000;
+        cursor: pointer;
+        margin-top:-5px;
+    }
+</style>
+<script type="text/javascript">
+    $('document').ready(function () {
+        $('.options').click(function () {
+            $(".actions").slideToggle(70);
+        });
+
+        //        $('#mask').click(function () {
+        //            $(this).hide();
+        //            $('.window').hide();
+        //        });
+
+    });
+</script>

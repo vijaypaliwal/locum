@@ -1,0 +1,53 @@
+﻿@model AutoComplete.Models.Expences
+           
+
+          
+
+
+
+
+
+<tr @if (Model != null) {
+    @:data-pkey="@Model.ID"
+}>
+    <td>
+        @Html.EditorFor(model => model.EDate)
+        @Html.ValidationMessageFor(model => model.EDate)
+    </td>
+  
+    <td>
+       @Html.DropDownListFor(model => model.Description, new[] {
+     new SelectListItem() {Text = "Description 1", Value ="Description1"},
+new SelectListItem() {Text = "Description 2", Value = "Description2"},
+     new SelectListItem() {Text = "Description 3", Value ="Description3"},
+new SelectListItem() {Text = "Description 4", Value = "Description4"},
+new SelectListItem() {Text = "Description 5", Value = "Description5"}
+  }, "choose")
+                @Html.ValidationMessageFor(model => model.Description)
+    </td>
+    <td>
+        @Html.EditorFor(model => model.Amount)
+        @Html.ValidationMessageFor(model => model.Amount)
+    </td>
+    <td>
+@if (ViewContext.RouteData.Values["Action"].ToString() == "Edit") {
+        <button class="editRow">Save</button><button class="cancelEditRow">Cancel</button>
+} else {
+        <button class="createRow">Create</button><button class="cancelCreateRow">Cancel</button>
+}
+    </td>
+</tr>
+
+
+
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         var className = $("input").attr("class");
+         $("input").attr("class", "k-input " + className);
+
+         $("#EDate").kendoDatePicker();
+          $("select").kendoDropDownList();
+     });
+
+</script>

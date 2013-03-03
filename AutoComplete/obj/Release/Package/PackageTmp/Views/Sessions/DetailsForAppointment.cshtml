@@ -1,0 +1,187 @@
+﻿@model AutoComplete.Models.Sessions
+@{
+    Layout = null;
+}
+<table id="refresh" cellpadding="0" class="CSSTableGenerator" cellspacing="0" border="0">
+    <tr>
+       
+        <td>
+            <div class="" style="font-weight: bold">
+                start Time</div>
+        </td>
+        <td>
+            <div class="display-label" style="font-weight: bold">
+                End Time</div>
+        </td>
+
+          <td>
+            <div class="display-label" style="font-weight: bold">
+                Fees</div>
+        </td>
+      
+          <td>
+            <div class="display-label" style="font-weight: bold">
+                Action</div>
+        </td>
+    </tr>
+    <tr>
+       
+        <td>
+            <div style="text-align:center;" class="display-field">
+                @Html.DisplayFor(model => model.startTime)
+            </div>
+        </td>
+        <td>
+            <div style="text-align:center;" class="display-field">
+                @Html.DisplayFor(model => model.EndTime)
+            </div>
+        </td>
+
+           <td>
+            <div style="text-align:center;" class="display-field">
+                @Html.DisplayFor(model => model.fees)
+            </div>
+        </td>
+
+
+      
+
+            <td>
+            <div class="display-field">
+          <a href="@Url.Action("Edit", new { id = Model.ID })" class="edit-link">Edit</a>
+            </div>
+        </td>
+
+
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+
+    $('#UpdatePDialog').dialog({
+        autoOpen: false,
+        width: 1000,
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Update": function () {
+                $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
+                $("#updatePForm").submit();
+              
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#MessageDialog').dialog({
+        autoOpen: false,
+        width: 500,
+        resizable: false,
+        modal: true,
+        button: {
+            "": function () {
+
+            }
+        }
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    $(".edit-link").click(function (e) {
+        e.preventDefault();
+        //change the title of the dialgo
+        linkObj = $(this);
+        var dialogDiv = $('#UpdatePDialog');
+        var viewUrl = linkObj.attr('href');
+        $.get(viewUrl, function (data) {
+
+            dialogDiv.html(data);
+            //validation
+            var $form = $("#updatePForm");
+            // Unbind existing validation
+            $form.unbind();
+            $form.data("validator", null);
+            // Check document for changes
+            $.validator.unobtrusive.parse(document);
+            // Re add validation with changes
+            //$form.validate($form.data("unobtrusiveValidation").options);
+            //open dialog
+
+
+            dialogDiv.dialog('open');
+
+
+            // $('#SessionDialog').dialog('close');
+      
+
+        });
+        return false;
+
+
+    });
+
+
+    function updateSuccess(data) {
+
+
+        debugger;
+
+
+        if (data == "True") {
+            debugger;
+            //now we can close the dialog
+            $('#UpdatePDialog').dialog('close');
+            $('#SessionDialog').dialog('close')
+            $('#UpdatePDialog').empty();
+            //Update grid
+            //debugger;
+            var grid = $("#cars-gridsession").data("kendoGrid");
+            // edit perticuler cel
+            displayMessage();
+            $("#sessionDetail").read();
+
+          
+        
+
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+    function displayMessage() {
+        debugger;
+
+
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
+    }
+
+    function UpdateGrid() {
+
+
+    }
+
+
+
+</script>
+
+
+
+
+<div id="UpdatePDialog" title="Edit Session Details">
+</div>
+<div id="MessageDialog" title="Success Message">
+    <p>
+        Action Perfomed succesfully.
+    </p>
+   
+</div>

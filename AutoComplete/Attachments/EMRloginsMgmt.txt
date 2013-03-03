@@ -1,0 +1,18 @@
+1.un=>admin
+  pass=>admin
+2.un=>hr
+  pass=>hr
+
+3.un=>mssunil(doctor role)
+  pass=>123456
+
+4.un=>tec(lab technician)
+  pass=>123456
+
+5.un=>gautam(receptionist)
+  pass=>Abc123
+
+6.un=>prani(Pharmacist)
+  pass=>abc123
+
+

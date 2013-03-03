@@ -1,0 +1,83 @@
+﻿@*
+@model AutoComplete.Models.webcontent
+
+*@
+@{
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+    var userName = "test";
+    try
+    {
+        userName = Membership.GetUser().UserName;
+    }
+    catch
+    {
+        userName = "";
+    }
+    var person = Session["person"] as AutoComplete.Models.Person; 
+}
+@if (Request.IsAuthenticated)
+{
+    if (db.Users.Where(u => u.Username == userName).FirstOrDefault() != null)
+    {
+    <div class="nav-bar">
+        <div class="nav-bar-inner padding10">
+            <span class="pull-menu"></span><a href="/"><span class="element brand">LOCUM <small>
+                Assistant</small> </span></a>
+            <div class="divider">
+            </div>
+            <ul class="menu" style="overflow: visible;">
+                <li><a href="@Url.Content("~/Home/Index")" id="">Dashboard</a> </li>
+                <li><a href="@Url.Content("~/Person/Index")" id="">All Locum Details</a></li>
+                <li><a href="@Url.Content("~/Home/News")" id="">News and Events</a></li>
+                  <li><a href="@Url.Action("Index", "Admin")">CMS</a></li>
+                      <li><a href="@Url.Action("Index", "Sessioncolor")">Session Color</a></li>
+                @Html.Partial("_LogOnPartial")
+            </ul>
+        </div>
+    </div>
+    }
+    else
+    {
+        
+        
+    <div class="nav-bar">
+        <div class="nav-bar-inner padding10">
+            <span class="pull-menu"></span><a href="/"><span class="element brand">LOCUM <small>
+                Assistant</small> </span></a>
+            <div class="divider">
+            </div>
+            <ul class="menu" style="overflow: visible;">
+                <li><a href="/">Home</a></li>
+                @if (person != null)
+                {   
+
+                    <li><a href="@Url.Action("Create", "AboutDetail", new { id = person.ID })">Public Pages</a>
+                    </li>
+                }
+                @Html.Partial("_LogOnPartial")
+            </ul>
+        </div>
+    </div>
+        
+        
+        
+ 
+    }
+}
+else
+{
+    <div class="nav-bar">
+        <div class="nav-bar-inner padding10">
+            <span class="pull-menu"></span><a href="/"><span class="element brand">LOCUM <small>
+                Assistant</small> </span></a>
+            <div class="divider">
+            </div>
+            <ul class="menu" style="overflow: visible;">
+                <li><a href="/">Home</a></li>
+                <li><a href="@Url.Content("~/Home/Api/1")">About us</a> </li>
+                <li><a href="@Url.Content("~/AboutDetail/OuterContactUs")" id="">Contact us</a></li>
+                @Html.Partial("_LogOnPartial")
+            </ul>
+        </div>
+    </div>
+}

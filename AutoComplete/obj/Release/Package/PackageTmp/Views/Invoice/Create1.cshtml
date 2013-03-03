@@ -1,0 +1,137 @@
+﻿@model AutoComplete.Models.InvoiceDetail
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+
+    var Iname = Session["Person"] as AutoComplete.Models.Person;
+    IList<AutoComplete.Models.Sessions> sessiondetail = new List<AutoComplete.Models.Sessions>();
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+    sessiondetail = db.Sessions.Where(a => a.Practices.PersonID == Iname.ID).ToList();
+  
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var className = $("input").attr("class");
+        $("#Practice").attr("class", "k-input " + className);
+        $("select").kendoDropDownList();
+    });
+
+</script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<h2>
+    Create an Invoice
+</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    
+    
+    <div class="grid">
+        <div class="row">
+            <div class="span3 bg-color-blue fg-color-white">
+                <p style="margin: 4px; text-align: justify;">
+                    Access your channel, playlists, subscriptions, and more. Access your channel, playlists,
+                    subscriptions, and more. Access your channel, playlists, subscriptions, and more.</p>
+            </div>
+            <div class="span4 ">
+                <div class="">
+                    Practice
+                </div>
+            </div>
+            <div class="span4 ">
+                <div class="">
+                    Date Selection
+                </div>
+            </div>
+            <div class="span4 ">
+                <div class="editor-field">
+                    @Html.DropDownList("PracticeID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.PracticeID)
+                </div>
+            </div>
+            <div class="span4 ">
+                <div class="">
+                    <input type="radio" name="name" value=" " />
+                    All
+                </div>
+                <div class="">
+                    <input type="radio" name="name" value=" " />
+                    All
+                </div>
+                <div class="">
+                    <input type="radio" name="name" value="other" />
+                    or Between Dates
+                </div>
+                <div style="display: none;" id="otherAnswer">
+                    <div class="">
+                        Start Date
+                    </div>
+                    <div class="">
+                        @Html.EditorFor(model => model.startDate)
+                        @Html.ValidationMessageFor(model => model.startDate)
+                    </div>
+                    <div class="">
+                        End date
+                    </div>
+                    <div class="">
+                        @Html.EditorFor(model => model.endDate)
+                        @Html.ValidationMessageFor(model => model.endDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+ 
+    
+    
+    
+    
+    
+   
+    <p>
+      <a class="k-button" href="#" onClick="showhide('testdiv', 'block'); return false" >  Preview Invoice</a>
+    </p> 
+    
+    
+    
+    
+    <div id="testdiv"  id="invoice">
+        @Html.Partial("InvoiceDetail", sessiondetail)
+    </div>
+    
+    
+}
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $("input[type='radio']").change(function () {
+
+        if ($(this).val() == "other") {
+            $("#otherAnswer").show();
+        }
+        else {
+            $("#otherAnswer").hide();
+        }
+
+
+
+
+
+    });
+
+   
+
+</script>
+

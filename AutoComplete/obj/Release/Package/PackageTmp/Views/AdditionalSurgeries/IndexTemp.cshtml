@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<script id="TemplateAS" type="text/x-kendo-template">    
+<form action="/Practices/Edit" method="post" >
+
+       
+          #= Name#
+        </td>
+
+
+	        <td>
+          #=  VArea #
+        </td>
+		
+        
+
+		
+     
+		
+     
+		
+        <td>
+          #=  Rcdm #
+        </td>
+		
+       
+		
+        <td>
+          #=  city #
+        </td>
+		
+        <td>
+          #=  SurgeryPhone #
+        </td>
+		
+
+        
+    </tr>
+       
+    </fom
+            
+
+</script>
+<div id="example" class="k-content" style="height:400px">
+    <div id="grid">
+    </div>
+    <script>
+        $(document).ready(function () {
+            var crudServiceBaseUrl = "/AdditionalSurgeries",
+                        dataSource = new kendo.data.DataSource({
+                            transport: {
+                                read: {
+                                    url: "@Url.Action("getAllAdditional", "AdditionalSurgeries", new { locumID = ViewBag.LocumID })",
+                                    dataType: "json"
+                                },
+                                update: {
+                                    url: crudServiceBaseUrl + "/Edit",
+                                    dataType: "json"
+                                },
+                                destroy: {
+                                    url: crudServiceBaseUrl + "/DeleteConfirmed",
+                                    dataType: "json"
+                                },
+                                create: {
+                                    url: crudServiceBaseUrl + "/Create",
+                                    dataType: "json"
+                                },
+                                parameterMap: function (options, operation) {
+                                    if (operation !== "read" && options.models) {
+                                        return { models: kendo.stringify(options.models) };
+                                    }
+                                }
+                            },
+                             serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true,
+                            batch: true,                            
+                            pageSize: 30,
+                             schema: {
+                                model: {
+                                    id: "ID",
+                                    fields: {
+                                        ID: { editable: false, nullable: true },
+                                        Name: { validation: { required: true } },
+                                        city: { type: "string" },
+                                        VArea: { type: "string" },
+                                        Rcdm: { type: "string" },
+                                        SurgeryPhone: { type: "string" },
+                                        town: { type: "string" },
+                                        postCode: { type: "string" }
+                                                                            
+                                    }
+                                }
+                            }
+                        });
+
+            $("#grid").kendoGrid({
+            pageable: {
+                    refresh: true,
+                    pageSizes: true
+                },
+                dataSource: dataSource,
+                groupable: true,
+                filterable: true,                
+                height:300,             
+                toolbar: ["create"],
+                columns: [
+                            { field:"Name", title: "Name" },
+                            { field: "VArea", title:"Area", width: "150px" },
+                            { field: "Rcdm", title:"Rcdm", width: "150px" },
+                             { field: "town", title:"Town", width: "150px" },
+                              { field: "postCode", title:"postcode", width: "150px" },
+                            { field: "city", width: "100px" },
+                            {field:"SurgeryPhone",width:"150px"},
+                            {field:"PracticesID",width:"150px", editor: categoryDropDownEditor, template: "#=ID#"},
+                            { command: ["edit", "destroy"], title: "&nbsp;", width: "210px" }],
+                
+                editable: "popup"
+            });
+        });
+
+        function categoryDropDownEditor(container, options) {             
+                    $('<input data-text-field="Name" data-value-field="ID" data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            autoBind: false,
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: "@Url.Action("GetAllPractices")"
+                                }
+                            }
+                        });
+                }
+    </script>
+</div>
+

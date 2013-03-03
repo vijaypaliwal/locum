@@ -1,0 +1,21 @@
+﻿@{
+    
+    AutoComplete.DataContext db = new AutoComplete.DataContext();
+    
+
+    var tiles = db.webcontent.Where(a => a.title == "Hometiles").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "Hometiles").FirstOrDefault() : null;
+    
+    }
+
+    <div class="span8">  <h1 class="fg-color-red">
+            Welcome<small>!!</small></h1>
+       
+        <ul class="listview image fluid">
+           
+            @if (tiles != null)
+            {
+          @Html.Partial("Tiles", tiles)
+            }
+        </ul>
+    </div>
+

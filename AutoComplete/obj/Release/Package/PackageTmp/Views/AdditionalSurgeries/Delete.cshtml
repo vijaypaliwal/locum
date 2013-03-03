@@ -1,0 +1,63 @@
+﻿@model AutoComplete.Models.AdditionalSurgeries
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>AdditionalSurgeries</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">streetAdd</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.streetAdd)
+    </div>
+
+    <div class="display-label">town</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.town)
+    </div>
+
+    <div class="display-label">city</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.city)
+    </div>
+
+    <div class="display-label">postCode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.postCode)
+    </div>
+
+    <div class="display-label">VArea</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VArea)
+    </div>
+
+    <div class="display-label">SurgeryPhone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SurgeryPhone)
+    </div>
+
+    <div class="display-label">Rcdm</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rcdm)
+    </div>
+
+    <div class="display-label">Practices</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Practices.Name)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

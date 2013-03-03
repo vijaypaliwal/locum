@@ -1,0 +1,285 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+@using System.Web.Mvc.Ajax @{
+    ViewBag.Title = "Invoicingreport";
+    Layout = null;
+
+    decimal total = 0;
+
+    string practice = "";
+    string practicecity = "";
+    string practicetown = "";
+    string practicephone = "";
+    string practicestreet = "";
+    string practiceemail = "";
+    if (Model != null && Model.Count() > 0)
+    {
+        if (Session["Practice"] != null)
+        {
+            AutoComplete.Models.Practices p = Session["Practice"] as AutoComplete.Models.Practices;
+            practice = p.Name;
+            practicecity = p.city;
+            practicetown = p.cWebsite;
+            practicephone = p.cphone;
+            practicestreet = p.streetAdd;
+            practiceemail = p.cEmail;
+        }
+
+    }
+    var name = Session["Person"] as AutoComplete.Models.Person;
+}
+
+
+
+
+
+<div class="span11 bg-color-blue fg-color-white">
+                <p style="margin: 4px; text-align: justify;">
+                   If you are happy with the Invoice as shown below Click on "Save Invoice" Your Session Will be updated and You can save Invoice to Your Computer.
+                   Print it or Email to the Practices Once this Invoice is saved. You Will not be Able to Invoice thess Session Again (Unless You cancel These Invoices)
+                     </p>
+
+                  
+
+            </div>
+
+
+
+@Ajax.ActionLink("Save Invoice","SaveGeneratedInvoice", "Invoice", null, new AjaxOptions
+{ 
+        Confirm="Are you cure?",
+        HttpMethod="POST",
+        UpdateTargetId="divResultText",
+        LoadingElementId="divLoading",
+        OnSuccess = "myCallback"
+});
+
+<script type="text/javascript">
+
+    function myCallback() {
+
+        alert('File Saved Succussfully.');
+
+    }
+
+</script>
+
+
+
+<div id="divLoading">Saving file please wait ...</div>
+
+
+
+<div id="divResultText"></div>
+<h2>
+    Invoice</h2>
+
+    
+
+
+<div style="float: right; margin-top: -20px; margin-right: 25px">
+    <a href="@Url.Action("CreateReport", "Invoice", new { writer = "Pdf" })" target="_blank">
+        <img src="@Url.Content("~/img/pdf.png")" height="25" width="25" alt="Alternate Text" title="Download As PDF" />
+    </a><a href="@Url.Action("CreateReport", "Invoice", new { writer = "Excel" })" target="_blank">
+        <img src="@Url.Content("~/img/Excel.png")"   height="25" width="25" alt="Alternate Text" title="Download As Excel" />
+    </a><a href="@Url.Action("CreateReport", "Invoice", new { writer = "html" })" target="_blank">
+        <img src="@Url.Content("~/img/html.png")"   height="25" width="25"  alt="Alternate Text" title="Save as HTML" />
+    </a>
+</div>
+<div class="grid">
+    <div class="row">
+        <div class="span4  fg-color-black">
+            <p class="long-text" style="margin: 5px;">
+                <p class="long-text" style="margin: 5px;">
+                To :@practice
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicecity, @practicestreet
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicetown
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicephone
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practiceemail
+                </p>
+            </p>
+        </div>
+        <div style="float: right;" class="span4  fg-color-black">
+            <p class="long-text" style="margin: 5px;">
+                From : Dr.@name.FirstName @name.LastName
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.town, @name.city
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.country, @name.postCode
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.phone
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.Email
+            </p>
+        </div>
+    </div>
+</div>
+<table width="100%" id="grid">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+        
+            <th>
+                Session
+            </th>
+            <th>
+                Fees
+            </th>
+        </tr>
+        <tr>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.InvoicedDate.ToString("D")
+                </td>
+            
+                <td>
+                
+                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.Name)  
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.fees)
+                    @{
+               total += Convert.ToDecimal(item.Appointment.sessionDetail.fees);
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+
+            <td></td>
+            <td>Total</td>
+            <td>
+                <strong> @total </strong> </td>
+            
+            </tr>
+
+
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+         
+        });
+    });
+</script>
+
+
+<a title="send Email" href="#" class="createAdmission123">Email</a>
+<script type="text/javascript">
+    var linkObj;
+    $(".createAdmission123").button();
+    $(function () {
+
+        $("#gtheme").click(function () {
+            $("#themeWrap").toggle("slow");
+            $(this).toggle("slow");
+        });
+
+        $('#MessageDialog').dialog({
+            autoOpen: false,
+            width: 500,
+            resizable: false,
+            modal: true,
+            button: {
+                "": function () {
+
+                }
+            }
+        });
+
+        $('#CreatePRDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    $("#update-message").html('');
+                    $("#updateprForm").submit();
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+    function updateprSuccess(data) {
+
+        if (data == "True") {
+            $('#CreatePRDialog').dialog('close');
+            $('#CreatePRDialog').empty();
+            displayMessage();
+            $('#commonMessage').html("Add Complete");
+            $('#commonMessage').delay(400).show(400).delay(3000).hide(400);
+
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+    function displayMessage() {
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+      
+
+        $(".createAdmission123").click(function () {
+            linkObj = $(this);
+            var dialogDiv = $('#CreatePRDialog');
+            var viewUrl = "/Invoice/mailInvoice";
+
+            alert("test")
+            $.get(viewUrl, function (data) {
+                dialogDiv.html(data);
+                //validation
+                var $form = $("#updateprForm");
+                // Unbind existing validation
+                $form.unbind();
+                $form.data("validator", null);
+                dialogDiv.dialog('open');
+                $('#dialogAppointment').dialog('close');
+
+            });
+            return false;
+
+        });
+
+    });
+
+</script>
+<div id="CreatePRDialog" title="Email this invoice">
+</div>
+<div id="MessageDialog" title="Success Message">
+    <p>
+        Action Perfomed succesfully.
+    </p>
+    </div>

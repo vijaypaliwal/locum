@@ -1,0 +1,114 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+@{
+    ViewBag.Title = "Invoicingreport";
+    Layout = null;
+    //var name = Session["Person"] as AutoComplete.Models.Person;
+    decimal total = 0;
+
+    string practice = "";
+    string practicecity = "";
+    string practicetown = "";
+    string practicephone = "";
+    string practicestreet = "";
+    string practiceemail = "";
+    if (Model != null && Model.Count() > 0)
+    {
+        if (Session["Practice"] != null)
+        {
+            AutoComplete.Models.Practices p = Session["Practice"] as AutoComplete.Models.Practices;
+            practice = p.Name;
+            practicecity = p.city;
+            practicetown = p.cWebsite;
+            practicephone = p.cphone;
+            practicestreet = p.streetAdd;
+            practiceemail = p.cEmail;
+        }
+
+    }
+   
+}
+<h2>
+    Invoice</h2>
+
+<div class="grid">
+    <div class="row">
+        <div class="span4  fg-color-black">
+            <p class="long-text" style="margin: 5px;">
+                <p class="long-text" style="margin: 5px;">
+                    To :@practice
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicecity, @practicestreet
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicetown
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicephone
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practiceemail
+                </p>
+            </p>
+        </div>
+   
+    </div>
+</div>
+<table width="100%">
+    <thead>
+        <tr>
+            <th>
+                Date
+         
+            <th>
+                Session
+            </th>
+            <th>
+                Fees
+            </th>
+        </tr>
+        <tr>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.InvoicedDate.ToString("D")
+                </td>
+              
+                <td>
+             
+                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.fees)
+                    @{
+               total += Convert.ToDecimal(item.Appointment.sessionDetail.fees);
+                    }
+                </td>
+            </tr>
+            
+           
+
+
+            
+        }
+
+
+
+        <tr>
+
+            <td></td>
+            <td>Total</td>
+            <td>
+                <strong> @total </strong> </td>
+            
+            </tr>
+
+
+    </tbody>
+</table>
+
+

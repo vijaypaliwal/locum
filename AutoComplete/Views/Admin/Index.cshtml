@@ -1,0 +1,137 @@
+﻿@model IEnumerable<AutoComplete.Models.webcontent>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<br />
+
+
+
+  <h1 class="fg-color-red">
+            Content Management System <small>CMS</small>
+        </h1>
+        <div class="span10">
+            <h5>
+                 Manage and Customize Your Website Pages
+            </h5>
+        </div>
+
+
+   <ul class="listview image fluid">
+
+
+    @foreach (var item in Model)
+    {
+       
+
+ <li class="selected fg-color-dark">
+
+   <a href="@Url.Action("Edit", "Admin", new { id = item.PageID })">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/cms2.jpg")">
+                </div>
+                <div class="data">
+
+
+
+             @Html.DisplayFor(modelItem => item.title)                  
+                    <p>
+                        Hi! Welcome to Locum Assistant. Welcome to Locum Assistant.
+                    </p>
+                   
+                </div>
+
+                </a> 
+            </li>
+    }
+</ul>
+
+
+
+
+
+
+@section bottomText
+{
+ <div class="page">
+        <div class="grid">
+            <div class="row">
+                <div class="span4 bg-color-blue">
+                    <img src="@Url.Content("~/img/simple.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Simple</h2>
+                </div>
+                <div class="span4 bg-color-green">
+                    <img src="@Url.Content("~/img/manageable.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Manageable</h2>
+                </div>
+                <div class="span4 bg-color-yellow">
+                    <img src="@Url.Content("~/img/custom.png")" class="place-right" style="margin: 10px;">
+                    <h2 class="fg-color-white">
+                        &nbsp;Customaziable</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style type="text/css">
+    *
+    {
+        box-sizing: inherit !important;
+    }
+</style>
+
+
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+
+
+ 
+
+<script type="text/javascript">
+    $(function () {
+        $("#tabstrip").tabs({
+            beforeLoad: function (event, ui) {
+                ui.jqXHR.error(function () {
+                    ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                        "If this wouldn't be a demo.");
+                });
+            }
+        })
+    });
+</script>
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            $("#tabstrip").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.error(function () {
+                        ui.panel.html(
+                        "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                        "If this wouldn't be a demo.");
+                    });
+                }
+            })
+
+
+            var tabs = $("#tabstrip").tabs();
+            tabs.find(".ui-tabs-nav").sortable({
+                axis: "x",
+                stop: function () {
+                    tabs.tabs("refresh");
+                }
+            });
+
+        });
+</script>
+

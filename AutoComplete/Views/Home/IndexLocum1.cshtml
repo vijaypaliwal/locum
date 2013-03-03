@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "IndexLocum";
+    var model = Session["Person"] as AutoComplete.Models.Person;
+    var name = Session["Person"] as AutoComplete.Models.Person;
+}
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$("#tabs").tabs();
+        
+    });    
+     function getContentTab(path,index) {
+            var url=path;
+            var targetDiv = "#tabs-" + index;
+            var ajaxLoading = "<img id='ajax-loader' src='@Url.Content("~/img/294.gif")' align='left' height='15' width='128'>";
+
+
+             for(var i=1;i<25;i++)
+            {
+             var DeleteDataFromDiv = "#tabs-" + i;
+               if(i==index)
+               {
+                    $(DeleteDataFromDiv).html(ajaxLoading);
+                    continue;
+               }
+              
+               $(DeleteDataFromDiv).empty();
+
+            }
+
+
+            $.get(url,null, function(result) {
+                $(targetDiv).html(result);
+            });
+        }
+        
+</script>
+<style type="text/css">
+    .configuration .configHead, .configuration .infoHead
+    {
+        display: block;
+        font-size: 14px;
+        margin-top: 0;
+        text-indent: 0;
+        margin-bottom: 1px;
+        padding-bottom: 1px;
+        background-position: 0 -178px;
+    }
+    .configuration .infoHead
+    {
+        background-position: -107px -722px;
+    }
+    .configuration
+    {
+        float: right;
+        margin: 0 0 0 15px;
+        padding: 10px;
+        border: 1px solid inherit;
+        background-image: none;
+        -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.45), inset 0 0 30px rgba(0,0,0,0.07);
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.07);
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        min-width: 170px;
+        max-width: 300px;
+    }
+</style>
+<h3 style="margin-left: 30px; padding: 5px; border-left: 5px solid black;">
+    <span style="color:#FF5E00; font-size:18px;">Welcome</span>  @name.Title @name.FirstName @name.LastName
+</h3>
+<div class="k-content">
+    <div class="configuration k-widget k-header k-state-hover" style="float: none; max-width: none;
+        margin: 5px;">
+        <span class="infoHead">We aim to Save you having to set aside Sessions to deal with
+            admin and make to your locum life less stressful</span> <span>The following Tabs shows
+                how to customize and Added Practices, Services, Additional Surgeries, Session, Expensions,
+                Attachments and also Added Attachments. </span>
+    </div>
+    <div id="tabstrip">
+        <ul>
+            <li class="k-state-active">My Diary</li>
+            <li>Pratices</li>
+            <li>Additional Surgeries</li>
+            <li>Sessions</li>
+            <li>Expences</li>
+            <li>Attachments</li>
+            <li>Invoice</li>
+            <li>Tax</li>
+            <li>Help</li>
+        </ul>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $("#tabstrip").kendoTabStrip({
+            animation: {
+                open: {
+                    effects: "fadeIn"
+                }
+            },
+            contentUrls: [
+                        '@Url.Action("_schedule", "AboutDetail")',
+                        '@Url.Action("index", "Practices", new { LocumID = model.ID })',
+                        '@Url.Action("index", "AdditionalSurgeries", new { LocumID = model.ID })',
+                        '@Url.Action("index", "Sessions", new { LocumID = model.ID })',
+                        '@Url.Action("index", "Expences", new { LocumID = model.ID })',
+                        '/Attachments/Index',
+                        'Invoice/Invoicingreport']
+
+
+        });
+    });
+</script>

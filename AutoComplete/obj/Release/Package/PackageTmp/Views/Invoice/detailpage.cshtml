@@ -1,0 +1,104 @@
+﻿@model AutoComplete.Models.InvoiceDetail
+
+@{
+    Layout = null;
+}
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#cal").click(function () {
+            var path = "/Appointment/index";
+            $("#app #involice").load("/Appointment/index");
+
+        });
+
+
+        $("#increate").click(function () {
+            var path = "/Invoice/Invoicingreport";
+            $("#app #involice").load("/invoice/Invoicingreport");
+
+        });
+
+        $("#PensionB").click(function () {
+            var path = "/Invoice/PensionB";
+            $("#app #involice").load("/invoice/PensionB");
+
+        });
+        $("#unpaidinvoice").click(function () {
+            var path = "/Invoice/unpaidinvoice";
+            $("#app #involice").load("/invoice/unpaidinvoice");
+
+        });
+
+    });
+</script>
+<div id="app">
+    <div id="involice">
+<div class=""> 
+        <ul class="listview image fluid">
+          
+            <li id="increate" class="bg-color-blue fg-color-white">
+                <div  class="icon">
+                    <img src="@Url.Content("~/img/Login3.jpg")">  
+                </div>
+                <div class="data">
+                    <h4 class="fg-color-white">
+                       Create an Invoice and (Pension form A)</h4>
+                    <p>
+                        Hi! Welcome to Locum Assistant Welcome to Locum Assistant
+                     </p>
+                  
+                </div>
+            </li>
+            <li class="selected fg-color-dark">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/contact1.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        View Print an Existing Invoice</h4>
+                   
+                    <p>
+                        Hi! Welcome to Locum Assistant. Welcome to Locum Assistant.
+                    </p>
+                  
+                </div>
+            </li>
+            <li id="PensionB" class="bg-color-orange fg-color-white">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/contact1.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Create Pension form B</h4>
+                   
+                    <p>
+                       Hi! Welcome to Locum Assistant. Welcome to Locum Assistant.
+                    </p>
+                 
+                </div>
+            </li>
+            <li id="unpaidinvoice" class="selected fg-color-dark">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/join1.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Mark an Invoice as Paid</h4>
+                    <p>
+                        Hi! Welcome to Locum Assistant. Welcome to Locum Assistant.
+                    </p>
+                    <a href="http://shivamitcs.in/">shivamitcs.in</a>
+                </div>
+            </li>
+          
+        </ul>
+    </div>
+
+    </div>
+    </div>

@@ -1,0 +1,60 @@
+﻿@model AutoComplete.Models.Appointment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Appointment</legend>
+
+    <div class="display-label">Parctice</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Parctice.Name)
+    </div>
+
+    <div class="display-label">sessionDetail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sessionDetail.Name)
+    </div>
+
+    <div class="display-label">expences</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.expences)
+    </div>
+
+    <div class="display-label">VisitMileage</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VisitMileage)
+    </div>
+
+    <div class="display-label">IsCharged</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsCharged)
+    </div>
+
+    <div class="display-label">Notes</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Notes)
+    </div>
+
+    <div class="display-label">InvoiceNotes</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InvoiceNotes)
+    </div>
+
+    <div class="display-label">startDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.startDate)
+    </div>
+
+    <div class="display-label">endDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.endDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.APPID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
