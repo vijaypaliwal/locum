@@ -1,0 +1,112 @@
+﻿@if (AutoComplete.MvcApplication.showMessage == true)
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {// When the Dom is ready 
+            $('.successbox').hide(); //Hide the div 
+            
+            $(".successbox").slideDown(200);
+            setInterval(function () { $(".successbox").slideUp(700); }, 25000);
+            $("#closeMsg").click(function () {
+                $(".successbox").slideUp("fast");
+            });
+        });
+    </script>
+
+
+    <div id="outer">
+        <div class="alert alert-danger successbox">
+            <button class="close" id="closeMsg" data-dismiss="alert">
+                ×</button>
+            <strong>Message : @AutoComplete.MvcApplication.messageTxt </strong>
+        </div>
+    </div>
+    AutoComplete.MvcApplication.showMessage = false;
+}
+<style type="text/css">
+    #outer
+    {
+        position: absolute;
+        left: 5%;
+        top: 0px;
+        opacity: 1;
+        width: 90%;
+        height: 1px;
+        margin: 1 auto;
+        overflow: visible;
+        z-index: 1003;
+    }
+    .alert
+    {
+        text-shadow: none;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+    }
+    .alert-success
+    {
+        background-color:white;
+        border-color: #B91D47;
+        color: #B91D47;
+    }
+    
+    .alert
+    {
+        padding: 15px 35px 15px 14px;
+      
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        background-color: #CDE9B7;
+        border: 1px solid #CDE9B7;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        font-size:15px !important;
+    }
+    
+    .alert-danger, .alert-error
+    {
+        background-color: #B91D47;
+        border-color: #B91D47;
+        color:white;
+    }
+    .alert .close {
+position: relative;
+top: -2px;
+right: -21px;
+line-height: 25px;
+}
+.close:hover {
+color: black;
+text-decoration: none;
+cursor: pointer;
+opacity: .4;
+filter: alpha(opacity=40);
+}
+button.close {
+padding: 0;
+cursor: pointer;
+background: transparent;
+border: 0;
+-webkit-appearance: none;
+}
+.close {
+float: right;
+font-size: 20px;
+font-weight: 700;
+line-height: 25px;
+color: black;
+text-shadow: 0 1px 0 white;
+opacity: .2;
+filter: alpha(opacity=20);
+}
+
+
+ 
+        .successbox
+        {
+           
+           
+            width: 100%;
+            
+        }
+</style>

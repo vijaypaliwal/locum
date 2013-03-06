@@ -38,6 +38,9 @@
 
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+  
+
     @using (Html.BeginForm())
     {
 
@@ -168,15 +171,15 @@
     
    
                    
-        <div class="editor-label">
-            Enter the Code Shown:
+        <div class="editor-label1">
+          Enter the Code Shown:
         </div>
                   
         <div class="editor-field">
             @Html.Raw(Html.GenerateCaptcha("captcha", "red"))
             @Html.ValidationMessage("captcha")
         </div>
-       
+   
                   
         <div class="grid" >
             <div class="row">
@@ -191,7 +194,9 @@
         </div>
    
     }
+   
 </div>
+
 <style type="text/css">
     .notice-text
     {

@@ -49,11 +49,24 @@ textarea
 .editor-label
 {
     width: 19%;
- 
     float: left;
     padding: 5px;
+    
 }
-
+.editor-label1 
+    {
+    width: 19%;
+    float: left;
+    padding: 5px;
+    font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    
+    }
 .editor-field
 {
     padding: 5px;

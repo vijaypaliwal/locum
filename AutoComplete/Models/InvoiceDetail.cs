@@ -17,11 +17,13 @@ namespace AutoComplete.Models
         public DateTime InvoicedDate { get; set; }
         public DateTime PaidDate { get; set; }
         public bool IsPaid { get; set; }
-        public Guid InAppointmentID { get; set; }
+        public decimal Total { get; set; }
+        public Nullable<Guid> InAppointmentID { get; set; }
         public Guid PracticeID { get; set; }
         public Guid? sessionID { get; set; }
         public string Filename { get; set;}
         public string FileExtension { get; set; }
+        public Guid PersonID { get; set; }
         #region other properties
        
         [ForeignKey("InAppointmentID")]
@@ -44,12 +46,26 @@ namespace AutoComplete.Models
 
         [NotMapped]
 
-        public string SessionFees { get; set;  }
+        public decimal SessionFees { get; set;  }
 
 
         [NotMapped]
 
         public decimal totalFees { get; set;}
+
+        [NotMapped]
+
+        public string practice_name { get; set; }
+        [NotMapped]
+        public string Paid_Status { get; set; }
+        [NotMapped]
+        public int days { get; set; }
+        [NotMapped]
+        public string invoice_date { get; set; }
+        [NotMapped]
+        public string paid_date { get; set; }
+        [NotMapped]
+        public bool enable { get; set; }
 
 
 #endregion

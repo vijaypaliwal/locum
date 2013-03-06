@@ -1,0 +1,151 @@
+﻿@if (this.Request.IsAuthenticated)
+{
+        
+    
+        
+    <script type="text/javascript">
+        var logoutTimer = null;
+        var sessionTimer = null;
+        var sessionTimeout = '@Session.Timeout' * 60000 - 1 * 60000;
+        var sessionDialogWait = 60000;
+
+        function CheckSession() {
+            if (sessionTimeout <= 60000) {
+                sessionExpiring();
+            }
+
+        }
+
+        // Introduce our custom event onDOMReady 
+        window.onDOMReady = DOMReady
+
+        function DOMReady(fn) {
+            // According to standard implementation 
+            if (document.addEventListener)
+                document.addEventListener("DOMContentLoaded", fn, false);
+
+            // IE 
+            else
+                document.onreadystatechange = function () {
+                    checkReadyState(fn);
+                }
+        }
+
+        function checkReadyState(fn) {
+            if (document.readyState == "interactive")
+                fn();
+        }
+
+        window.onDOMReady(
+    function () {
+        // DOM is loaded 
+        // So start JavaScript execution 
+    }
+);
+
+        $(document).ready(function () {
+
+
+            $("a").click(function () {
+                if (sessionTimeout <= 60000) {
+                    sessionExpiring();
+                }
+
+            });
+            $("button").click(function () {
+
+                if (sessionTimeout <= 60000) {
+                    sessionExpiring();
+                }
+
+            });
+
+            $('#sessionEndDialog').dialog({
+                autoOpen: false,
+                bgiframe: true,
+                modal: true,
+                buttons: {
+                    OK: function () {
+                        $(this).dialog('close');
+                        $.get('@Url.Action("IndexLocum", "Home", new { Area = "" })', scheduleSessionPrompt, 'html');
+                        window.location.href = '@Url.Action("IndexLocum", "Home", new { Area = "" })';
+                        window.location.reload();
+                    },
+                    Logout: logoutOnSessionExpires
+                }
+            }).ajaxStart(function () { scheduleSessionPrompt() });
+        });
+
+        function scheduleSessionPrompt() {
+            if (logoutTimer) clearTimeout(logoutTimer);
+            if (sessionTimer) clearTimeout(sessionTimer);
+
+            sessionTimer = setTimeout(sessionExpiring, sessionTimeout);
+        }
+
+        function sessionExpiring() {
+            logoutTimer = setTimeout(logoutOnSessionExpires, sessionDialogWait);
+            $('#sessionEndDialog').dialog('open');
+        }
+
+        function logoutOnSessionExpires() {
+            window.location.href = '@Url.Action("LogOff", "Account", new { Area = "" })';
+        }
+
+    </script>
+    <div id="sessionEndDialog" title="Session Expiring" style="display: none;">
+        <p>
+            Your session is about to expire. Click OK to renew your session or you will be logged
+            out in 60 seconds.
+        </p>
+    </div>
+        
+        
+        
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // create the loading window and set autoOpen to false
+            $("#loadingScreen").dialog({
+                autoOpen: false, // set this to false so we can manually open it
+                dialogClass: "loadingScreenWindow",
+                closeOnEscape: false,
+                draggable: false,
+                width: 5,
+                minHeight: 100,
+                modal: true,
+                buttons: {},
+                resizable: false,
+                open: function () {
+                    // scrollbar fix for IE
+                    $('body').css('overflow', 'hidden');
+                },
+                close: function () {
+                    // reset overflow
+                    $('body').css('overflow', 'auto');
+                }
+            }); // end of dialog
+        });
+        function waitingDialog(waiting) { // I choose to allow my loading screen dialog to be customizable, you don't have to
+            $("#loadingScreen").html(waiting.message && '' != waiting.message ? waiting.message : '');
+            $("#loadingScreen").dialog('option', 'title', waiting.title && '' != waiting.title ? waiting.title : 'Loading...');
+            $("#loadingScreen").dialog('open');
+        }
+        function closeWaitingDialog() {
+            $("#loadingScreen").dialog('close');
+        }
+
+        function savingDialog(waiting) {
+            $("#loadingScreen").html(waiting.message && '' != waiting.message ? waiting.message : '');
+            $("#loadingScreen").dialog('option', 'title', waiting.title && '' != waiting.title ? waiting.title : 'saving...');
+
+            $("#loadingScreen").dialog('open');
+        }
+
+
+    </script>
+        
+        
+       
+   
+
+}

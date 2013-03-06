@@ -2,16 +2,78 @@
 @{
     ViewBag.Title = "Details";
     Layout = null;
+    
+    //Check wheather any field null or not.
+
+    if (Model.Name == null)
+    {
+        Model.Name = "NULL";
+    }
+
+
+    if (Model.CAtPractice == null)
+    {
+        Model.CAtPractice = "NULL";
+    }
+
+    if (Model.CPosition == null)
+    {
+        Model.CPosition = "NULL";
+    }
+
+    if (Model.cphone == null)
+    {
+        Model.cphone = "NULL";
+    }
+
+    if (Model.cEmail == null)
+    {
+        Model.cEmail = "NULL";
+    }
+
+    if (Model.cWebsite == null)
+    {
+        Model.cWebsite = "NULL";
+    }
+
+    if (Model.streetAdd == null)
+    {
+        Model.streetAdd = "NULL";
+    }
+
+    if (Model.city == null)
+    {
+        Model.city = "NULL";
+    }
+
+    if (Model.postCode == null)
+    {
+        Model.postCode = "NULL";
+    }
+
+    if (Model.VArea == null)
+    {
+        Model.VArea = "NULL";
+    }
+
+    if (Model.Pphone == null)
+    {
+        Model.Pphone = "NULL";
+    }
+
+ 
+   
+    //
 }
 <style>
     .editor-label
     {
         font-weight: bold;
-        border-bottom: 1px solid #ccc;
+      /* border-bottom: 1px solid #ccc;*/
     }
     .editor-field
     {
-        border-bottom: 1px solid #ccc;
+        /*border-bottom: 1px solid #ccc;*/
     }
 </style>
 <div class="editor-label">
@@ -54,11 +116,7 @@
 <div class="editor-field">
     @Html.DisplayFor(model => model.streetAdd)
 </div>
-<div class="editor-label">
-    town</div>
-<div class="editor-field">
-    @Html.DisplayFor(model => model.town)
-</div>
+
 <div class="editor-label">
     city</div>
 <div class="editor-field">
@@ -79,8 +137,4 @@
 <div class="editor-field">
     @Html.DisplayFor(model => model.Pphone)
 </div>
-<div class="editor-label">
-    person</div>
-<div class="editor-field">
-    @Html.DisplayFor(model => model.person.Title)
-</div>
+

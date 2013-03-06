@@ -18,6 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="shortcut icon" href="../../Content/favicon.ico" />
     <link href="@Url.Content("~/Content/Metromain.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Metromain-reponsive.css")" rel="stylesheet" type="text/css" />
@@ -35,7 +36,9 @@
         font-family: Segoe UI;
     }
 </style>
+   
 <body class="modern-ui" onload="prettyPrint()">
+     @Html.Partial("_SessionChecker")
     <div class="page">
         @Html.Partial("_NavPartial")
     </div>
@@ -73,6 +76,7 @@
         </div>
     </div>
     </div>
+     @Html.Partial("_Message")
     <script src="@Url.Content("~/Scripts/InputControl.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/pretty.js")" type="text/javascript"></script>
 </body>

@@ -2,6 +2,8 @@
     ViewBag.Title = "IndexLocum";
     var model = Session["Person"] as AutoComplete.Models.Person;
     var name = Session["Person"] as AutoComplete.Models.Person;
+   
+  
 }
 @section bottomText
 {
@@ -39,6 +41,7 @@
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
 
 <h1>
+    
     @name.Title @name.FirstName
     @name.LastName <small> Welcome to Locum Assistant <span style="float:right;">@DateTime.Now.ToString("dd MMMM yyyy")</span>   </small>
 </h1>
@@ -50,7 +53,7 @@
 <div id="tabstrip">
     <ul>
     <li class="k-state-active"><a href="@Url.Action("_schedule", "AboutDetail")">My Diary</a></li>
-        <li><a href="@Url.Action("index", "Practices", new { LocumID = model.ID })">Pratices</a></li>
+        <li><a href="@Url.Action("index", "Practices", new { LocumID = model.ID })">Practices</a></li>
         <li><a href="@Url.Action("index", "AdditionalSurgeries", new { LocumID = model.ID })">Additional Surgeries</a></li>
         <li><a href="@Url.Action("index", "Sessions", new { LocumID = model.ID })">Sessions</a></li>
         <li><a href="@Url.Action("index", "Expences", new { LocumID = model.ID })">Expences</a></li>

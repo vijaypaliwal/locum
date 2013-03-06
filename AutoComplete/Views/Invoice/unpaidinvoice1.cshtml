@@ -1,15 +1,22 @@
-﻿@model IEnumerable<AutoComplete.Models.Sessions>
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "unpaidinvoice1";
     Layout = null;
+    
+    
 }
 
+<h2>Invoice Detail</h2>
 
 <script type="text/x-kendo-template" id="Tooltemplate">
                 <div class="toolbar">
-                    <label class="PracticesD-label" for="PracticesD">Show Sessions for Practice:</label>
-                    <input type="search" id="PracticesD" style="width: 230px"></input>
-                </div>
+                    <label class="PracticesD-label" for="PracticesD">Select Status of Invoice:</label>
+                    <input type="search" id="PracticesD" style="width: 150px"></input>
+                   &nbsp&nbsp&nbsp&nbsp
+                   <label class="PracticesD-label" for="PracticesD">Search by Invoice Date:</label>
+                   <input type="text" id="endDate" name="endDate"/>
+                   </div>
  </script>
 <script type="text/javascript">
 
@@ -108,7 +115,7 @@
             $('#UpdatePDialog').empty();
             //Update grid
             //debugger;
-            var grid = $("#cars-gridsession").data("kendoGrid");
+            var grid = $("#grid").data("kendoGrid");
             // edit perticuler cel
             grid.dataSource.read();
             displayMessage();
@@ -129,7 +136,7 @@
             $('#SessionDialog').html('');
             //Update grid
             //debugger;
-            var grid = $("#cars-gridsession").data("kendoGrid");
+            var grid = $("#grid").data("kendoGrid");
             // edit perticuler cel
             grid.dataSource.read();
             displayMessage();
@@ -159,144 +166,68 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var gridTemp = $("#cars-gridsession").kendoGrid({
+   
+    
+
+        var gridTemp = $("#grid").kendoGrid({
             pageable: true,
             sortable: true,
-            height: 320,
+            height: 370,
             columnMenu: true,
             toolbar: kendo.template($("#Tooltemplate").html()),
             groupable: true,
             filterable: true,
             dataSource: {
                 transport: {
-                    read: "@Url.Action("GetAllSessions", "Sessions", new { locumID = ViewBag.LocumID })",
+                    read: "@Url.Action("GetAllInvoice", "Invoice")",
                     dataType: "json"
                 },
                 pageSize: 5
-            },
+            }, 
         rowTemplate: kendo.template($("#Templatesession").html()),
         dataBound: function (e) {
             $(".k-grid-delete").click(function (e) {
                 e.preventDefault();
                 {
 
-                    DeleteConfirm($(this).attr("href"));
+                    PaidConfirm($(this).attr("href"));
                 }
             });
 
-            $(".k-grid-edit").click(function (e) {
-
-                waitingDialog({});
-
-                e.preventDefault();
-                //change the title of the dialgo
-                linkObj = $(this);
-                var dialogDiv = $('#UpdatePDialog');
-                var viewUrl = linkObj.attr('href');
-                $.get(viewUrl, function (data) {
-
-                    dialogDiv.html(data);
-                    //validation
-                    var $form = $("#updatePForm");
-                    // Unbind existing validation
-                    $form.unbind();
-                    $form.data("validator", null);
-                    // Check document for changes
-                    $.validator.unobtrusive.parse(document);
-                    // Re add validation with changes
-                    //$form.validate($form.data("unobtrusiveValidation").options);
-                    //open dialog
-                    closeWaitingDialog();
-                    dialogDiv.dialog('open');
-                });
-                return false;
-
-
-            });
-
-
-
-            $("#SessioncreateAdmission").click(function (e) {
-
-                waitingDialog({});
-
-                e.preventDefault();
-                //change the title of the dialgo
-                linkObj = $(this);
-                var dialogDiv = $('#SessionDialog');
-                var viewUrl = "/Sessions/Create";
-                $.get(viewUrl, function (data) {
-
-
-
-                    dialogDiv.html(data);
-                    //validation
-                    var $form = $("#updateSessionsForm");
-                    // Unbind existing validation
-                    $form.unbind();
-                    $form.data("validator", null);
-
-
-                    // Check document for changes
-                    $.validator.unobtrusive.parse(document);
-
-                    // Re add validation with changes
-                    $form.validate($form.data("unobtrusiveValidation").options);
-
-                    closeWaitingDialog();
-
-                    //open dialog
-                    dialogDiv.dialog('open');
-
-                    //                  alert(data)
-
-                });
-                return false;
-
-
-            });
-
-
-
-            $(".k-grid-detail").click(function (e) {
-
-                waitingDialog({});
-                e.preventDefault();
-                //change the title of the dialgo
-                linkObj = $(this);
-                var dialogDiv = $('#DetailDialog');
-                var viewUrl = linkObj.attr('href');
-                $.get(viewUrl, function (data) {
-
-                    dialogDiv.html(data);
-                    closeWaitingDialog();
-                    dialogDiv.dialog('open');
-                });
-                return false;
-
-
-            });
-        }
+       }
+      
     });
 
+   
+//     $("#endDate").kendoDatePicker({
+//      change: function () {
+//            var value = this.value();
+
+//            if (value) {
+//                alert(value);
+//                gridTemp.data("kendoGrid").dataSource.filter ({ field: "invoice_date", operator: "eq", value: value });
+//            } else {
+//                gridTemp.data("kendoGrid").dataSource.filter({});
+//            }
+//        } 
+//     
+//     });
+
+
+         var status_item = [{ ID:"Paid", Name: "Paid Invoice" }, { ID: "Unpaid", Name: "Unpaid Invoice"}];
         var dropDown = $(".k-grid").find("#PracticesD").kendoDropDownList({
+            dataSource:status_item,
             dataTextField: "Name",
             dataValueField: "ID",
             autoBind: false,
             optionLabel: "All",
-            dataSource: {
-                type: "json",
-                severFiltering: true,
-                transport: {
-                    read: "@Url.Action("GetAllPractices")"
-                            }
-                        },
+            
         change: function () {
             var value = this.value();
 
             if (value) {
-                alert("practice id: " + value);
-                gridTemp.data("kendoGrid").dataSource.filter ({ field: "PID", operator: "eq", value: value });
+                
+                gridTemp.data("kendoGrid").dataSource.filter ({ field: "Paid_Status", operator: "eq", value: value });
             } else {
                 gridTemp.data("kendoGrid").dataSource.filter({});
             }
@@ -305,17 +236,13 @@
 
     });
 
-function KindoGrid() {
-
-}
-
 </script>
 <script type="text/javascript">
 
-    function DeleteConfirm(toDelete) {
-        var viewUrl = toDelete;
+    function PaidConfirm(toPaid) {
+        var viewUrl = toPaid;
 
-        $("#sesdialog").dialog({
+        $("#confirm_dialog").dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -326,7 +253,7 @@ function KindoGrid() {
 
                     $.post(viewUrl, function (data) {
 
-                        var grid = $("#cars-gridsession").data("kendoGrid");
+                        var grid = $("#grid").data("kendoGrid");
                         // edit perticuler cel
                         grid.dataSource.read();
                     });
@@ -338,7 +265,7 @@ function KindoGrid() {
             }
         });
 
-        $("#sesdialog").dialog("open");
+        $("#confirm_dialog").dialog("open");
     }
 
 
@@ -357,8 +284,7 @@ function KindoGrid() {
     <div class="row">
         <div class="span3">
        
-   <a href="#" id="SessioncreateAdmission" class="k-button"
-        role="button" aria-disabled="false"><span class="ui-button-text">Create New Session</span></a>
+  
 
         </div>
         <div class="span8 bg-color-blue fg-color-white">
@@ -380,61 +306,77 @@ function KindoGrid() {
 <div class="Span10">
 
 
-<table id="cars-gridsession">
+<table id="grid">
     <thead>
         <tr>
-            <th data-field="Name12">
-             
+            <th data-field="Practice">
+             Practice
             </th>
         
-            <th data-field="Fees">
-                Fees
+            <th data-field="InvoicedDate">
+                Invoice Date
             </th>
-         
+          <th data-field="PaidDate">
+                Paid Date
+            </th>
+             <th data-field="Total">
+                Total
+            </th>
+             <th data-field="IsPaid">
+                Is Paid?
+            </th>
+
             <th id="Action">
-                Action
+                Mark as Paid?
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td colspan="6">
-                Loading...
+              Loading...
             </td>
         </tr>
-    </tbody>
-</table>
-
+  
+  </tbody></table>
   @foreach (var item in Model)
   {
-      
-      @item.Name
+     
       
       
   }
 
 <script id="Templatesession" type="text/x-kendo-template">    
     <tr>
-
-
        <td>
-          #= Name# <span style="padding:2px 40px;background-color:#=color#">&nbsp;</span>
+   #=practice_name#
         </td>
-
-
-	     
-		
         <td>
-          #=fees#<input type="hidden" value=#=PID# name=PID/>
-        
-      
+         #=invoice_date#
         </td>
-		
-<td>
-		 <a title="Delete" href="@Url.Action("Delete")/#= ID #" class="k-button k-button-icontext k-grid-delete"><span class="k-icon k-delete"></span>Delete</a>    
-	<a title="Edit" href="@Url.Action("Edit")/#= ID #" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>Edit</a>          
-		  <a title="Details" href="@Url.Action("Details")/#= ID #" class="k-button k-button-icontext k-grid-detail"><span class="k-icon k-detail"></span>Detail</a>       
-        </td>
+        <td>#=paid_date#</td>
+        <td>#=Total#</td>
+     <td>
+     # if(Paid_Status=="Paid")
+     {#
+     <font color="green">#=Paid_Status#</font>
+     #}
+     else
+     {#
+     <font color="red">#=Paid_Status#</font>
+     #}#
+     </td>
+ 
+    <td>
+    #if(enable==true)
+    {#
+   <font color="gray">Mark Paid</font>
+    #}
+    else
+    {#
+    <a title="Paid" href="@Url.Action("Paid")/#= ID #" class="k-grid-delete" ><font color="blue">Mark Paid</font></a> 
+    #}#
+    </td>
         
     </tr>
        
@@ -455,9 +397,9 @@ function KindoGrid() {
 </div>
 
 
-<div id="sesdialog" title="Confirm Message" style="display:none;">
+<div id="confirm_dialog" title="Confirm Messageee" style="display:none;">
     <p>
-        Do you really want to delete ?
+        Do you want to Mark as Paid Invoice ???
     </p>
    
 </div>
@@ -465,6 +407,7 @@ function KindoGrid() {
  <div id="update-message">
     </div>
 <style type="text/css">
+    
     #MessageDialog
     {
         text-align: center;
@@ -472,6 +415,44 @@ function KindoGrid() {
         font-weight: 900;
     }
 </style>
+<script>
+    function onChange() {
+        var grid = $("#grid").data('kendoGrid');
+        var value = kendo.toString(this.value(), 'M/d/yyyy');
+        if (value) {
+            grid.dataSource.filter({
+                logic: "or",
+                filters: [
+                                                  { field: "invoice_date", operator: "contains", value: value }
+                         ]
+            });
+        }
+        else {
+            grid.dataSource.filter({});
+        }
+    }
+
+
+    var today = new Date();
+    $("#endDate").kendoDatePicker({
+
+        change: onChange
+    });
+      
+    
+    </script>
+
+    
+   
+
+
+
+
+
+
+
+
+
 
 
 

@@ -30,11 +30,35 @@
     function onSuccess(e) {
         alert("Successfully uploaded");
     }
+
+    $(".k-grid-delete").click(function (e) {
+        debugger;
+        var id = $(this).attr("id");
+        $("#deletedialog").dialog({
+            autoOpen: true,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Yes": function () {
+                    debugger;
+                    $.getJSON("/Attachments/DeleteConfirmed/", { id:id });
+                    $(this).dialog("close");
+                    var table = document.getElementById("mytable");
+                    table.refresh();
+                },
+                "No": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+           
+       
+    });
+
 </script>
 
-
-
-<table class="CSSTableGenerator">
+<table class="CSSTableGenerator" id="mytable">
     <tr>
         <td>
             person
@@ -44,6 +68,9 @@
         </td>
         <td>
             path
+        </td>
+        <td>
+            Action
         </td>
         
     </tr>
@@ -59,8 +86,14 @@
         <td>
             <a href="@Url.Content("~/Attachments/"+ item.path)" target="_blank">@Html.DisplayFor(modelItem => item.path)</a>  
         </td>
-        
+        <td> <a  id="@item.ID" title="Delete"  class="k-button k-button-icontext k-grid-delete"><span class="k-icon k-delete"></span>Delete</a>        </td>
     </tr>
 }
 
 </table>
+<div id="deletedialog" title="Confirm Message" style="display:none;">
+    <p>
+        Do you really want to delete ?
+    </p>
+   
+</div>

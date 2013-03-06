@@ -42,12 +42,12 @@
         
     <div class="nav-bar">
         <div class="nav-bar-inner padding10">
-            <span class="pull-menu"></span><a href="/"><span class="element brand">LOCUM <small>
+            <span class="pull-menu"></span><a href="@Url.Action("IndexLocum", "Home")"><span class="element brand">LOCUM <small>
                 Assistant</small> </span></a>
             <div class="divider">
             </div>
             <ul class="menu" style="overflow: visible;">
-                <li><a href="/">Home</a></li>
+                <li><a href="@Url.Action("IndexLocum", "Home")">Home</a></li>
                 @if (person != null)
                 {   
 

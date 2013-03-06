@@ -3,7 +3,8 @@
     ViewBag.Title = "Invoicingreport";
     Layout = null;
 
-   
+
+    Model.InvoicedDate = DateTime.Now;
     
 }
 
@@ -41,9 +42,10 @@
             /* Send the data using post and put the results in a div */
             $.post(url, $("Form").serialize(),
                       function (data) {
-                          var content = $(data);
+                         // var content = $(data);
+                     
                           $("#loadingImg").toggle("slow");
-                          $("#resultData").empty().append(content);
+                          $("#resultData").empty().append(data);
                       }
                  );
         });
@@ -55,7 +57,8 @@
 {
     @Html.ValidationSummary(true)
 
-    
+    @Html.HiddenFor(model => model.InvoicedDate)
+   
     <div class="grid">
         <div class="row">
             <div class="span3 bg-color-blue fg-color-white">
@@ -117,32 +120,7 @@
             </div>
         </div>
     </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
     
     
   @*  <div class="editor-label">

@@ -22,7 +22,7 @@
                 }
             }
         });
-        
+
 
     });
     function displayMessage() {
@@ -134,7 +134,11 @@
                         </td>
                         <td style="display: none;" width="100%" id="preAboutDetail">
                             <div class="editor-field">
+                              
                                 @Html.Raw(Model.AboutDetail)
+                                
+                                
+                                
                             </div>
                         </td>
                     </tr>
@@ -170,7 +174,7 @@
         $("#cal").click(function () {
             var path = "/Calendar/index";
             $("#tabstrip-2").load("/Calendar/index");
-            
+
         });
 
         $("#preview").click(function () {
@@ -186,11 +190,11 @@
 
         });
     });
-        $(document).ready(function () {
-            // create Editor from textarea HTML element with default set of tools
-            $("#editor").kendoEditor();
+    $(document).ready(function () {
+        // create Editor from textarea HTML element with default set of tools
+        $("#editor").kendoEditor();
 
-        });
+    });
 </script>
 
 

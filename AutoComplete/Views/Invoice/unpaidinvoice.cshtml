@@ -1,69 +1,39 @@
-﻿@model IEnumerable<AutoComplete.Models.InvoiceFileGenerator>
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
 
 @{
     ViewBag.Title = "unpaidinvoice";
+    Layout = null;
 }
 
 <h2>unpaid invoice</h2>
 
 
-<table id="grid">
-    <tr>
-        <th>
-            FileName
-        </th>
-   
-        <th>
-            Generated Date
-        </th>
-        <th>
-            is InvoicePaid
-        </th>
-        <th>
-            Invoice PaidDate
-        </th>
-        <th>
-        mark as paid
-        </th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-    
-        <td>
-            @Html.DisplayFor(modelItem => item.GeneratedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isInvoicePaid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoicePaidDate)
-        </td>
-        <td>
-          
-        <a class="edit-link" title="make Invoice as Paid" href="@Url.Action("makepaid", new { id = item.Id })">
-          Paid</a>
-        </td>
-    </tr>
-}
-
-</table>
-<br />
-<script>
-    $(document).ready(function () {
-        $("#grid").kendoGrid({
-
-    });
-});
-</script>
-
-
+<script type="text/x-kendo-template" id="Tooltemplate">
+                <div class="toolbar">
+                    <label class="PracticesD-label" for="PracticesD">Select Invoice Status:</label>
+                    <input type="search" id="InvoiceStatus" style="width: 230px"></input>
+                </div>
+ </script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#UpdateDialog').dialog({
+
+    //var dateRegExp = /^\/Date\((.*?)\)\/$/;
+
+   // function toDate(value) {
+  //      var date = dateRegExp.exec(value);
+  //      return new Date(parseInt(date[1]));
+  //  }
+
+  //  var linkObj;
+    //$(".SessioncreateAdmission").button();
+  //  $(function () {
+
+      /*  $("#gtheme").click(function () {
+            $("#themeWrap").toggle("slow");
+            $(this).toggle("slow");
+
+        });*/
+        /*$('#UpdatePDialog').dialog({
             autoOpen: false,
             width: 1000,
             resizable: false,
@@ -77,135 +47,238 @@
                     $(this).dialog("close");
                 }
             }
-        });
-        $('#SurveyDialog').dialog({
+        });*/
+
+       /* $('#SessionDialog').dialog({
             autoOpen: false,
             width: 1000,
             resizable: false,
             modal: true,
             buttons: {
-                "Update": function () {
-                    window.location.reload();
-
+                "Save": function () {
                     $("#update-message").html(''); //make sure there is nothing on the message before we continue                         
-                    $("#updatePForm").submit();
-                    $('#UpdateDialog').dialog('close')
+                    $("#updateSessionsForm").submit();
                 },
                 "Cancel": function () {
                     $(this).dialog("close");
                 }
             }
-        });
-        $(".edit-link").click(function (e) {
-
-            alert("hello");
+        });*/
 
 
-            e.preventDefault();
-            //change the title of the dialgo
-            linkObj = $(this);
-            var dialogDiv = $('#UpdateDialog');
-            var viewUrl = linkObj.attr('href');
-            $.get(viewUrl, function (data) {
-
-                dialogDiv.html(data);
-                //validation
-                var $form = $("#updatePForm");
-                // Unbind existing validation
-                $form.unbind();
-                $form.data("validator", null);
-                // Check document for changes
-                $.validator.unobtrusive.parse(document);
-                // Re add validation with changes
-                //$form.validate($form.data("unobtrusiveValidation").options);
-                //open dialog
-                closeWaitingDialog();
-                dialogDiv.dialog('open');
-            });
-            return false;
-
-
-        });
-        $(".survey-link").click(function (e) {
-            e.preventDefault();
-            //change the title of the dialgo
-            linkObj = $(this);
-            var dialogDiv = $('#SurveyDialog');
-            var viewUrl = linkObj.attr('href');
-            alert(viewUrl);
-            $.get(viewUrl, function (data) {
-
-                alert(data);
-
-                dialogDiv.html(data);
-                //validation
-                //var $form = $("#updatePForm");
-                // Unbind existing validation
-                //$form.unbind();
-                //$form.data("validator", null);
-                // Check document for changes
-                //$.validator.unobtrusive.parse(document);
-                // Re add validation with changes
-                //$form.validate($form.data("unobtrusiveValidation").options);
-                //open dialog
-                dialogDiv.dialog('open');
-            });
-            return false;
-
-
-        });
-    });
-</script>
-<div id="UpdateDialog" title="Edit Patient Detail">
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-   
-       // $("#tabs").tabs();
-        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-           $("#tabs").tabs({
-            collapsible: true,
-            
-
-           // event: "mouseover"
-        });
-
-        
-            var tabs = $( "#tabs" ).tabs();
-          tabs.find( ".ui-tabs-nav" ).sortable({
-            axis: "x",
-            stop: function() {
-                tabs.tabs( "refresh" );
+        /*$('#DetailDialog').dialog({
+            autoOpen: false,
+            width: 1000,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Ok": function () {
+                    $(this).dialog("close");
+                }
             }
-        });
-      
-    });    
+        });*/
 
 
-     function getContentTab(path,index) {
-            var url=path;
-            var targetDiv = "#tabs-" + index;
-            var ajaxLoading = "<img id='ajax-loader' src='@Url.Content("~/images/294.gif")' align='left' height='15' width='128'>";
+        /*$('#MessageDialog').dialog({
+            autoOpen: false,
+            width: 500,
+            resizable: false,
+            modal: true,
+            button: {
+                "": function () {
 
-
-             for(var i=1;i<27;i++)
-            {
-             var DeleteDataFromDiv = "#tabs-" + i;
-               if(i==index)
-               {
-                    $(DeleteDataFromDiv).html(ajaxLoading);
-                    continue;
-               }
-              
-               $(DeleteDataFromDiv).empty();
-
+                }
             }
+        });*/
 
 
-            $.get(url,null, function(result) {
-                $(targetDiv).html(result);
-            });
+
+
+
+   // });
+  /*  function failure() {
+        alert("fail");
+
+    */}
+
+ /*   function updateSuccess(data) {
+
+
+        if (data == "True") {
+            //UpdateGrid()
+
+            //now we can close the dialog
+            $('#UpdatePDialog').dialog('close');
+            $('#UpdatePDialog').empty();
+            //Update grid
+            //debugger;
+            var grid = $("#cars-gridsession").data("kendoGrid");
+            // edit perticuler cel
+            grid.dataSource.read();
+            displayMessage();
+
         }
-        
+        else {
+            $("#update-message").show();
+        }
+    }*/
+
+  /*  function updateCSuccess(data) {
+        if (data == "True") {
+            $('#ContactsDialog').dialog('close');
+            //UpdateGrid()           
+            //now we can close the dialog
+            $('#SessionDialog').dialog('close');
+            $('#SessionDialog').empty();
+            $('#SessionDialog').html('');
+            //Update grid
+            //debugger;
+            var grid = $("#cars-gridsession").data("kendoGrid");
+            // edit perticuler cel
+            grid.dataSource.read();
+            displayMessage();
+
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+
+
+    */
+    /*function displayMessage() {
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
+    }
+
+    function UpdateGrid() {
+
+
+    }*/
+
 </script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       /* var gridTemp = $("#grid_area").kendoGrid({
+            pageable: true,
+            sortable: true,
+            height: 320,
+            columnMenu: true,
+            toolbar: kendo.template($("#Tooltemplate").html()),
+            groupable: true,
+            filterable: true,
+            dataSource: {
+                transport: {
+                    read: "@Url.Action("GetAllInvoice", "Invoice")",
+                    dataType: "json"
+                },
+                pageSize: 5
+            },
+        rowTemplate: kendo.template($("#Template").html()),
+        dataBound: function (e) {}
+           }); */
+     /////// drop down list
+     var status_item=[ { Id: 1, Name: "Paid" }, { Id: 2, Name: "UnPaid" }];
+      var dropDown = $(".k-grid").find("#InvoiceStatus").kendoDropDownList({
+            dataTextField: "Name",
+            dataValueField: "ID",
+            autoBind: false,
+            optionLabel: "All",
+            dataSource:status_item,
+        change: function () {
+            var value = this.value();
+            alert(value);
+        } 
+    });               
+
+     
+
+    
+    
+    ///////////
+    });
+</script>
+<script type="text/javascript">
+
+</script>
+
+<style type="text/css">
+.span11
+{
+    width:100%  !important;
+    margin:0px !important;
+}
+</style>
+<div class="grid">
+    <div class="row">
+        <div class="span3">
+        </div>
+        <div class="span8 bg-color-blue fg-color-white">
+            <p class="long-text" style="margin:5px;">
+             some text goes here some text goes heresome text goes heresome text goes here some text goes here some text goes heresome text goes heresome text goes here
+             some text goes here some text goes heresome text goes heresome text goes here
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="Span10">
+<table id="grid_area">
+    <thead>
+        <tr>
+            <th id="practice_name">
+             Practice
+            </th>
+        
+            <th id="invoiced_date">
+                Invoice Date
+            </th>
+             <th id="paid_date">
+                Paid Date
+            </th>
+             <th id="total">
+                Total
+            </th>
+             <th id="status">
+                Status
+            </th>
+             
+         
+            <th id="Action">
+                Mark Paid
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="6">
+                Loading...
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script id="Template" type="text/x-kendo-template">    
+        
+
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -15,11 +15,16 @@
         display: table-cell;
     }
 </style>
-
-
 <script type="text/javascript">
     var startDate, EndDate, AllDayevent, calendar, Eventid;
+    var dateRegExp = /^\/Date\((.*?)\)\/$/;
+    //////////////validation for dropdown
+    ////end validation
     $(document).ready(function () {
+    function toDate(value) {
+            var date = dateRegExp.exec(value);
+            return new Date(parseInt(date[1]));
+        }
         calendar = $('div[id*=calendar]').fullCalendar({
             header: {
                 left: 'prev,next ',
@@ -27,12 +32,14 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             theme: true,
-            editable: false,
-            droppable: true,
+            editable: false,           
             selectable: true,
             selectHelper: true,
+          
             select: function (start, end, allDay) {
+           
                 startDate = start;
+                //alert(startDate);
                 EndDate = end;
                 AllDayevent = allDay;
                 var title = "test"; //Display popup
@@ -40,11 +47,13 @@
             },
 
 
-             eventClick: function (event, element) {    
-             debugger;            
-                UpdateEvent(event.Eventid,event);
-             //  event.title="chnaged";
-               // $('#calendar').fullCalendar('UpdateEvent', CurrentEvent);
+            eventClick: function (event, element) {
+               
+                UpdateEvent(event.Eventid, event);
+                calendar.fullCalendar( 'refresh' );
+                //  event.title="chnaged";
+                // $('#calendar').fullCalendar('UpdateEvent', CurrentEvent);
+
             }
 
 
@@ -53,51 +62,97 @@
             type: "POST",
             contentType: "application/json",
             data: "{}",
-            url: "@Url.Action("GetAllAppointments","Home")",
+            url: "@Url.Action("GetAllAppointments", "Home")",
             dataType: "json",
             success: function (data) {
+            
+            
                 for (var i = 0; i < data.length; i++) {
-
-                    Eventid = data[i].id;
-                    startDate =new Date(data[i].start);
                   
-                    EndDate = new Date(data[i].end);
-                    updateCalender(data[i].id,data[i].title, data[i].Sessiontitle, data[i].SessionStart, data[i].Sessionend);
-                }
+                    Eventid = data[i].id;
+                    startDate =data[i].start;
+                     EndDate = data[i].end;
+                    updateCalender(data[i].id, data[i].title, data[i].Sessiontitle, data[i].SessionStart, data[i].Sessionend,data[i].color);
+                   
+                
+            }
 
                 $("div[id=loading]").hide();
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                debugger;
-            }
-        });
-
-
-       function UpdateEvent(id, event) {
-       alert(event.id);
-        CurrentEvent = event;
-        $('#EditdialogAppointment').dialog({
-            autoOpen: true,
-            width: 800,
-            resizable: true,
-            title: 'Edit Appointment detail',
-            modal: true,
-            open: function (event, ui) {
-                $(this).load("/Appointment/Edit/?id=" + CurrentEvent.id);
-            },
-            buttons: {
-                "Update": function () {                   
-                    $("#updatePForm").submit();
-                },
                 
-                "Close": function () {
-                    $(this).dialog("close");
-                }
             }
         });
-    }
 
+        function UpdateEvent(id, event) {
+            //alert(event.id);
+            CurrentEvent = event;
+           // alert(CurrentEvent.id);
+            $('#EditdialogAppointment').dialog({
+                autoOpen: true,
+                width: 800,
+                resizable: true,
+                title: 'Edit Appointment detail',
+                modal: true,
+                open: function (event, ui) {
+                    $(this).load("/Appointment/Edit/?id=" + CurrentEvent.id);
+                },
+                buttons: {
+                    "Update": function () {
+                                     var val=$("#SessID").val();
+                                     var value=$("#PracID").val();
+                                     if(value!="")
+                                     {
+                                      if(val!="" && val!="0")
+                                      {
+                                       $("#updatePForm").submit();
+                                       $(this).dialog("close");
+                                       
+                                      }
+                                      else
+                                      {
+                                       alert("Please Select Session....");
+                                      }
+                    
+                                     }
+                                     else
+                                     {
+                                      alert("Please Select Practice...");
+                                     }
+
+                    },
+
+                    "Close": function () {
+                        $(this).dialog("close");
+                    },
+                    "Delete": function () {
+                    
+                        $("#sesdialog").dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            modal: true,
+                            buttons: {
+                                "Yes": function () {
+                                
+                                   $.getJSON("/Appointment/Delete/", { id: CurrentEvent.id });
+                                   $(this).dialog("close");
+                                   $('#EditdialogAppointment').dialog("close");
+                                   $('#calendar').fullCalendar( 'removeEvents', CurrentEvent.id );
+                                   $('#calendar').fullCalendar("refresh");
+                                   
+                                },
+                                "No": function () {
+                                    $(this).dialog("close");
+                                }
+                            }
+                        });
+                    }
+                    
+                }
+            });
+        }
+        
 
         var aptDialog = $('#dialogAppointment').dialog({
             autoOpen: false,
@@ -108,6 +163,7 @@
             open: function (event, ui) {
                 //Load the CreateAlbumPartial action which will return 
                 // the partial view _CreateAlbumPartial
+                
                 $(this).load("/Appointment/Create?startDate=" + $.datepicker.formatDate('mm/dd/yy', startDate) + "&endDate=" + $.datepicker.formatDate('mm/dd/yy', EndDate));
 
             },
@@ -117,8 +173,27 @@
             },
             buttons: {
                 "Save": function () {
-                    $("#updateCForm").submit();
-                    $(this).attr("disabled", "disabled");
+               
+                 var val=$("#SessID").val();
+                 var value=$("#PracID").val();
+                 if(value!="")
+                    {
+                    if(val!="" && val!="0")
+                    {
+                       $("#updateCForm").submit();
+                       $(this).attr("disabled", "disabled");
+                       
+                    }
+                    else
+                    {
+                    alert("Please Select Session....");
+                    }
+                  }
+                else
+                {
+                alert("Please Select Practice...");
+                }
+               
                 },
                 "Close": function () {
                     $(this).dialog("close");
@@ -141,92 +216,134 @@
 
 
     });
+    //////////////////save
     //calendar.fullCalendar( 'renderEvent', event [, stick ] )
-function updateCSuccess(data) {
-   if (data!=null) {
-        //now we can close the dialog          
-        $('#dialogAppointment').empty();
-        $('#dialogAppointment').dialog('close');
-        //Update grid
-        debugger;
+    function updateCSuccess(data) {
+        if (data != null) {
+            //now we can close the dialog          
+            $('#dialogAppointment').empty();
+            $('#dialogAppointment').dialog('close');
+            //Update grid
+            // updateCalender("Meeting Schedule");
+            
+            Eventid = data.id;
+            startDate =data.start;
+            EndDate = data.end;
+            updateCalender(data.id, data.title, data.Sessiontitle, data.SessionStart, data.Sessionend,data.color);
+            //window.location.href=window.location.href;
+           displayMessage();
+           
 
+        }
+        else {
+            $("#update-message").show();
+        }
+    }
+    ////////////////////////
+
+    ////update
+    function updateppSuccess(data) {
+
+        if (data != null) {
+        
+            //now we can close the dialog          
+            $('#EditdialogAppointment').empty();
+            $('#EditdialogAppointment').dialog('close');
+            Eventid = data.id;
+            startDate =data.start;
+            EndDate = data.end;
+            updateCalenderUP(data.id, data.title, data.Sessiontitle, data.SessionStart, data.Sessionend, data.color);
+           
+        }
+        else {
+            $("#update-message").show();
+        }
+
+
+
+ }
+    /////////////////
 
     
-       // updateCalender("Meeting Schedule");
-       updateCalender(data.id,data.title, data.Sessiontitle, data.SessionStart, data.Sessionend);
-        displayMessage();
+    //save funcion
+    function updateCalender(id, title, Sessiontitle, SessionStart, Sessionend,color) {
+   
 
+        //title = title + " " + Sessiontitle + " " + SessionStart + "-" + Sessionend;
+        title =title; 
+    
+        if (title) {
+       
+            calendar.fullCalendar('renderEvent',
+                            {
+                                id: Eventid,
+                                title: title,
+                                start:startDate,
+                                end: EndDate,                                
+                                allDay: false,
+                                backgroundColor:color
+                               
+                            },
+                            true // make the event "stick"
+                        );
+        }
+        calendar.fullCalendar('unselect');
+      
     }
-    else {
-        $("#update-message").show();
+    //save function close
+
+    
+    //update function
+    function updateCalenderUP(id, title, Sessiontitle, SessionStart, Sessionend,color) {
+        
+        title =title;
+        var id1=id;
+       
+        $('#calendar').fullCalendar( 'removeEvents',id1);
+        $('#calendar').fullCalendar('refresh');
+         title =title; 
+    
+        if (title) {
+      
+            calendar.fullCalendar('renderEvent',
+                            {
+                                id: Eventid,
+                                title: title,
+                                start:startDate,
+                                end: EndDate,                                
+                                allDay: false,
+                                backgroundColor:color
+                               
+                            },
+                            true // make the event "stick"
+                        );
+        }
+        calendar.fullCalendar('unselect');
+        
+       
+      
     }
-}
+
+    ///update function close
 
 
-function updateppSuccess(data) {
-
-   debugger;
-
-    if (data!=null) {
-        //now we can close the dialog          
-        $('#EditdialogAppointment').empty();
-        $('#EditdialogAppointment').dialog('close');
-        //Update grid
-     
-
-
-           var allupdatedEvent=$('#calendar').fullCalendar( 'clientEvents' ,CurrentEvent.id)
-            for(var i=0;i<allupdatedEvent.length;i++)
-            {
-                 $('#calendar').fullCalendar('removeEvents',allupdatedEvent[i].id);
-                  $('#calendar').fullCalendar('refresh');
-                allupdatedEvent[i].title=CurrentEvent.title;
-                $('#calendar').fullCalendar('renderEvent', allupdatedEvent[i]);
-            }
-
-
-      //  updateCalender("Meeting Schedule");
-     //  updateCalender(data.id,data.Locumname, data.Sessionname, data.sstarttime, data.sendttime);
-        displayMessage();
-
+    function displayMessage() {
+        var dialogDiv1 = $('#MessageDialog');
+        dialogDiv1.dialog('open');
+        window.setTimeout(function () {
+            dialogDiv1.dialog('close');
+        }, 2000);
     }
-    else {
-        $("#update-message").show();
-    }
-}
-
-
-
-function updateCalender(id,title, Sessiontitle, SessionStart, Sessionend) {
-  
-    title = title + "\n" + Sessiontitle + "\n" +  SessionStart + "-" + Sessionend; 
-   debugger;
-    if (title) {
-        calendar.fullCalendar('renderEvent',
-						{   id:Eventid,
-						    title: title,
-						    start: startDate,
-						    end: EndDate,
-						    allDay: false
-						},
-						true // make the event "stick"
-					);
-    }
-    calendar.fullCalendar('unselect');
-}
-
-function displayMessage() {
-    var dialogDiv1 = $('#MessageDialog');
-    dialogDiv1.dialog('open');
-    window.setTimeout(function () {
-        dialogDiv1.dialog('close');
-    }, 2000);
-}
 
 </script>
 <div id="MessageDialog" title="Success Message">
     <p>
         Action Perfomed succesfully.
+    </p>
+</div>
+<div id="sesdialog" title="Confirm Message" style="display: none;">
+    <p>
+        Do you really want to delete ?
     </p>
 </div>
 <form id="form1" runat="server">
@@ -238,8 +355,17 @@ function displayMessage() {
     <tr>
         <td>
             <div id="datepicker">
-            </div>
+                <legend></legend><span id="green" style="background-color: #00a300; text-align: left;
+                    width: 4px; height: 1px"><font color="#00a300">O</font> </span>&nbsp;For Paid
+                Invoice Appointments&nbsp&nbsp&nbsp <span id="red" style="background-color: #EE4646;
+                    width: 4px; height: 1px"><font color="#EE4646">O</font> </span>&nbsp;For Unpaid
+                Invoice Appointments&nbsp&nbsp&nbsp <span id="blue" style="background-color: #2d89ef;
+                    width: 4px; height: 1px"><font color="#2d89ef">O</font> </span>&nbsp;For Uninvoiced
+                Appointments<br />
+                <br />
         </td>
+    </tr>
+    <tr>
         <td>
             <div id="calendar" style="width: 100%; position: relative;">
             </div>
@@ -247,10 +373,7 @@ function displayMessage() {
     </tr>
 </table>
 </form>
-
-
 <div id="dialogAppointment" title="Schedule Appointment">
 </div>
-
 <div id="EditdialogAppointment" title="t">
 </div>

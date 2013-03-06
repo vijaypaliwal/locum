@@ -25,7 +25,8 @@ namespace AutoComplete.Controllers
 
         public ActionResult GetAllbookmarks()
         {
-            var bookmarks = db.bookmarks;
+            var user=(Session["person"] as Person).ID;
+            var bookmarks = db.bookmarks.Where(a => a.personID == user);
             return Json(bookmarks.Select(bk => new { bk.ID, bk.Btitle, bk.url, bk.Btype, bk.Description  }), JsonRequestBehavior.AllowGet);
         }
 
@@ -44,10 +45,10 @@ namespace AutoComplete.Controllers
         {
             if (ModelState.IsValid)
             {
-              
-                    db.bookmarks.Add(bookmarks);
-                    db.SaveChanges();
-                    return Content(Boolean.TrueString);
+                bookmarks.personID = (Session["person"] as Person).ID;
+                db.bookmarks.Add(bookmarks);
+                db.SaveChanges();
+                 return Content(Boolean.TrueString);
               
             }
             return View(bookmarks);
@@ -72,6 +73,7 @@ namespace AutoComplete.Controllers
         {
             if (ModelState.IsValid)
             {
+                Bookmarks.personID = (Session["person"] as Person).ID;
                 db.Entry(Bookmarks).State = EntityState.Modified;
                 db.SaveChanges();
                 return Content(Boolean.TrueString);

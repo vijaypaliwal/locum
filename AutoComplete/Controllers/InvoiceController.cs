@@ -18,12 +18,14 @@ using System.Web.Mail;
 using Mvc.Mailer;
 using System.Net.Mail;
 using AutoComplete.Mailers;
+using System.Data.Entity.Validation;
 
 namespace AutoComplete.Controllers
 {
     public class InvoiceController : PdfViewController
     {
         private DataContext db = new DataContext();
+
 
         private IUserMailer _userMailer = new UserMailer();
         public IUserMailer UserMailer
@@ -43,46 +45,108 @@ namespace AutoComplete.Controllers
         public ActionResult PensionB()
         {
             var PensionB = db.Invoices;
-            return View(PensionB.ToList().Where(a=>a.isInvoicePaid==true));
+            return View(PensionB.ToList().Where(a => a.isInvoicePaid == true));
         }
 
 
         public JsonResult GetAllunpaidInvoice()
         {
-           
+
             return Json(db.Invoices.Select(d => new { d.Id, d.FileData, d.FileExtension, d.FileName, d.GeneratedDate, d.isInvoicePaid, d.InvoicePaidDate }), JsonRequestBehavior.AllowGet);
         }
-
-
-
-
 
         public ActionResult unpaidinvoice()
         {
             var unpaid = db.Invoices;
-            return View(unpaid.ToList().Where(a=>a.isInvoicePaid==false));
+            return View(unpaid.ToList().Where(a => a.isInvoicePaid == false));
         }
 
-
-        public ActionResult makepaid(int id)
+        public ActionResult unpaidinvoice1()
         {
-            InvoiceFileGenerator mapaid = db.Invoices.Find(id);
-             return View(mapaid);
+            Person sperson = Session["person"] as Person;
+            var invoices = db.InvoiceDetails.Where(a => a.PersonID == sperson.ID);
+            return View(invoices.ToList());
+        }
+        public ActionResult GetAllInvoice()
+        {
+            Person per = Session["person"] as Person;
+            var inv = db.InvoiceDetails.Where(i => i.PersonID == per.ID).ToList();
+            foreach (var itemm in inv)
+            {
+                var pracid = db.Practices.Where(pd => pd.ID == itemm.PracticeID);
+                itemm.invoice_date = itemm.InvoicedDate.ToString("M/d/yyyy");
+                itemm.paid_date = itemm.PaidDate.ToString("M/d/yyyy");
+                foreach (var q in pracid)
+                {
+                    itemm.practice_name = q.Name;
+                }
+                if (itemm.IsPaid == true)
+                {
+                    itemm.Paid_Status = "Paid";
+                    itemm.enable = true;
+                }
+                else
+                {
+                    itemm.Paid_Status = "Unpaid";
+                    itemm.enable = false;
+
+                }
+
+            }
+
+            return Json(inv.Select(s => new { s.ID, s.practice_name, s.InvoicedDate, s.invoice_date, s.paid_date, s.Total, s.PaidDate, s.Paid_Status,s.enable }), JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]
+
+        public ActionResult Paid(Guid id)
+        {
+            var allinvoice = db.InvoiceDetails.Where(invo => invo.ID == id);
+            foreach (var itm in allinvoice)
+            {
+                itm.IsPaid = true;
+                var stdate = Convert.ToDateTime(itm.startDate);
+                var eddate = Convert.ToDateTime(itm.endDate);
+                var allapt = db.Appointments.Where(ap => ap.PracID == itm.PracticeID);
+                if (allapt != null)
+                {
+                    try
+                    {
+                        foreach (var appt in allapt)
+                        {
+                            var origStartDate = Convert.ToDateTime(appt.startDate);
+                            var origEndDate = Convert.ToDateTime(appt.endDate);
+                            if (origStartDate >= stdate && origEndDate <= eddate)
+                            {
+                                appt.Paid = true;
+                            }
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("_Form", ex.Message);
+                    }
+                }
+
+            }
+           
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         //public ActionResult makepaid(Generateinvoice gi)
         //{
         //    if (ModelState.IsValid)
         //    {
-               
+
         //        db.SaveChanges();
         //        return Content(Boolean.TrueString);
         //    }
 
         //    return View(gi);
         //}
-        
+
 
 
 
@@ -94,11 +158,11 @@ namespace AutoComplete.Controllers
             var allAppt = db.Appointments.ToList();
             vm.session = new Sessions();
             vm.session = vm.session;
-           
+
             Session["Practice"] = db.Practices.Where(p => p.ID == vm.PracticeID).FirstOrDefault();
             var practice = Session["Practice"] as AutoComplete.Models.Practices;
             var name = Session["Person"] as AutoComplete.Models.Person;
-           
+
             return View();
         }
 
@@ -309,30 +373,46 @@ namespace AutoComplete.Controllers
             var abresults = new List<InvoiceDetail>();
 
             var results = new List<Appointment>();
-            var allAppt = db.Appointments.ToList();
+            var allAppt = db.Appointments.Where(a => a.Invoiced == false).ToList();
             vm.session = new Sessions();
             vm.session = vm.session;
             decimal total = 0;
             Session["Practice"] = db.Practices.Where(p => p.ID == vm.PracticeID).FirstOrDefault();
             var practice = Session["Practice"] as AutoComplete.Models.Practices;
             var name = Session["Person"] as AutoComplete.Models.Person;
-         
+
             foreach (var appt in allAppt)
             {
                 var origStartDate = Convert.ToDateTime(appt.startDate);
                 var origEndDate = Convert.ToDateTime(appt.endDate);
+                var day = (origEndDate - origStartDate).TotalDays;
+
+                int dy = Convert.ToInt32(day) + 1;
                 if (vm.startDate <= origStartDate && vm.endDate >= origEndDate)
                 {
                     if (vm.PracticeID == appt.PracID)
                     {
                         appt.sessionDetail = new Sessions();
+                        appt.days = dy;
                         appt.sessionDetail = db.Sessions.Where(a => a.ID == appt.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appt.SessID).FirstOrDefault() : null;
                         results.Add(appt);
+
+
+                        /*  var query =
+                              from c in db.Appointments
+                              where c.APPID == appt.APPID
+                              select c;
+                          foreach (var query1 in query)
+                          {
+                              query1.Invoiced = true;
+                          }
+                          db.SaveChanges();
+                          */
                     }
                 }
             }
 
-      
+
             if (results != null)
             {
                 foreach (var r in results)
@@ -342,7 +422,7 @@ namespace AutoComplete.Controllers
                         InvoicedDate = DateTime.Now,
                         ID = Guid.NewGuid(),
                         Appointment = r,
-                        SessionFees = r.sessionDetail.fees,
+                        SessionFees = Convert.ToDecimal(r.sessionDetail.fees) * r.days,
                         SessionName = r.sessionDetail.Name,
                         totalFees = total += Convert.ToDecimal(r.sessionDetail.fees)
 
@@ -354,16 +434,16 @@ namespace AutoComplete.Controllers
                 Session["Allinvoice"] = abresults;
                 var report = new Report(abresults.Select(ap => new { ap.InvoicedDate, ap.SessionName, ap.SessionFees }).ToList().ToReportSource());
                 // Customize the Text Fields
-                report.TextFields.Header = string.Format(@"<table width='100%'><tr><td align='left'>
-                To : {0}
+                report.TextFields.Header = string.Format(@"<table  width='100%'><tr><td align='left'>
+                &nbsp To : {0}
                  Website :  {1}
                  City :  {2}
                  Street Address :  {3}
-                Contact no. :  {4}
+                 Contact no. :  {4}
                 <span style='color:red'>Email</span> :  {5}</td>
 
 <td align=''>
-From Dr. : {6}
+ From Dr. : {6}
  City :    {7}
   Country :    {8}
    Contact no.:  {9}
@@ -402,11 +482,11 @@ From Dr. : {6}
             string pathToCreate = "~/Reports/" + person.FirstName + "/Invoice" + "_" + person.FirstName + "_" + person.ID + ".doc";
             string toaddress = Prac.cEmail;
             var to = toaddress;
-            mailmessage.Attachments.Add(new Attachment(Server.MapPath (pathToCreate)));
+            mailmessage.Attachments.Add(new Attachment(Server.MapPath(pathToCreate)));
             var path = Server.MapPath(pathToCreate);
-        
-            _userMailer.sendreport(path,to, invoice).Send();
-       
+
+            _userMailer.sendreport(path, to, invoice).Send();
+
             return Content(Boolean.TrueString);
         }
 
@@ -420,27 +500,40 @@ From Dr. : {6}
 
 
         [HttpPost]
-        public ContentResult SaveGeneratedInvoice(InvoiceDetail vm)
+        public ContentResult SaveGeneratedInvoice(InvoiceDetail vm, decimal total)
         {
 
+           
             var startdate = Request.Form["startDate"];
+            vm.Total = total;
             if (ModelState.IsValid)
             {
                 vm.FileExtension = ".doc";
                 vm.IsPaid = false;
                 vm.PaidDate = DateTime.Now;
+                vm.ID = Guid.NewGuid();
                 var person = (Session["Person"] as Person);
+                vm.PersonID = person.ID;
                 string pathToCreate = "~/Reports/" + person.FirstName;
                 if (!Directory.Exists(Server.MapPath(pathToCreate)))
                 {
                     Directory.CreateDirectory(Server.MapPath(pathToCreate));
                 }
-                vm.Filename = "Invoice_" + person.FirstName + "_" + person.ID.ToString() + ".doc";
+
+                vm.Filename = "Invoice" + "_" + person.FirstName + "_" + person.ID + ".doc";
                 Generateinvoice docreport = new Generateinvoice();
                 docreport.CreatePackage(Server.MapPath(pathToCreate + "\\" + vm.Filename), Session["Allinvoice"] as List<InvoiceDetail>, Session["Practice"] as Practices);
+                var allappointment = db.Appointments.Where(app => app.PracID == vm.PracticeID);
+                foreach (var iteam in allappointment)
+                {
+                    iteam.Invoiced = true;
+                }
 
                 db.InvoiceDetails.Add(vm);
                 db.SaveChanges();
+
+
+
             }
             return Content("True");
             //return Json(abresults.Select(ap => new { ap.PatientId, ap.TestDateTime,ap.Age, ap.Gender,  ap.TestName, ap.Technician, ap.Result, ap.NormalRange, ap.Name }).ToList(), JsonRequestBehavior.AllowGet);
