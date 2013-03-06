@@ -10,6 +10,7 @@ using AutoComplete.Models;
 
 namespace AutoComplete.Areas.Admin.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
 

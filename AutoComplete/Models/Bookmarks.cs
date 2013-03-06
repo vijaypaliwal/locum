@@ -17,6 +17,8 @@ namespace AutoComplete.Models
         [Required]
         public string url { get; set; }
         public string Description { get; set; }
+
+        public Guid personID { get; set; }
         
     }
 }

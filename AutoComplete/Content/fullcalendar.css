@@ -279,8 +279,8 @@ a.fc-event {
 	}
 	
 .fc-event-skin {
-	border-color: #36c;     /* default BORDER color */
-	background-color: #36c; /* default BACKGROUND color */
+	border-color: #2d89ef;     /* default BORDER color */
+	background-color: #2d89ef; /* default BACKGROUND color */
 	color: #fff;            /* default TEXT color */
 	}
 	
@@ -294,8 +294,11 @@ a.fc-event {
 	}
 	
 .fc-event-time,
-.fc-event-title {
+.fc-event-title 
+{
+    font-size:12px;
 	padding: 0 1px;
+	text-align:center;
 	}
 	
 .fc .ui-resizable-handle { /*** TODO: don't use ui-resizable anymore, change class ***/
@@ -359,10 +362,7 @@ a.fc-event {
 	
 .fc-corner-right .fc-button-inner,
 .fc-corner-right .fc-event-inner {
-	border-right-width: 1px;
-padding: 30px 0px;
-font-size: 15px;
-text-align: center;
+	margin-right: -1px;
 	}
 	
 .fc-corner-top {
@@ -391,10 +391,7 @@ text-align: center;
 	}
 	
 .fc-corner-right .fc-event-inner {
-border-right-width: 1px;
-padding: 30px 0px;
-font-size: 15px;
-text-align: center;
+	border-right-width: 1px;
 	}
 	
 .fc-corner-top .fc-event-inner {
@@ -465,7 +462,7 @@ table.fc-border-separate {
 	
 .fc-grid .fc-event-time {
 	font-weight: bold;
-	display:none;
+	text-align:center;
 	}
 	
 /* right-to-left */
@@ -584,7 +581,7 @@ table.fc-border-separate {
 	
 .fc-event-vert .fc-event-time {
 	white-space: nowrap;
-	font-size: 10px;
+	font-size: 8px;
 	}
 	
 .fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */

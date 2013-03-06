@@ -12,7 +12,7 @@ using AutoComplete.Mailers;
 // Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies.
 namespace AutoComplete.Controllers
 {
-   
+
     public class HomeController : Controller
     {
         private DataContext db = new DataContext();
@@ -27,14 +27,14 @@ namespace AutoComplete.Controllers
         {
 
             var user = Session["user"] as User;
-            Session["Person"] = 1;
+            // Session["Person"] = 1;
             // var model = new Country() { Id = 1, Name = "Bulgaria" };
             return View();
         }
-        
+        [Authorize]
         public ActionResult IndexLocum()
         {
-            
+
             // var model = new Country() { Id = 1, Name = "Bulgaria" };
 
             return View();
@@ -87,6 +87,8 @@ namespace AutoComplete.Controllers
 
         public ActionResult SessionTimeOut()
         {
+            Session.Abandon();
+            Session.Clear();
             return View();
         }
 
@@ -95,7 +97,7 @@ namespace AutoComplete.Controllers
             return View();
         }
 
-    
+
         public ActionResult ForgotPassword()
         {
             return View();
@@ -109,7 +111,7 @@ namespace AutoComplete.Controllers
             if (senddetail != null)
             {
                 _userMailer.ForgotPass(senddetail).Send();
-             
+
                 return View("forgotpasswordSuccess");
             }
 
@@ -135,18 +137,40 @@ namespace AutoComplete.Controllers
                 DateTime stTime = Convert.ToDateTime(item.sessionDetail.startTime);
                 DateTime end = Convert.ToDateTime(item.endDate);
                 DateTime enTime = Convert.ToDateTime(item.sessionDetail.EndTime);
-             
+                var color1="";
+                if (item.Invoiced == true)
+                {
+                    if (item.Paid == true)
+                    {
+                        color1 = "#00a300";
+                    }
+                    else
+                    {
+                        color1 = "#EE4646";
+                    }
+                }
+                else
+                {
+                    color1 = "#2d89ef";
+                }
+
+
+                var sesstionStartTime = Convert.ToDateTime(item.sessionDetail.startTime);
+                var sesstionEndTime = Convert.ToDateTime(item.sessionDetail.EndTime);
                 var Cal = new FullCalendarEvent()
                 {
+                   
                     id = item.APPID,
                  //   Aid = item.APPID,
                     title = item.Parctice.Name,
                     Sessiontitle = item.sessionDetail.Name,
-                    SessionStart = (item.sessionDetail.startTime),
-                    Sessionend = item.sessionDetail.EndTime,
-                   
-                    start = new DateTime(start.Year, start.Month, start.Day, 11, stTime.Month, stTime.Second).ToString(),
-                    end = new DateTime(end.Year, end.Month, end.Day, 11, enTime.Month, enTime.Second).ToString()
+                    //SessionStart =item.sessionDetail.startTime,
+                    //Sessionend = item.sessionDetail.EndTime,
+                    SessionStart=sesstionStartTime.ToShortTimeString(),
+                    Sessionend=sesstionEndTime.ToString("s"),
+                    color=color1,
+                    start =new DateTime(start.Year, start.Month,start.Day,sesstionStartTime.Hour,sesstionStartTime.Minute,sesstionStartTime.Second).ToString("s"),
+                    end = new DateTime(end.Year, end.Month, end.Day, sesstionEndTime.Hour, sesstionEndTime.Minute, sesstionEndTime.Second).ToString("s")
                 };
                 data.Add(Cal);
             }
@@ -156,3 +180,5 @@ namespace AutoComplete.Controllers
 
     }
 }
+
+
