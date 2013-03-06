@@ -16,20 +16,20 @@
     var news1 = db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() : null;
 
 
-   var id = Request.QueryString["ID"];
-  if(id!=null)
-  {
-     
-  var query =
-       from c in db.People
-       where c.UserName == id
-       select c;
-  foreach (var query1 in query)
-  {
-      query1.Status = true;
-  }
-  db.SaveChanges();
-}
+    //var id = Request.QueryString["ID"];
+    //if (id != null)
+    //{
+
+    //    var query =
+    //         from c in db.People
+    //         where c.UserName == id
+    //         select c;
+    //    foreach (var query1 in query)
+    //    {
+    //        query1.Status = true;
+    //    }
+    //    db.SaveChanges();
+    //}
   // Layout = "~/Views/Shared/_ELayout.cshtml";
   if(person!=null)
   {
