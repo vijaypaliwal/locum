@@ -55,7 +55,7 @@ namespace AutoComplete.Controllers
         public ActionResult Create()
         {
            var title=new Person(){ Title="Dr."};
-           return View(title);
+            return View(title);
         }
 
         //
@@ -93,20 +93,15 @@ namespace AutoComplete.Controllers
                 {
                     
                     person.ID = Guid.NewGuid();
-                    person.Status = false;
-                   
+                    db.People.Add(person);
                     db.SaveChanges();                    
                     var obj = db.Roles.Where(r => r.RoleName == "Locum").FirstOrDefault();
-                   
                     if (obj != null)
                     {
-
                         obj.Persons.Add(person);
                     }
                     db.SaveChanges();
                     _userMailer.Welcome(person).Send();
-                    MvcApplication.showMessage = true;
-                    MvcApplication.messageTxt = "You are Registered sucessfully. Verify your account with your email address."; 
                     return RedirectToAction("Index","Home");
                     
                 }
@@ -122,7 +117,7 @@ namespace AutoComplete.Controllers
 
         //
         // GET: /Person/Edit/5
-     
+
         public ActionResult Edit(Guid id)
         {
             Person person = db.People.Find(id);
@@ -161,7 +156,6 @@ namespace AutoComplete.Controllers
         {
             if (ModelState.IsValid)
             {
-                person.Status = true;
                 db.Entry(person).State = EntityState.Modified;
 
                 Session["Person"] = person;

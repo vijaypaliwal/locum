@@ -25,7 +25,7 @@ namespace AutoComplete.Models
         [DataType(DataType.Time)]
         public string EndTime { get; set; }
 
-
+     
         [Display(Name = "Fee/Rate", Description = "Fee/Rate")]
         [DataType(DataType.Currency)]
         public string fees { get; set; }
@@ -36,10 +36,9 @@ namespace AutoComplete.Models
         [ForeignKey("PID")]
         public virtual Practices Practices { get; set; }
 
-        [NotMapped]
-        public string tempID { get; set; }
+    
         #endregion
         public virtual ICollection<SessionColor> sessionColor { get; set; }
-
+     
     }
 }

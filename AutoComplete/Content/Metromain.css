@@ -2029,7 +2029,7 @@ li .icon-large:before {
   font-weight: 300;
   font-size: 11pt;
   letter-spacing: 0.02em;
-  line-height: 7px;
+  line-height: 20px;
 }
 #font .link {
   font-family: 'Segoe UI', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
@@ -5091,7 +5091,7 @@ table.bordered tbody tr:last-child td {
 .input-control {
   margin-right: 0px;
   margin-bottom: 10px;
- 
+  position: relative;
 }
 .input-control.text .helper,
 .input-control.password .helper {

@@ -1884,7 +1884,7 @@ namespace AutoComplete.Reports
 
                 runProperties62.Append(color73);
                 Text text55 = new Text();
-                text55.Text = item.SessionFees.ToString();
+                text55.Text = item.SessionFees;
 
                 run63.Append(runProperties62);
                 run63.Append(text55);

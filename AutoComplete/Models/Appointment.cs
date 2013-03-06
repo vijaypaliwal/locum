@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace AutoComplete.Models
 {
-    
     public class Appointment
     {
         [Key]
@@ -26,8 +24,7 @@ namespace AutoComplete.Models
 
 
 
-        [Required(ErrorMessage = "Please Select the Product from the List")]
-        
+        [Required]
         [Display(Name = "Parctice ", Description = "Parctice of the person")]
         public Guid PracID { get; set; }
 
@@ -40,21 +37,21 @@ namespace AutoComplete.Models
         [ForeignKey("SessID")]
         public Sessions sessionDetail { get; set; }
 
-        
+        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Expences")]
         public double expences { get; set; }
 
-        
+        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Visit Mileage")]
         public double VisitMileage { get; set; }
 
-               
+        [Required]        
         [Display(Name = "Charge ?")]
         public bool IsCharged { get; set; }
 
-        
+        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Visit Mileage")]
         public string Notes { get; set; }
@@ -68,9 +65,6 @@ namespace AutoComplete.Models
         [Display(Name = "End Date")]
         public string endDate { get; set; }
 
-        public bool Invoiced  { get; set; }
-        public bool Paid  { get; set; }
-
 
 
         [NotMapped]
@@ -80,11 +74,7 @@ namespace AutoComplete.Models
          [NotMapped]
         public string sstarttime { get; set; }
          [NotMapped]
-        public string sendtime { get; set; } 
-        [NotMapped]
-         public int days { get; set; }
-       
-        
+        public string sendtime { get; set; }  
 
     }
 

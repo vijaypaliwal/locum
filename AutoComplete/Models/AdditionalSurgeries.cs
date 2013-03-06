@@ -17,7 +17,8 @@ namespace AutoComplete.Models
         public string streetAdd { get; set; }
 
 
-       
+        [Display(Name = "Town")]
+        public string town { get; set; }
 
 
         [Display(Name = "City")]

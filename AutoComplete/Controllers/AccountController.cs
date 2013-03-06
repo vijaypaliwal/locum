@@ -46,19 +46,13 @@ namespace AutoComplete.Controllers
                 {
                     if (ValidateDoctor(model.UserName, model.Password))
                     {
-                        var Person1 = db.People.Where(per => per.UserName == model.UserName && per.Password == model.Password && per.Status==true).FirstOrDefault();
-                        if (Person1 != null)
-                        {
-                            FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                            return RedirectToAction("IndexLocum", "Home");
-                        }
-                        else
-                            ModelState.AddModelError("", "Verify your Account with your Email Id.");
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);  
+                        
+                        return RedirectToAction("IndexLocum", "Home");
 
                     }
                     else
-                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
 
@@ -70,15 +64,9 @@ namespace AutoComplete.Controllers
         private bool ValidateDoctor(string p, string p_2)
         {
             var Person=db.People.Where(per => per.UserName == p && per.Password == p_2).FirstOrDefault();
-           
             if (Person != null)
             {
-                var st = db.People.Where(per => per.UserName == p && per.Password == p_2 && per.Status == true).FirstOrDefault();
-                if (st != null)
-                {
-                    Session["Person"] = Person;
-                }
-                else { }
+                Session["Person"] = Person;
                 return true;
             }
             return false;
@@ -90,8 +78,7 @@ namespace AutoComplete.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            Session.Clear();
-            Session.Abandon();
+
             return RedirectToAction("Index", "Home");
         }
 

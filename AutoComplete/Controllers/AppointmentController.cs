@@ -40,25 +40,9 @@ namespace AutoComplete.Controllers
             return Json(allpractices.Select(ap => new { ap.ID, ap.Name }), JsonRequestBehavior.AllowGet);
         }
 
-        //////
-        public JsonResult GetCascadeSession(Guid PracID)
-        {
-            
-            var modelList = db.Sessions.ToList();
-            if (PracID != null)
-                modelList = modelList.Where(a => a.PID == PracID).ToList();
 
-            var modelData = modelList.Select(m => new SelectListItem()
-            {
-                Text = m.Name,
-                Value = m.ID.ToString()
 
-            });
-                 return Json(modelData, JsonRequestBehavior.AllowGet);
-         
 
-        }
-        //////
         //
         // GET: /Appointment/Details/5
 
@@ -96,59 +80,21 @@ namespace AutoComplete.Controllers
         [HttpPost]
         public ActionResult Create(Appointment appointment)
         {
-            try
+            if (ModelState.IsValid)
             {
+                appointment.APPID = Guid.NewGuid();
+                var User = Session["Person"] as Person;
+                appointment.PersonID = User.ID;
+                db.Appointments.Add(appointment);
+                db.SaveChanges();
 
-                if (ModelState.IsValid)
-                {
-                    appointment.APPID = Guid.NewGuid();
-                    var User = Session["Person"] as Person;
-                    appointment.PersonID = User.ID;
-                    appointment.Invoiced = false;
-                    db.Appointments.Add(appointment);
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("_Form", ex.Message);
-                    }
-
-
-                    //_userMailer.Appointment(User.Email, User.UserName, appointment).Send();
-                    ////////////////change
-                   
-                    var sessionDetail = db.Sessions.Where(ses => ses.ID == appointment.SessID).FirstOrDefault();
-                    var practDetail = db.Practices.Where(p => p.ID == appointment.PracID).FirstOrDefault();
-                    DateTime start = Convert.ToDateTime(appointment.startDate);
-                    DateTime stTime = Convert.ToDateTime(sessionDetail.startTime);
-                    DateTime end = Convert.ToDateTime(appointment.endDate);
-                    DateTime enTime = Convert.ToDateTime(sessionDetail.EndTime);
-
-                    var Cal = new FullCalendarEvent();
-                    Cal.id = appointment.APPID;
-                    Cal.title = practDetail.Name;
-                    Cal.Sessiontitle = sessionDetail.Name;
-                    Cal.SessionStart = (sessionDetail.startTime);
-                    Cal.Sessionend = sessionDetail.EndTime;
-                    Cal.start = new DateTime(start.Year, start.Month, start.Day, stTime.Hour,stTime.Minute,stTime.Second).ToString("s");
-                    Cal.end = new DateTime(end.Year, end.Month, end.Day, enTime.Hour, enTime.Minute, enTime.Second).ToString("s");
-                    Cal.color = "#2d89ef";
-                    return Json(Cal, JsonRequestBehavior.AllowGet);
-                    ////////////////////////////////////////
-                }
+                _userMailer.Appointment(User.Email, User.UserName, appointment).Send();
+                return Content(Boolean.TrueString);
             }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("_Form", ex.Message);
-            }
-                ViewBag.PracID = new SelectList(db.Practices, "ID", "Name", appointment.PracID);
-                ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
-                return View(appointment);
-            
 
+            ViewBag.PracID = new SelectList(db.Practices, "ID", "Name", appointment.PracID);
+            ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
+            return View(appointment);
         }
 
         //
@@ -159,7 +105,7 @@ namespace AutoComplete.Controllers
 
             Person per = Session["person"] as Person;
             Appointment appointment = db.Appointments.Find(id);
-            ViewBag.PracID = new SelectList(db.Practices.Where(a => a.PersonID == per.ID), "ID", "Name", appointment.PracID);
+            ViewBag.PracID = new SelectList(db.Practices.Where(a=>a.PersonID==per.ID), "ID", "Name", appointment.PracID);
             ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
             return View(appointment);
         }
@@ -174,68 +120,49 @@ namespace AutoComplete.Controllers
             {
 
 
-                // appointment.Locumname = db.Practices.Where(a => a.ID == appointment.PracID).FirstOrDefault() != null ? db.Practices.Where(a => a.ID == appointment.PracID).FirstOrDefault().Name : "";
+                appointment.Locumname = db.Practices.Where(a => a.ID == appointment.PracID).FirstOrDefault() != null ? db.Practices.Where(a => a.ID == appointment.PracID).FirstOrDefault().Name : "";
 
 
 
 
-                // appointment.Sessionname = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().Name : "";
+                appointment.Sessionname = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().Name : "";
 
 
 
 
-                // appointment.sstarttime = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().startTime : "";
+                appointment.sstarttime = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().startTime : "";
 
 
-                // appointment.sendtime = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().EndTime : "";
-                var User = Session["Person"] as Person;
-                appointment.PersonID = User.ID;
+                appointment.sendtime = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().EndTime : "";
+
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
-                // return Json(appointment, JsonRequestBehavior.AllowGet);
-                //Update Scheduler
-                var sessionDetail = db.Sessions.Where(ses => ses.ID == appointment.SessID).FirstOrDefault();
-                var practDetail = db.Practices.Where(p => p.ID == appointment.PracID).FirstOrDefault();
-                DateTime start = Convert.ToDateTime(appointment.startDate);
-                DateTime stTime = Convert.ToDateTime(sessionDetail.startTime);
-                DateTime end = Convert.ToDateTime(appointment.endDate);
-                DateTime enTime = Convert.ToDateTime(sessionDetail.EndTime);
-
-                var Cal = new FullCalendarEvent();
-                Cal.id = appointment.APPID;
-                Cal.title = practDetail.Name;
-                Cal.Sessiontitle = sessionDetail.Name;
-                Cal.SessionStart = (sessionDetail.startTime);
-                Cal.Sessionend = sessionDetail.EndTime;
-                Cal.start = new DateTime(start.Year, start.Month, start.Day, stTime.Hour, stTime.Minute, stTime.Second).ToString("s");
-                Cal.end = new DateTime(end.Year, end.Month, end.Day, enTime.Hour, enTime.Minute, enTime.Second).ToString("s");
-
-                return Json(Cal, JsonRequestBehavior.AllowGet);
-                ///////////////
+                return Json(appointment, JsonRequestBehavior.AllowGet);
             }
             ViewBag.PracID = new SelectList(db.Practices, "ID", "Name", appointment.PracID);
             ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
             return View(appointment);
         }
 
-      
-        // POST: /Appointment/Delete/5
+        //
+        // GET: /Appointment/Delete/5
 
-        //[HttpPost, ActionName("Delete")]
         public ActionResult Delete(Guid id)
         {
-            try
-            {
-                Appointment appointment = db.Appointments.Find(id);
-                db.Appointments.Remove(appointment);
-                db.SaveChanges();
-                
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("_Form", ex.Message);
-            }
-            return RedirectToAction("IndexLocum");
+            Appointment appointment = db.Appointments.Find(id);
+            return View(appointment);
+        }
+
+        //
+        // POST: /Appointment/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(Guid id)
+        {
+            Appointment appointment = db.Appointments.Find(id);
+            db.Appointments.Remove(appointment);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

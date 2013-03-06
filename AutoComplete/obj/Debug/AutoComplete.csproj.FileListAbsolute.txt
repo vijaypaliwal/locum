@@ -189,126 +189,44 @@ D:\Projects\Locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
 D:\Projects\Locum\AutoComplete\obj\Debug\ResolveAssemblyReference.cache
 D:\Projects\Locum\AutoComplete\obj\Debug\AutoComplete.dll
 D:\Projects\Locum\AutoComplete\obj\Debug\AutoComplete.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\AutoComplete.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\AutoComplete.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\ABCpdf.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\ClosedXML.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DHTMLX.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.Web.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\EntityFramework.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\itextsharp.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\NuGet.Core.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.MvcModel.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.Helpers.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.Razor.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Administration.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\ABCpdf.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\ClosedXML.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DHTMLX.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.Web.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\EntityFramework.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.pdb
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.Helpers.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.Razor.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.csprojResolveAssemblyReference.cache
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.dll
-C:\Users\shivam\Documents\Visual Studio 2012\Projects\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\AutoComplete.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\AutoComplete.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\ABCpdf.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\ClosedXML.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DHTMLX.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.Web.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\EntityFramework.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\itextsharp.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\NuGet.Core.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\Recaptcha.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\Recaptcha.MvcModel.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.Helpers.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.Razor.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Administration.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\ABCpdf.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\ClosedXML.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DHTMLX.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\DoddleReport.Web.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\EntityFramework.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\Recaptcha.pdb
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.Helpers.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.Razor.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\obj\Debug\ResolveAssemblyReference.cache
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.dll
-D:\Projects\locum14feblat\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\obj\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\AutoComplete.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\AutoComplete.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\ABCpdf.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\ClosedXML.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DHTMLX.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.Web.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\EntityFramework.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\itextsharp.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\NuGet.Core.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.MvcModel.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.Helpers.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.Razor.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Administration.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\ABCpdf.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\ClosedXML.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DHTMLX.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\DoddleReport.Web.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\EntityFramework.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\Recaptcha.pdb
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.Helpers.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.Razor.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.dll
-C:\Documents and Settings\Shivam\My Documents\Visual Studio 2010\Projects\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\AutoComplete.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\AutoComplete.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\ABCpdf.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\ClosedXML.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DHTMLX.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.Web.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\EntityFramework.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\itextsharp.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\NuGet.Core.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\Recaptcha.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\Recaptcha.MvcModel.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.Helpers.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.Razor.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Administration.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.dll
+D:\latest locum\Locum\Locum\AutoComplete\bin\ABCpdf.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\ClosedXML.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\DHTMLX.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.AbcPdf.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.iTextSharp.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.OpenXml.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\DoddleReport.Web.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\EntityFramework.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\Microsoft.Web.Infrastructure.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\Recaptcha.pdb
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.Helpers.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.Razor.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Deployment.xml
+D:\latest locum\Locum\Locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
+D:\latest locum\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.csprojResolveAssemblyReference.cache
+D:\latest locum\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.dll
+D:\latest locum\Locum\Locum\AutoComplete\obj\Debug\AutoComplete.pdb

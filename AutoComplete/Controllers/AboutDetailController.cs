@@ -148,7 +148,7 @@ namespace AutoComplete.Controllers
                     db.SaveChanges();
                 }
 
-                return View(aboutperson);
+                return View();
             }
 
             ViewBag.PersonId = new SelectList(db.People, "ID", "Title", aboutperson.PersonId);

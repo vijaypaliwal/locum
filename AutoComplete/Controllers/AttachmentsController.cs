@@ -145,9 +145,16 @@ namespace AutoComplete.Controllers
         //
         // GET: /Attachments/Delete/5
  
-   
+        public ActionResult Delete(Guid id)
+        {
+            Attachments attachments = db.Attachments.Find(id);
+            return View(attachments);
+        }
 
-        //[HttpPost, ActionName("Delete")]
+        //
+        // POST: /Attachments/Delete/5
+
+        [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {            
             Attachments attachments = db.Attachments.Find(id);

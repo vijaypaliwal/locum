@@ -24,6 +24,7 @@ namespace AutoComplete.Controllers
             
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = false;
+
             return View(scheduler);
         }
 
