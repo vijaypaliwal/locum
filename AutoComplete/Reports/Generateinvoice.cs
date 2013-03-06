@@ -36,7 +36,7 @@ namespace AutoComplete.Reports
 
             InvoiceD.ForEach(invoice => {
 
-                total +=System.Convert.ToDecimal(invoice.SessionFees);
+                total += System.Convert.ToDecimal(invoice.SessionFees.ToString()); 
             });
             using (WordprocessingDocument package = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {
