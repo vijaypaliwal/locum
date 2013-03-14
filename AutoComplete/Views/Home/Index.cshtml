@@ -1,4 +1,4 @@
-﻿@model AutoComplete.Models.Person
+﻿
 
 @* Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies. *@
 @{
@@ -22,10 +22,8 @@
     if (id != null)
     {
 
-        var query =
-             from c in db.People
-             where c.UserName == id
-             select c;
+        var query =db.People.Where(p=>p.UserName==id);
+           
         foreach (var query1 in query)
         {
             query1.Status = true;
