@@ -1,39 +1,112 @@
-﻿@model AutoComplete.Models.webcontent
+﻿@*
+
+@model AutoComplete.Models.webcontent
            
 
 
   @Html.Raw(Model.content)
+*@
 
 
 
-       
+<div id="wrapper">
+    <ul id="vertical-ticker">
+        <li>
+            <h3>India Beat Australia</h3>
+
+            <table style="width:100%">
+                <tr>
+                    <td valign="top">  <p>
+                <img style="height:70px; width:60px; margin-right:5px;" src="../../img/person2.jpg" />
+            </p>
+
+                    </td>
+
+                   <td valign="top"> <h5 > Some Notes Goes Here Some Notes Goes Here Some Notes Goes Here</h5></td>      
+                </tr>
+            </table>
+          
+
+
+        </li>
+        <li>
+            <h3>Dhoni strikes Centuary</h3>
+        <table style="width:100%">
+                <tr>
+                    <td valign="top">  <p>
+                <img style="height:70px; width:60px; margin-right:5px;" src="../../img/person3.jpg" />
+            </p>
+
+                    </td>
+
+                   <td valign="top"> <h5 > Some Notes Goes Here Some Notes Goes Here Some Notes Goes Here</h5></td>      
+                </tr>
+            </table>
+        </li>
+        <li>
+            <h3>Ovashi Hanged</h3>
+           <table style="width:100%">
+                <tr>
+                    <td valign="top">  <p>
+                <img style="height:70px; width:60px; margin-right:5px;" src="../../img/person1.jpg" />
+            </p>
+
+                    </td>
+
+                   <td valign="top"> <h5 > Some Notes Goes Here Some Notes Goes Here Some Notes Goes Here</h5></td>      
+                </tr>
+            </table>
+        </li>
+        <li>
+            <h3>Dhoni strikes Centuary</h3>
+          <table style="width:100%">
+                <tr>
+                    <td valign="top">  <p>
+                <img style="height:70px; width:60px; margin-right:5px;" src="../../img/person3.jpg" />
+            </p>
+
+                    </td>
+
+                   <td valign="top"> <h5 > Some Notes Goes Here Some Notes Goes Here Some Notes Goes Here</h5></td>      
+                </tr>
+            </table>
+        </li>
+
+    </ul>
+    <br />
+    <p><a class="btns" href="#" id="ticker-previous">Previous</a>  <a class="btns" href="#" id="ticker-next">Next</a> </p>
+
+
+</div>
+
+
+
+
+
 
 
 <style type="text/css">
-.btns
-{
-    background-color: #008287;
-color: #fff;
-font-family: 'Segoe UI', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
-font-weight: 400;
-font-size: 9pt;
-min-width: 90px;
-min-height: 32px;
-height: 32px;
-
-border: 1px transparent solid;
-
-margin-right: 10px;
-margin-bottom: 10px;
-border-raduis: 0;
-display: inline-block;
-text-align: center;
-vertical-align: middle;
-cursor: pointer;
-padding: 4px 10px;
-position: relative;
-border-radius: 0;
+    .btns
+    {
+        background-color: #008287;
+        color: #fff;
+        font-family: 'Segoe UI', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 9pt;
+        min-width: 90px;
+        min-height: 32px;
+        height: 32px;
+        border: 1px transparent solid;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-raduis: 0;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        padding: 4px 10px;
+        position: relative;
+        border-radius: 0;
     }
-
 </style>
 

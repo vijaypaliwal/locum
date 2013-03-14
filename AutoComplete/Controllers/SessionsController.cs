@@ -46,7 +46,7 @@ namespace AutoComplete.Controllers
                 });
 
          
-            return Json(allsessions.Select(s=>new {s.Name,s.fees,s.ID,s.color,s.PID}),JsonRequestBehavior.AllowGet);
+            return Json(allsessions.Select(s=>new {s.Name,s.fees,s.ID,s.color,s.PID,s.startTime,s.EndTime}),JsonRequestBehavior.AllowGet);
         }
         //
         // GET: /Sessions/Details/5

@@ -126,56 +126,67 @@ namespace AutoComplete.Controllers
         [HttpPost]
         public JsonResult GetAllAppointments(IEnumerable<Appointment> AP, Guid? Empid)
         {
-            var data = new List<FullCalendarEvent>();
-            var count = 0;
-            var User = Session["Person"] as Person;
-            var Appointment = new Appointment();
-            Appointment.PersonID = User.ID;
-            foreach (var item in db.Appointments.Include(p => p.sessionDetail).Include(p=>p.Parctice).Where(A=>A.PersonID==User.ID))
+            var count1 = 0;
+            try
             {
-                DateTime start = Convert.ToDateTime(item.startDate);
-                DateTime stTime = Convert.ToDateTime(item.sessionDetail.startTime);
-                DateTime end = Convert.ToDateTime(item.endDate);
-                DateTime enTime = Convert.ToDateTime(item.sessionDetail.EndTime);
-                var color1="";
-                if (item.Invoiced == true)
+
+                var data = new List<FullCalendarEvent>();
+                var count = 0;
+                var User = Session["Person"] as Person;
+                var Appointment = new Appointment();
+                Appointment.PersonID = User.ID;
+                foreach (var item in db.Appointments.Include(p => p.sessionDetail).Include(p => p.Parctice).Where(A => A.PersonID == User.ID))
                 {
-                    if (item.Paid == true)
+                    DateTime start = Convert.ToDateTime(item.startDate);
+                    DateTime stTime = Convert.ToDateTime(item.sessionDetail.startTime);
+                    DateTime end = Convert.ToDateTime(item.endDate);
+                    DateTime enTime = Convert.ToDateTime(item.sessionDetail.EndTime);
+                    var color1 = "";
+                    if (item.Invoiced == true)
                     {
-                        color1 = "#00a300";
+                        if (item.Paid == true)
+                        {
+                            color1 = "#00a300";
+                        }
+                        else
+                        {
+                            color1 = "#EE4646";
+                        }
                     }
                     else
                     {
-                        color1 = "#EE4646";
+                        color1 = "#2d89ef";
                     }
-                }
-                else
-                {
-                    color1 = "#2d89ef";
-                }
 
 
-                var sesstionStartTime = Convert.ToDateTime(item.sessionDetail.startTime);
-                var sesstionEndTime = Convert.ToDateTime(item.sessionDetail.EndTime);
-                var Cal = new FullCalendarEvent()
-                {
-                   
-                    id = item.APPID,
-                 //   Aid = item.APPID,
-                    title = item.Parctice.Name,
-                    Sessiontitle = item.sessionDetail.Name,
-                    //SessionStart =item.sessionDetail.startTime,
-                    //Sessionend = item.sessionDetail.EndTime,
-                    SessionStart=sesstionStartTime.ToShortTimeString(),
-                    Sessionend=sesstionEndTime.ToString("s"),
-                    color=color1,
-                    start =new DateTime(start.Year, start.Month,start.Day,sesstionStartTime.Hour,sesstionStartTime.Minute,sesstionStartTime.Second).ToString("s"),
-                    end = new DateTime(end.Year, end.Month, end.Day, sesstionEndTime.Hour, sesstionEndTime.Minute, sesstionEndTime.Second).ToString("s")
-                };
-                data.Add(Cal);
+                    var sesstionStartTime = Convert.ToDateTime(item.sessionDetail.startTime);
+                    var sesstionEndTime = Convert.ToDateTime(item.sessionDetail.EndTime);
+                    var Cal = new FullCalendarEvent()
+                    {
+
+                        id = item.APPID,
+                        //   Aid = item.APPID,
+                        title = item.Parctice.Name,
+                        Sessiontitle = item.sessionDetail.Name,
+                        //SessionStart =item.sessionDetail.startTime,
+                        //Sessionend = item.sessionDetail.EndTime,
+                        SessionStart = sesstionStartTime.ToShortTimeString(),
+                        Sessionend = sesstionEndTime.ToShortTimeString(),
+                        color = color1,
+                        start = new DateTime(start.Year, start.Month, start.Day, sesstionStartTime.Hour, sesstionStartTime.Minute, sesstionStartTime.Second).ToString("s"),
+                        end = new DateTime(end.Year, end.Month, end.Day, sesstionEndTime.Hour, sesstionEndTime.Minute, sesstionEndTime.Second).ToString("s")
+                    };
+                    data.Add(Cal);
+                }
+
+                var returnData = data.ToArray();
+                return Json(returnData, JsonRequestBehavior.AllowGet);
             }
-            var returnData = data.ToArray();
-            return Json(returnData, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("_Form", ex.Message);
+            }
+            return Json(count1, JsonRequestBehavior.AllowGet);
         }
 
     }

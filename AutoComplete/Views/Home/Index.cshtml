@@ -9,32 +9,32 @@
     var userName = "test";
 
     var news = db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() : null;
-  
+
     var person = Session["person"] as AutoComplete.Models.Person;
 
     var user = Session["user"] as AutoComplete.Models.User;
     var news1 = db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() != null ? db.webcontent.Where(a => a.title == "News&Events").FirstOrDefault() : null;
 
 
-    //var id = Request.QueryString["ID"];
-    //if (id != null)
-    //{
+    var id = Request.QueryString["ID"];
+    if (id != null)
+    {
 
-    //    var query =
-    //         from c in db.People
-    //         where c.UserName == id
-    //         select c;
-    //    foreach (var query1 in query)
-    //    {
-    //        query1.Status = true;
-    //    }
-    //    db.SaveChanges();
-    //}
-  // Layout = "~/Views/Shared/_ELayout.cshtml";
-  if(person!=null)
-  {
-      //Url.Content("IndexLocum");
-  }
+        var query =
+             from c in db.People
+             where c.UserName == id
+             select c;
+        foreach (var query1 in query)
+        {
+            query1.Status = true;
+        }
+        db.SaveChanges();
+    }
+    // Layout = "~/Views/Shared/_ELayout.cshtml";
+    if (person != null)
+    {
+        //Url.Content("IndexLocum");
+    }
 }
 
 
@@ -152,12 +152,76 @@
     </div>
     <div class="grid">
         <div class="row">
-            @Html.Partial("Slider")
+      <div class="grid">
+        <div class="row">
+       <div class="span8">
+        <h1>
+            Locum<small>Assistance</small></h1>
+        <ul class="listview image fluid">
+         
+            <li class="selected fg-color-dark">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/2.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Locum Assistant</h4>
+                   
+                    <p>
+                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                    </p>
+                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                </div>
+            </li>
+            <li class="bg-color-orange fg-color-white">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/2.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Locum Assistant</h4>
+                   
+                    <p>
+                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                    </p>
+                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                </div>
+            </li>
+            <li class="selected fg-color-dark">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/1.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Locum Assistant</h4>
+                    <p>
+                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                    </p>
+                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                </div>
+            </li>
+            <li class="bg-color-red fg-color-white">
+                <div class="icon">
+                    <img src="@Url.Content("~/img/1.jpg")">
+                </div>
+                <div class="data">
+                    <h4>
+                        Locum Assistant</h4>
+                    <p>
+                       Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                    </p>
+                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                </div>
+            </li>
+        </ul>
+    </div>
             <div class="span2">
-                <h1>
+               <h1>
                     News<small>Events</small></h1>
-              @Html.Partial("NewsEvents",news)
+                   @Html.Partial("NewsEvents")
             </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>
@@ -532,20 +596,6 @@
 
     });
 </script>
-@*<h2>
-    KendoUI AutoComplete Basic Usage</h2>
-@using (Html.BeginForm("Show", "Home"))
-{
-    @Html.LabelFor(m => m.Name) <text> </text>
-    @Html.TextBoxFor(m => m.Name)
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <input type="submit" value="Submit" />
-}*@ 
 
 
 <link href="../../Content/Footer/style.css" rel="stylesheet" type="text/css" />

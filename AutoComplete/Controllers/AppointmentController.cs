@@ -78,13 +78,16 @@ namespace AutoComplete.Controllers
             ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name");
 
             var User = Session["Person"] as Person;
-
-
-
+            double value = 0.0;
+            double asdouble = (double)(float)value;
             Appointment objNew = new Appointment();
 
 
             objNew.PersonID = User.ID;
+            objNew.Notes = asdouble;
+            objNew.expences = asdouble;
+            objNew.VisitMileage = asdouble;
+            objNew.IsCharged = true;
             objNew.startDate = startDate.ToString();
             objNew.endDate = endDate.ToString();
             return View(objNew);
@@ -105,6 +108,15 @@ namespace AutoComplete.Controllers
                     var User = Session["Person"] as Person;
                     appointment.PersonID = User.ID;
                     appointment.Invoiced = false;
+                    if (appointment.expences == null)
+                    {
+                        appointment.expences = 0;
+                    }
+                    if (appointment.VisitMileage == null)
+                    {
+                        appointment.VisitMileage = 0;
+                    }
+                    appointment.Total = appointment.Notes + appointment.expences + appointment.VisitMileage;
                     db.Appointments.Add(appointment);
                     try
                     {
@@ -126,13 +138,14 @@ namespace AutoComplete.Controllers
                     DateTime stTime = Convert.ToDateTime(sessionDetail.startTime);
                     DateTime end = Convert.ToDateTime(appointment.endDate);
                     DateTime enTime = Convert.ToDateTime(sessionDetail.EndTime);
-
+                    var sesstionStartTime = Convert.ToDateTime(sessionDetail.startTime);
+                    var sesstionEndTime = Convert.ToDateTime(sessionDetail.EndTime);
                     var Cal = new FullCalendarEvent();
                     Cal.id = appointment.APPID;
                     Cal.title = practDetail.Name;
                     Cal.Sessiontitle = sessionDetail.Name;
-                    Cal.SessionStart = (sessionDetail.startTime);
-                    Cal.Sessionend = sessionDetail.EndTime;
+                    Cal.SessionStart = (sesstionStartTime).ToShortTimeString();
+                    Cal.Sessionend = (sesstionEndTime).ToShortTimeString();
                     Cal.start = new DateTime(start.Year, start.Month, start.Day, stTime.Hour,stTime.Minute,stTime.Second).ToString("s");
                     Cal.end = new DateTime(end.Year, end.Month, end.Day, enTime.Hour, enTime.Minute, enTime.Second).ToString("s");
                     Cal.color = "#2d89ef";
@@ -156,12 +169,19 @@ namespace AutoComplete.Controllers
 
         public ActionResult Edit(Guid id)
         {
-
-            Person per = Session["person"] as Person;
-            Appointment appointment = db.Appointments.Find(id);
-            ViewBag.PracID = new SelectList(db.Practices.Where(a => a.PersonID == per.ID), "ID", "Name", appointment.PracID);
-            ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
-            return View(appointment);
+            try
+            {
+                Person per = Session["person"] as Person;
+                Appointment appointment = db.Appointments.Find(id);
+                ViewBag.PracID = new SelectList(db.Practices.Where(a => a.PersonID == per.ID), "ID", "Name", appointment.PracID);
+                ViewBag.SessID = new SelectList(db.Sessions, "ID", "Name", appointment.SessID);
+                return View(appointment);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("_Form", ex.Message);
+            }
+            return View();
         }
 
         //
@@ -190,6 +210,7 @@ namespace AutoComplete.Controllers
                 // appointment.sendtime = db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault() != null ? db.Sessions.Where(a => a.ID == appointment.SessID).FirstOrDefault().EndTime : "";
                 var User = Session["Person"] as Person;
                 appointment.PersonID = User.ID;
+                appointment.Total = appointment.Notes + appointment.expences + appointment.VisitMileage;
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
                 // return Json(appointment, JsonRequestBehavior.AllowGet);
@@ -200,13 +221,14 @@ namespace AutoComplete.Controllers
                 DateTime stTime = Convert.ToDateTime(sessionDetail.startTime);
                 DateTime end = Convert.ToDateTime(appointment.endDate);
                 DateTime enTime = Convert.ToDateTime(sessionDetail.EndTime);
-
+                var sesstionStartTime = Convert.ToDateTime(sessionDetail.startTime);
+                var sesstionEndTime = Convert.ToDateTime(sessionDetail.EndTime);
                 var Cal = new FullCalendarEvent();
                 Cal.id = appointment.APPID;
                 Cal.title = practDetail.Name;
                 Cal.Sessiontitle = sessionDetail.Name;
-                Cal.SessionStart = (sessionDetail.startTime);
-                Cal.Sessionend = sessionDetail.EndTime;
+                Cal.SessionStart = (sesstionStartTime).ToShortTimeString();
+                Cal.Sessionend = (sesstionEndTime).ToShortTimeString();
                 Cal.start = new DateTime(start.Year, start.Month, start.Day, stTime.Hour, stTime.Minute, stTime.Second).ToString("s");
                 Cal.end = new DateTime(end.Year, end.Month, end.Day, enTime.Hour, enTime.Minute, enTime.Second).ToString("s");
 

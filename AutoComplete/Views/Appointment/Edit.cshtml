@@ -157,21 +157,20 @@
         <div class="editor-field">
        &nbsp; 
     </div>
-     <div class="editor-label">
+      <div class="editor-label">
+         @Html.LabelFor(model => model.Notes)<span class="red">*</span>
+    </div>
+               
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Notes)
+    </div>
+               
+   <div class="editor-label">
         @Html.LabelFor(model => model.expences)
     </div>      
     <div class="editor-field">
         @Html.EditorFor(model => model.expences)
         @Html.ValidationMessageFor(model => model.expences)
-    </div>
-               
-    <div class="editor-label">
-        @Html.LabelFor(model => model.VisitMileage)
-    </div>
-               
-    <div class="editor-field">
-        @Html.EditorFor(model => model.VisitMileage)
-        @Html.ValidationMessageFor(model => model.VisitMileage)
     </div>
               
     <div class="editor-label">
@@ -183,13 +182,12 @@
         @Html.ValidationMessageFor(model => model.IsCharged)
     </div>
               
-    <div class="editor-label">
-      Payment
+     <div class="editor-label">
+        @Html.LabelFor(model => model.VisitMileage)
     </div>
                
     <div class="editor-field">
-        @Html.EditorFor(model => model.Notes)
-        @Html.ValidationMessageFor(model => model.Notes)
+        @Html.EditorFor(model => model.VisitMileage)
     </div>
                
    

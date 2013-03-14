@@ -295,7 +295,7 @@
             var value = this.value();
 
             if (value) {
-                alert("practice id: " + value);
+               // alert("practice id: " + value);
                 gridTemp.data("kendoGrid").dataSource.filter ({ field: "PID", operator: "eq", value: value });
             } else {
                 gridTemp.data("kendoGrid").dataSource.filter({});
@@ -383,12 +383,15 @@ function KindoGrid() {
 <table id="cars-gridsession">
     <thead>
         <tr>
-            <th data-field="Name12">
-             
+            <th data-field="Name12" width="250">
+             Name
             </th>
         
-            <th data-field="Fees">
-                Fees
+            <th data-field="Fees" width="120" >
+                Start Time
+            </th>
+            <th data-field="Fees"width="120">
+                End Time
             </th>
          
             <th id="Action">
@@ -417,15 +420,21 @@ function KindoGrid() {
     <tr>
 
 
-       <td>
+       <td width="250" >
           #= Name# <span style="padding:2px 40px;background-color:#=color#">&nbsp;</span>
+          <input type="hidden" value=#=PID# name=PID/>
         </td>
 
 
 	     
 		
-        <td>
-          #=fees#<input type="hidden" value=#=PID# name=PID/>
+        <td width="120">
+          #=startTime#
+        
+      
+        </td>
+        <td width="120">
+          #=EndTime#
         
       
         </td>

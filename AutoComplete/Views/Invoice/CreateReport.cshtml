@@ -1,0 +1,178 @@
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+@{
+    ViewBag.Title = "CreateReport";
+    Layout = null;
+    decimal total = 0;
+    var invoiceNote = "";
+    string practice = "";
+    string practicecity = "";
+   // string practicetown = "";
+    string practicephone = "";
+    string practicestreet = "";
+    string practiceemail = "";
+    if (Model != null && Model.Count() > 0)
+    {
+        if (Session["Practice"] != null)
+        {
+            AutoComplete.Models.Practices p = Session["Practice"] as AutoComplete.Models.Practices;
+            practice = p.Name;
+            practicecity = p.city;
+            //practicetown = p.cWebsite;
+            practicephone = p.cphone;
+            practicestreet = p.streetAdd;
+            practiceemail = p.cEmail;
+        }
+
+    }
+        var name = Session["Person"] as AutoComplete.Models.Person;
+
+
+    
+
+
+
+<div class="span11 bg-color-blue fg-color-white">
+                <p style="margin: 4px; text-align: justify;">
+                   If you are happy with the Invoice as shown below Click on "Save Invoice" Your Session Will be updated and You can save Invoice to Your Computer.
+                   Print it or Email to the Practices Once this Invoice is saved. You Will not be Able to Invoice thess Session Again (Unless You cancel These Invoices)
+                     </p>
+            </div>
+
+
+
+@*@Ajax.ActionLink("Save Invoice","SaveGeneratedInvoice", "Invoice",Model, new AjaxOptions
+{ 
+        Confirm="Are you Sure?",
+        HttpMethod="POST",
+        UpdateTargetId="divResultText",
+        LoadingElementId="divLoading",
+        OnSuccess = "myCallback"
+});*@
+
+    
+
+
+
+
+<div id="divResultText"></div>
+<h2>
+ <center>   Invoice Detail</center></h2>
+
+    
+
+
+
+<div class="grid">
+    <div class="row">
+        <div class="span4  fg-color-black">
+            <p class="long-text" style="margin: 5px;">
+                <p class="long-text" style="margin: 5px;">
+                To :@practice
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicecity @practicestreet
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                  
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practicephone
+                </p>
+                <p class="long-text" style="margin-left: 15px;">
+                    @practiceemail
+                </p>
+            </p>
+        </div>
+        <div style="float: right;" class="span4  fg-color-black">
+            <p class="long-text" style="margin: 5px;">
+                From : Dr.@name.FirstName @name.LastName
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                 @name.city
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.country @name.postCode
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.phone
+            </p>
+            <p class="long-text" style="margin-left: 15px;">
+                @name.Email
+            </p>
+        </div>
+    </div>
+</div>
+<table width="100%" id="grid1">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+        
+            <th>
+                Session
+            </th>
+            <th>
+                Fees
+            </th>
+        </tr>
+        <tr>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.InvoicedDate.ToString("D")
+                    @Html.HiddenFor(modelItem => item.Appointment.APPID) 
+                    
+                </td>
+            
+                <td>
+                
+                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.Name)  
+                   
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.Total)
+                    @{
+               total += Convert.ToDecimal(item.Appointment.Total);
+               invoiceNote = item.Appointment.InvoiceNotes;
+                    }
+                   
+                </td>
+            </tr>
+        }
+        <tr>
+
+            <td></td>
+            <td>Total</td>
+            <td>
+                <strong> @total
+                
+                 </strong> </td>
+                   
+            </tr>
+            
+           
+             
+
+    </tbody>
+</table>
+
+
+if(invoiceNote!=null)
+{
+<div id=note style="text-align: right" >
+    Invoice Note: @invoiceNote
+    </div>
+    }
+    else
+    {
+    <br />
+    }
+
+    }
+   
+

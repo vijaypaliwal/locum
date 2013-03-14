@@ -28,16 +28,34 @@
         @Html.LabelFor(model => model.PID, "Practices") <span class="red">*</span>
     </div>
                  
-    <div class="editor-field">
+   <div class="editor-field">
         @Html.DropDownList("PracticesID", ViewBag.PracticesID as SelectList, "Select Practice")
         @Html.ValidationMessageFor(model => model.PID)
     </div> 
-    <div class="editor-label">
+     <div class="editor-label">
         @Html.LabelFor(model => model.Name) <span class="red">*</span>
     </div>
                   
     <div class="editor-field">
-        @Html.EditorFor(model => model.Name)
+       
+       @Html.DropDownListFor(
+           model => model.Name, 
+           new SelectList(
+                  new List<Object>{ 
+                       new { value = "Morning Session" , text = "Morning Session"  },
+                       new { value = "Afternoon Session" , text = "Afternoon Session" },
+                       new { value = "Evening Session" , text = "Evening Session"},
+                       new { value = "Night Session" , text = "Night Session"},
+                       new { value = "Extra Session" , text = "Extra Session"},
+                       new { value = "Full Day" , text = "Full Day"}
+                    },
+                  "value",
+                  "text"
+                   
+           )
+        )
+
+
         @Html.ValidationMessageFor(model => model.Name)
     </div>
                     
@@ -58,20 +76,7 @@
         @Html.EditorFor(model => model.EndTime)
         @Html.ValidationMessageFor(model => model.EndTime)
     </div>
-                  
-    <div class="editor-label">
-        @Html.LabelFor(model => model.fees) 
-    </div>
-                
-    <div class="editor-field">
-        @Html.EditorFor(model => model.fees)
-        @Html.ValidationMessageFor(model => model.fees)
-    </div>
-                  
-    
-                  
-      
-        
+                         
     
 }
 <script type="text/javascript">
@@ -95,6 +100,8 @@
                 start.max(endDate);
             }
         }
+
+       //$("#Name").kendoDropDownList({});
 
         var start = $("#startTime").kendoTimePicker({
             change: startChange,

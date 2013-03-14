@@ -5,6 +5,19 @@
 }
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $("#Notes").kendoNumericTextBox({
+            format: "0.0",
+            min:0
+        });
+        $("#expences").kendoNumericTextBox({
+            format: "0.0",
+            min: 0
+        });
+        $("#VisitMileage").kendoNumericTextBox({
+            format: "0.0",
+            min: 0
+        });
         var className = $("input").attr("class");
         $("input").attr("class", "k-input " + className);
         $("#startDate").kendoDatePicker();
@@ -152,6 +165,16 @@
     <div class="editor-field">
         &nbsp;
     </div>
+    
+    <div class="editor-label">
+         @Html.LabelFor(model => model.Notes)<span class="red">*</span>
+    </div>
+               
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Notes, new { @value = 0.0 })
+    </div>
+               
+    
     <div class="editor-label">
         @Html.LabelFor(model => model.expences)
     </div>      
@@ -159,7 +182,15 @@
         @Html.EditorFor(model => model.expences)
         @Html.ValidationMessageFor(model => model.expences)
     </div>
+     <div class="editor-label">
+        @Html.LabelFor(model => model.IsCharged)
+    </div>
                
+    <div class="editor-field">
+        @Html.EditorFor(model => model.IsCharged)
+    </div>      
+    
+              
     <div class="editor-label">
         @Html.LabelFor(model => model.VisitMileage)
     </div>
@@ -167,25 +198,9 @@
     <div class="editor-field">
         @Html.EditorFor(model => model.VisitMileage)
     </div>
-              
-    <div class="editor-label">
-        @Html.LabelFor(model => model.IsCharged)
-    </div>
+    
                
-    <div class="editor-field">
-        @Html.EditorFor(model => model.IsCharged)
-    </div>
-              
-    <div class="editor-label">
-        Payment
-    </div>
-               
-    <div class="editor-field">
-        @Html.EditorFor(model => model.Notes)
-    </div>
-               
-   
-             
+     
     <div class="editor-label">
         @Html.LabelFor(model => model.startDate)<span class="red">*</span>
     </div>
@@ -213,7 +228,7 @@
     </div>
                
     <div class="editor-field">
-        @Html.TextAreaFor(model => model.InvoiceNotes)
+        @Html.TextAreaFor(model => model.InvoiceNotes, new { style = "width: 570px;" })
     </div>
      
 }

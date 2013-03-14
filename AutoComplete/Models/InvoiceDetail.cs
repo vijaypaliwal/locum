@@ -66,6 +66,7 @@ namespace AutoComplete.Models
         public string paid_date { get; set; }
         [NotMapped]
         public bool enable { get; set; }
+        
 
 
 #endregion

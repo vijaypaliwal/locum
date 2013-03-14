@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
 
  @using System.Web.Mvc.Ajax @{
-  
+     ViewBag.Title = "GetAppointment";
      Layout = null;
   
   <script type="text/javascript">
@@ -13,9 +13,9 @@
               height: 210,
               columnMenu: true,
               dataSource: {
-
-                  pageSize: 3
-              },
+                
+                pageSize: 3
+            }, 
               dataBound: function (e) {
                   $(".k-grid-delete").click(function (e) {
                       e.preventDefault();
@@ -27,27 +27,27 @@
 
               }
 
-          });
       });
+  });
     </script>
      
      
      <script type="text/javascript">
 
-         function ToGet(tourl) {
-             var url = tourl;
-             event.preventDefault();
-             $("#resultDataInvoice").empty();
-             $.post(url,
+    function ToGet(tourl) {
+    var url=tourl;
+    event.preventDefault();
+    $("#resultDataInvoice").empty();
+    $.post(url,
                       function (data) {
-
-
+                         
+                         
                           $("#resultDataInvoice").empty().append(data);
                       }
                  );
 
 
-         }
+}
      </script>
      
     <div class="Span10">
@@ -176,5 +176,3 @@
      
      
     }
-
-

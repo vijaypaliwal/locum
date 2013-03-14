@@ -199,19 +199,7 @@
     });
 
    
-//     $("#endDate").kendoDatePicker({
-//      change: function () {
-//            var value = this.value();
 
-//            if (value) {
-//                alert(value);
-//                gridTemp.data("kendoGrid").dataSource.filter ({ field: "invoice_date", operator: "eq", value: value });
-//            } else {
-//                gridTemp.data("kendoGrid").dataSource.filter({});
-//            }
-//        } 
-//     
-//     });
 
 
          var status_item = [{ ID:"Paid", Name: "Paid Invoice" }, { ID: "Unpaid", Name: "Unpaid Invoice"}];
@@ -354,7 +342,17 @@
         <td>
          #=invoice_date#
         </td>
-        <td>#=paid_date#</td>
+        <td>
+     # if(paid_date=="1/1/1753")
+     {#
+     <center>-</center>
+     #}
+     else
+     {#
+     #=paid_date#
+     #}#
+         </td>
+
         <td>#=Total#</td>
      <td>
      # if(Paid_Status=="Paid")

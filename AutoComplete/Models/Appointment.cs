@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
 
 namespace AutoComplete.Models
 {
@@ -50,15 +51,15 @@ namespace AutoComplete.Models
         [Display(Name = "Visit Mileage")]
         public double VisitMileage { get; set; }
 
-               
-        [Display(Name = "Charge ?")]
+
+        [Display(Name = "Generate Invoice?")]
+        [DefaultValue(true)]
         public bool IsCharged { get; set; }
 
-        
+
         [DataType(DataType.Currency)]
-        [Display(Name = "Visit Mileage")]
-        public string Notes { get; set; }
-      
+        [Display(Name = "Payment/Fees")]
+        public double Notes { get; set; }
         [Display(Name = "Invoice Notes")]
         public string InvoiceNotes { get; set; }
 
@@ -70,6 +71,8 @@ namespace AutoComplete.Models
 
         public bool Invoiced  { get; set; }
         public bool Paid  { get; set; }
+
+        public double Total { get; set; }
 
 
 

@@ -176,17 +176,24 @@
                
                  var val=$("#SessID").val();
                  var value=$("#PracID").val();
+                 var pay=$("#Notes").val();
+                 
+
                  if(value!="")
                     {
-                    if(val!="" && val!="0")
+                    if(val!="" && val!="0" && pay!=0 && pay!="0.0" && pay!="")
                     {
                        $("#updateCForm").submit();
                        $(this).attr("disabled", "disabled");
                        
                     }
-                    else
+                    else if(val=="" || val=="0")
                     {
                     alert("Please Select Session....");
+                    }
+                    else
+                    {
+                    alert("Payment Field is Required....");
                     }
                   }
                 else
@@ -268,9 +275,65 @@
     //save funcion
     function updateCalender(id, title, Sessiontitle, SessionStart, Sessionend,color) {
    
+    
+        //title = title + " " + Sessiontitle + " " + stratTime24 + "-" + Sessionend;  
+        ///////////convert Start time to 24 hours
+     
+    var hh = 0;
+    var mm = 0;
+    var Sttype24 = "";
+    var Sttype12 = SessionStart;
 
-        //title = title + " " + Sessiontitle + " " + SessionStart + "-" + Sessionend;
-        title =title; 
+    if (Sttype12.indexOf(":") != -1) {
+        time_array = Sttype12.split(":");
+        hh = time_array[0];
+        mm = time_array[1].substring(0,2);
+    }
+
+    if (Sttype12.toLowerCase().indexOf("am") >= 0) {
+        hh = (hh % 12) + 0;
+    } else {
+        hh = (hh % 12) + 12;
+    }
+
+    if (hh < 10) {
+        hh = "0" + hh;
+    } else {
+        hh = hh;
+    }
+    Sttype24 = hh + ':' + mm;
+    
+    // End
+
+    //convert end time to 24hrs
+    var hh1 = 0;
+    var mm1 = 0;
+    var Ettype24 = "";
+    var Ettype12 = Sessionend;
+
+    if (Ettype12.indexOf(":") != -1) {
+        time_array = Ettype12.split(":");
+        hh1 = time_array[0];
+        mm1 = time_array[1].substring(0,2);
+    }
+
+    if (Ettype12.toLowerCase().indexOf("am") >= 0) {
+        hh1 = (hh1 % 12) + 0;
+    } else {
+        hh1 = (hh1 % 12) + 12;
+    }
+
+    if (hh1 < 10) {
+        hh1 = "0" + hh1;
+    } else {
+        hh1 = hh1;
+    }
+    Ettype24 = hh1 + ':' + mm1;
+    
+     ////end
+    
+         title =title+" "+Sttype24+"-"+Ettype24;
+
     
         if (title) {
        
@@ -296,7 +359,62 @@
     //update function
     function updateCalenderUP(id, title, Sessiontitle, SessionStart, Sessionend,color) {
         
-        title =title;
+     ///////////convert Start time to 24 hours
+     
+    var hh = 0;
+    var mm = 0;
+    var Sttype24 = "";
+    var Sttype12 = SessionStart;
+
+    if (Sttype12.indexOf(":") != -1) {
+        time_array = Sttype12.split(":");
+        hh = time_array[0];
+        mm = time_array[1].substring(0,2);
+    }
+
+    if (Sttype12.toLowerCase().indexOf("am") >= 0) {
+        hh = (hh % 12) + 0;
+    } else {
+        hh = (hh % 12) + 12;
+    }
+
+    if (hh < 10) {
+        hh = "0" + hh;
+    } else {
+        hh = hh;
+    }
+    Sttype24 = hh + ':' + mm;
+    
+    // End
+
+    //convert end time to 24hrs
+    var hh1 = 0;
+    var mm1 = 0;
+    var Ettype24 = "";
+    var Ettype12 = Sessionend;
+
+    if (Ettype12.indexOf(":") != -1) {
+        time_array = Ettype12.split(":");
+        hh1 = time_array[0];
+        mm1 = time_array[1].substring(0,2);
+    }
+
+    if (Ettype12.toLowerCase().indexOf("am") >= 0) {
+        hh1 = (hh1 % 12) + 0;
+    } else {
+        hh1 = (hh1 % 12) + 12;
+    }
+
+    if (hh1 < 10) {
+        hh1 = "0" + hh1;
+    } else {
+        hh1 = hh1;
+    }
+    Ettype24 = hh1 + ':' + mm1;
+    
+     ////end
+    
+         title =title+" "+Sttype24+"-"+Ettype24;
         var id1=id;
        
         $('#calendar').fullCalendar( 'removeEvents',id1);

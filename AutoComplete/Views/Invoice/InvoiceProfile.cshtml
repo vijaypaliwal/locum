@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
 @{
-    ViewBag.Title = "Invoicingreport";
+    ViewBag.Title = "InvoiceProfile";
     Layout = null;
     //var name = Session["Person"] as AutoComplete.Models.Person;
     decimal total = 0;
@@ -11,51 +11,72 @@
     string practicephone = "";
     string practicestreet = "";
     string practiceemail = "";
+    var FirstName = "";
+    var LastName = "";
+    var city = "";
+    var country = "";
+    var postCode = "";
+    var phone = "";
+    var Email = "";
+    string sdate = "";
+    string edate = "";
+        
+    var db = new AutoComplete.DataContext();
+    
     if (Model != null && Model.Count() > 0)
     {
-        if (Session["Practice"] != null)
+        foreach(var item in Model)
         {
-            AutoComplete.Models.Practices p = Session["Practice"] as AutoComplete.Models.Practices;
+            sdate = item.Appointment.startDate;
+            edate = item.Appointment.endDate;
+            var prac = db.Practices.Where(p => p.ID == item.Appointment.PracID);
+            foreach(var p in prac)
+            {
             practice = p.Name;
             practicecity = p.city;
             practicetown = p.cWebsite;
             practicephone = p.cphone;
             practicestreet = p.streetAdd;
             practiceemail = p.cEmail;
+            }
+
+            var pers = db.People.Where(per => per.ID == item.Appointment.PersonID);
+                foreach(var n in pers)
+                {
+                    FirstName = n.FirstName;
+                    LastName = n.LastName;
+                    city = n.city;
+                    country = n.country;
+                    postCode = n.postCode;
+                    phone = n.phone;
+                    Email = n.Email;
+                    
+                } 
         }
 
     }
    
 }
-<h2>
-    Invoice</h2>
 
-<div class="grid">
-    <div class="row">
-        <div class="span4  fg-color-black">
-            <p class="long-text" style="margin: 5px;">
-                <p class="long-text" style="margin: 5px;">
-                    To :@practice
-                </p>
-                <p class="long-text" style="margin-left: 15px;">
-                    @practicecity, @practicestreet
-                </p>
-                <p class="long-text" style="margin-left: 15px;">
-                    @practicetown
-                </p>
-                <p class="long-text" style="margin-left: 15px;">
-                    @practicephone
-                </p>
-                <p class="long-text" style="margin-left: 15px;">
-                    @practiceemail
-                </p>
-            </p>
-        </div>
-   
-    </div>
-</div>
-<table width="100%">
+<h2></h2>
+<table width='100%'><tr><td align='left'>
+              <font size="10pt">To: @practice <br />
+                 Website:  <br />
+                 City: @practicecity<br />
+                 Street Address: @practicestreet<br />
+                 Contact no.: @practicephone<br />
+                 Email: @practiceemail </font></td>
+
+<td align=''>
+<font size="10pt"> From Dr.: @FirstName @LastName<br />
+ City: @city<br />
+  Country: @country<br />
+   Contact no.:  @phone<br />
+ Email: @Email</font> </td></tr></table>
+------------------------------------------------------------------------------------------------------------------------------
+<table width="100%" border="0">
     <thead>
+     
         <tr>
             <th>
                 Date
@@ -69,23 +90,24 @@
         </tr>
         <tr>
         </tr>
+         
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @item.InvoicedDate.ToString("D")
+                  <font size="10pt">@item.InvoicedDate.ToString("D")</font>
                 </td>
               
                 <td>
              
-                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.Name)
+                   <font size="10pt">@Html.DisplayFor(modelItem => item.Appointment.sessionDetail.Name)</font>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Appointment.sessionDetail.fees)
+                <font size="10pt">@Html.DisplayFor(modelItem => item.Appointment.Total)</font>
                     @{
-               total += Convert.ToDecimal(item.Appointment.sessionDetail.fees);
+               total += Convert.ToDecimal(item.Appointment.Total);
                     }
                 </td>
             </tr>
@@ -97,18 +119,16 @@
         }
 
 
-
+     
         <tr>
 
             <td></td>
             <td>Total</td>
             <td>
                 <strong> @total </strong> </td>
-            
-            </tr>
-
-
+        
     </tbody>
 </table>
-
+------------------------------------------------------------------------------------------------------------------------------
+<font size="10pt">Invoice Generated For - @sdate to @edate period For practice - @practice </font>
 

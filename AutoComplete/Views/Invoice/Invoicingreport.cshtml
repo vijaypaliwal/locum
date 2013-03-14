@@ -30,7 +30,6 @@
     $(document).ready(function () {
 
         $("form").submit(function (event) {
-
             /* stop form from submitting normally */
             event.preventDefault();
             $("#resultData").empty();
@@ -38,12 +37,10 @@
             /* get some values from elements on the page: */
             var $form = $(this),
             url = $form.attr('action');
-
+            form = $("Form").serialize();
             /* Send the data using post and put the results in a div */
-            $.post(url, $("Form").serialize(),
+            $.post(url, form,
                       function (data) {
-                         // var content = $(data);
-                     
                           $("#loadingImg").toggle("slow");
                           $("#resultData").empty().append(data);
                       }
@@ -53,7 +50,7 @@
 
     });
 </script>
-@using (Html.BeginForm("InvoicingreportTable", "Invoice"))
+@using (Html.BeginForm("GetAppointment", "Invoice"))
 {
     @Html.ValidationSummary(true)
 
@@ -75,36 +72,21 @@
             </div>
             <div class="span4 ">
                 <div class="">
-                    <strong>Practice Selection &raquo;</strong>    
+                    <strong>Date Selection &raquo;</strong>    
                 </div>
             </div>
             <div class="span4 ">
                 <div class="">
-                    <strong>Date Selection &raquo;</strong> 
+                    <strong>Practice Selection &raquo;</strong> 
                 </div>
             </div>
             <div class="span4 ">
-                <div class="">
-                    @Html.DropDownList("PracticeID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.PracticeID)
-                </div>
 
-                 <div style="margin-top:25px;" class=" ">
-     Is Pension form Include ?   @Html.EditorFor(model => model.IsPensionFormAinclude)
-        @Html.ValidationMessageFor(model => model.IsPensionFormAinclude)
-    </div>
-
-            </div>
-
-
-            <div class="span4 ">
-               
-             
-             
-                <div style="" id="otherAnswer">
-                    <div class="">
+           
+             <div style="" id="otherAnswer">
+                    <span class="">
                         Start Date
-                    </div>
+                    </span>
                     <div class="">
                         @Html.EditorFor(model => model.startDate)
                         @Html.ValidationMessageFor(model => model.startDate)
@@ -116,7 +98,24 @@
                         @Html.EditorFor(model => model.endDate)
                         @Html.ValidationMessageFor(model => model.endDate)
                     </div>
+            </div>
+                
+
+            </div>
+            <div class="span4 ">
+                <div class="" style="margin-top:15px;">
+                    @Html.DropDownList("PracticeID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.PracticeID)
                 </div>
+
+                 <div style="margin-top:15px;" class=" ">
+     Is Pension form Include ?   @Html.EditorFor(model => model.IsPensionFormAinclude)
+        @Html.ValidationMessageFor(model => model.IsPensionFormAinclude)
+                </div>
+                <div style="margin-top:15px;" class=" ">
+                <input type="submit" value="Get Appointments" />
+                </div>
+
             </div>
         </div>
     </div>
@@ -186,9 +185,7 @@
                     @Html.ValidationMessageFor(model => model.PracticeID)
     </div>*@
                     
-    <p>
-        <input type="submit" value="Get Invoice" />
-    </p>
+   
     
 }
 <br />
