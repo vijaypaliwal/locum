@@ -21,6 +21,8 @@ namespace AutoComplete.Reports
     {
 
         decimal total = 0;
+        string startDate = "";
+        string endDate = "";
         public List<InvoiceDetail> InvoiceD { get; set; }
         public Practices pdetail { get; set; }
         public Person persondetail { get; set; }
@@ -36,7 +38,7 @@ namespace AutoComplete.Reports
 
             InvoiceD.ForEach(invoice => {
 
-                total += System.Convert.ToDecimal(invoice.SessionFees.ToString()); 
+                total += System.Convert.ToDecimal(invoice.Appointment.Total.ToString()); 
             });
             using (WordprocessingDocument package = WordprocessingDocument.Create(filePath, WordprocessingDocumentType.Document))
             {
@@ -714,7 +716,7 @@ namespace AutoComplete.Reports
             runProperties22.Append(fontSize15);
             runProperties22.Append(fontSizeComplexScript15);
             Text text19 = new Text() { Space = SpaceProcessingModeValues.Preserve };
-            text19.Text = " ";
+            text19.Text = "";
 
             run23.Append(runProperties22);
             run23.Append(text19);
@@ -1766,6 +1768,8 @@ namespace AutoComplete.Reports
 
             foreach (var item in InvoiceD)
             {
+                startDate = item.Appointment.startDate.ToString();
+                endDate = item.Appointment.endDate.ToString();
                 TableRow tableRow6 = new TableRow() { RsidTableRowAddition = "00E67B26", RsidTableRowProperties = "00E67B26" };
 
                 TableRowProperties tableRowProperties6 = new TableRowProperties();
@@ -1884,7 +1888,7 @@ namespace AutoComplete.Reports
 
                 runProperties62.Append(color73);
                 Text text55 = new Text();
-                text55.Text = item.SessionFees.ToString();
+                text55.Text = item.Appointment.Total.ToString();
 
                 run63.Append(runProperties62);
                 run63.Append(text55);
@@ -2256,7 +2260,7 @@ namespace AutoComplete.Reports
             runProperties73.Append(bold59);
             runProperties73.Append(color97);
             Text text66 = new Text() { Space = SpaceProcessingModeValues.Preserve };
-            text66.Text = "1/12/2011 12:00:00 AM ";
+            text66.Text = startDate;
 
             run74.Append(runProperties73);
             run74.Append(text66);
@@ -2270,7 +2274,7 @@ namespace AutoComplete.Reports
             runProperties74.Append(bold60);
             runProperties74.Append(color98);
             Text text67 = new Text();
-            text67.Text = "to";
+            text67.Text = " to ";
 
             run75.Append(runProperties74);
             run75.Append(text67);
@@ -2284,7 +2288,7 @@ namespace AutoComplete.Reports
             runProperties75.Append(bold61);
             runProperties75.Append(color99);
             Text text68 = new Text() { Space = SpaceProcessingModeValues.Preserve };
-            text68.Text = " 1/12/2014 12:00:00 AM";
+            text68.Text = endDate;
 
             run76.Append(runProperties75);
             run76.Append(text68);

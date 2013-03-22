@@ -1,6 +1,4 @@
-﻿
-
-@* Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies. *@
+﻿@* Author: Brother Bill, brotherbill@mail.com, May freely make changes and copies. *@
 @{
    
     ViewBag.Title = "Home";
@@ -22,8 +20,10 @@
     if (id != null)
     {
 
-        var query =db.People.Where(p=>p.UserName==id);
-           
+        var query =
+             from c in db.People
+             where c.UserName == id
+             select c;
         foreach (var query1 in query)
         {
             query1.Status = true;
@@ -63,10 +63,10 @@
                                 <h2>
                                     Welcome to Locum Assistant!</h2>
                                 <p class="bg-color-blueDark padding20 fg-color-white">
-                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant.
-                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant</p>
+                                    Locum assistant is an online application designed to act as a centralised hub for roaming
+                                     medical professionals who are not always based in the same location.</p>
                                 <h3>
-                                    To start: Locum Assistant.com</h3>
+                                    To start: locum.azurewebsites.net</h3>
                                 <p class="tertiary-info-text">
                                     &lt; Welcome to Locum Assistant"&gt;
                                 </p>
@@ -75,30 +75,30 @@
                                 <h2 class="fg-color-darken">
                                     Locum Assistant</h2>
                                 <p class="bg-color-pink padding20 fg-color-white">
-                                    Welcome to Locum Assistant Welcome to Locum Assistant Welcome to Locum Assistant<strong>LOCUM:</strong>
+                                    Locum Assistant has a number of features.<br /><strong>Its features include:</strong>
                                 </p>
                                 <div class="span3 place-left">
                                     <ul class="unstyled sprite-details">
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Practice Database</li>
+                                        <li><i class="icon-checkmark"></i>Appointment Database</li>
+                                        
                                     </ul>
                                 </div>
                                 <div class="span3 place-left">
                                     <ul class="unstyled sprite-details">
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
-                                        <li><i class="icon-checkmark"></i>Locum Assistant</li>
+                                        <li><i class="icon-checkmark"></i>Document Storage Area</li>
+                                        <li><i class="icon-checkmark"></i>Accessible from anywhere.</li>
+                                        
                                     </ul>
                                 </div>
                             </div>
                             <div class="slide" id="slide3" style="display: block; left: 0px;">
                                 <h2>
-                                    Locum Assistant</h2>
+                                    Why become a locum
+                                  </h2>
                                 <p class="bg-color-red fg-color-white padding20">
-                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
-                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
-                                    Welcome To Locum Assistant Welcome To Locum Assistant Welcome To Locum Assistant
+                                    Locums play a vital role in providing quality health care throughout World. 
+                                    Your skills are sorely needed and much appreciated. As a locum you would enjoy many benefits.
                                 </p>
                                 <p>
                                     <a href="@Url.Action("Create", "Person")">Join</a> Locum.</p>
@@ -165,12 +165,13 @@
                 </div>
                 <div class="data">
                     <h4>
-                        Locum Assistant</h4>
+                        Free Registration</h4>
                    
                     <p>
-                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                        Just fill our registration form.<br /><br /><br />
+                        
                     </p>
-                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                   <a href="@Url.Action("Create", "Person")">Join Locum</a>
                 </div>
             </li>
             <li class="bg-color-orange fg-color-white">
@@ -179,12 +180,15 @@
                 </div>
                 <div class="data">
                     <h4>
-                        Locum Assistant</h4>
+                        Why become a locum</h4>
                    
                     <p>
-                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                        Locums play a vital role in providing quality health care throughout World.
+                        <br /><br />
+
+
                     </p>
-                    <a href="http://shivamitcs.in">shivamitcs.in</a>
+                    <a href="http://locum.azurewebsites.net/">locum.azurewebsites.net</a>
                 </div>
             </li>
             <li class="selected fg-color-dark">
@@ -193,9 +197,12 @@
                 </div>
                 <div class="data">
                     <h4>
-                        Locum Assistant</h4>
+                        Locum Features</h4>
                     <p>
-                        Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                       Practice database<br />
+                       Appointment database<br />
+                       Document Storage Area<br />
+                       Accessible from anywhere<br />
                     </p>
                     <a href="http://shivamitcs.in">shivamitcs.in</a>
                 </div>
@@ -208,7 +215,7 @@
                     <h4>
                         Locum Assistant</h4>
                     <p>
-                       Locum AssistantLocum AssistantLocum AssistantLocum AssistantLocum Assistant
+                       Welcome to Locum Assistant<br /><br /><br />
                     </p>
                     <a href="http://shivamitcs.in">shivamitcs.in</a>
                 </div>

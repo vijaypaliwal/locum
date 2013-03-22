@@ -55,7 +55,7 @@
 });*@
 
 
-    <a title="send Email" href="#" class="createAdmission123">Email</a>
+    @*<a title="send Email" href="#" class="createAdmission123">Email</a>*@
     
 
     <script type="text/javascript">
@@ -72,7 +72,7 @@
                 $.post(url, $("Form").serialize(),
                       function (data) {
                           debugger;
-                          alert("Invoice Saved Successfully");
+                          alert("Opertion Performed Successfully");
                           var content = $(data);
                           $("#resultData").empty().append(content);
                       }
@@ -223,7 +223,9 @@
                  }
     <div id="saveInvo">
         <a href="#" title="@Url.Action("SaveGeneratedInvoice", "Invoice", new { id = id, total = total })" id="SaveInvoice" class="k-button" >
-            Save Generated Invoice</a>
+            Save and Email</a>
+
+       
     </div>
     <script type="text/javascript">
         var linkObj;

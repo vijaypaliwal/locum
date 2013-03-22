@@ -27,7 +27,6 @@ namespace AutoComplete.Controllers
         {
 
             var user = Session["user"] as User;
-            
             // Session["Person"] = 1;
             // var model = new Country() { Id = 1, Name = "Bulgaria" };
             return View();

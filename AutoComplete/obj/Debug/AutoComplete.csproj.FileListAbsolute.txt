@@ -234,26 +234,6 @@ F:\locum\AutoComplete\obj\Debug\AutoComplete.csprojResolveAssemblyReference.cach
 F:\locum\AutoComplete\obj\Debug\AutoComplete.dll
 F:\locum\AutoComplete\bin\AutoComplete.dll
 F:\locum\AutoComplete\bin\AutoComplete.pdb
-F:\locum\AutoComplete\bin\ABCpdf.dll
-F:\locum\AutoComplete\bin\ClosedXML.dll
-F:\locum\AutoComplete\bin\DHTMLX.dll
-F:\locum\AutoComplete\bin\DoddleReport.AbcPdf.dll
-F:\locum\AutoComplete\bin\DoddleReport.dll
-F:\locum\AutoComplete\bin\DoddleReport.iTextSharp.dll
-F:\locum\AutoComplete\bin\DoddleReport.OpenXml.dll
-F:\locum\AutoComplete\bin\DoddleReport.Web.dll
-F:\locum\AutoComplete\bin\EntityFramework.dll
-F:\locum\AutoComplete\bin\itextsharp.dll
-F:\locum\AutoComplete\bin\Microsoft.Web.Infrastructure.dll
-F:\locum\AutoComplete\bin\NuGet.Core.dll
-F:\locum\AutoComplete\bin\Recaptcha.dll
-F:\locum\AutoComplete\bin\Recaptcha.MvcModel.dll
-F:\locum\AutoComplete\bin\System.Web.Helpers.dll
-F:\locum\AutoComplete\bin\System.Web.Razor.dll
-F:\locum\AutoComplete\bin\System.Web.WebPages.Administration.dll
-F:\locum\AutoComplete\bin\System.Web.WebPages.Deployment.dll
-F:\locum\AutoComplete\bin\System.Web.WebPages.dll
-F:\locum\AutoComplete\bin\System.Web.WebPages.Razor.dll
 F:\locum\AutoComplete\bin\ABCpdf.xml
 F:\locum\AutoComplete\bin\ClosedXML.xml
 F:\locum\AutoComplete\bin\DHTMLX.xml
@@ -391,6 +371,6 @@ D:\Sonal Project\locum\AutoComplete\bin\System.Web.Razor.xml
 D:\Sonal Project\locum\AutoComplete\bin\System.Web.WebPages.xml
 D:\Sonal Project\locum\AutoComplete\bin\System.Web.WebPages.Deployment.xml
 D:\Sonal Project\locum\AutoComplete\bin\System.Web.WebPages.Razor.xml
+D:\Sonal Project\locum\AutoComplete\obj\Debug\AutoComplete.csprojResolveAssemblyReference.cache
 D:\Sonal Project\locum\AutoComplete\obj\Debug\AutoComplete.dll
 D:\Sonal Project\locum\AutoComplete\obj\Debug\AutoComplete.pdb
-D:\Sonal Project\locum\AutoComplete\obj\Debug\AutoComplete.csprojResolveAssemblyReference.cache

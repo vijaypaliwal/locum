@@ -428,6 +428,7 @@ namespace AutoComplete.Controllers
                 vm.PracticeID = appt.PracID;
                 vm.startDate = Convert.ToDateTime(appt.startDate);
                 vm.endDate = Convert.ToDateTime(appt.endDate);
+                vm.Total =Convert.ToDecimal(appt.Total);
                 Session["Practice"] = db.Practices.Where(p => p.ID == appt.PracID).FirstOrDefault();
                 practice = Session["Practice"] as AutoComplete.Models.Practices;
                 if (practice.ID == appt.PracID)
@@ -474,7 +475,7 @@ namespace AutoComplete.Controllers
  Email : {10} </td></tr></table>", practice.Name, practice.cWebsite, practice.city, practice.streetAdd, practice.cphone, practice.cEmail, name.FirstName, name.city, name.country, name.phone, name.Email);
                 report.TextFields.Title = "Invoicing For " + db.Practices.Where(p => p.ID == vm.PracticeID).FirstOrDefault() == null ? "Not Found" : db.Practices.Where(p => p.ID == vm.PracticeID).FirstOrDefault().Name;
                 report.TextFields.SubTitle = " From : " + vm.startDate + " End : " + vm.endDate;
-                report.TextFields.Footer = string.Format(@"<table width='80%'><tr><td align='right'> Total Fees {0}</td></tr></table>", Convert.ToString(total));
+                report.TextFields.Footer = string.Format(@"<table width='80%'><tr><td align='right'> Total Fees {0}</td></tr></table>", Convert.ToString(vm.Total));
                 // Render hints allow you to pass additional hints to the reports as they are being rendered
                 report.RenderHints.BooleanCheckboxes = true;
                 report.RenderHints.BooleansAsYesNo = true;
@@ -489,9 +490,6 @@ namespace AutoComplete.Controllers
             //return Json(abresults.Select(ap => new { ap.PatientId, ap.TestDateTime,ap.Age, ap.Gender,  ap.TestName, ap.Technician, ap.Result, ap.NormalRange, ap.Name }).ToList(), JsonRequestBehavior.AllowGet);
 
         }
-
-
-
 
         public ActionResult mailInvoice()
         {
@@ -509,9 +507,7 @@ namespace AutoComplete.Controllers
             var to = toaddress;
             mailmessage.Attachments.Add(new Attachment(Server.MapPath(pathToCreate)));
             var path = Server.MapPath(pathToCreate);
-
             _userMailer.sendreport(path, to, invoice).Send();
-
             return Content(Boolean.TrueString);
         }
 
@@ -572,8 +568,29 @@ namespace AutoComplete.Controllers
             {
                 ModelState.AddModelError("_Form", ex.Message);
             }
-           
+            //send mail invoice
+            try
+            {
+                var mailmessage = new System.Net.Mail.MailMessage { Subject = "Reports" };
+                var per = (Session["Person"] as Person);
+                var Prac = Session["Practice"] as AutoComplete.Models.Practices;
+                string pathToCre = "~/Reports/" + per.FirstName + "/Invoice" + "_" + per.FirstName + "_" + per.ID + ".doc";
+               //convert into pdf
+               
 
+                //
+                string toaddress = Prac.cEmail;
+                var to = toaddress;
+                mailmessage.Attachments.Add(new Attachment(Server.MapPath(pathToCre)));
+                var path = Server.MapPath(pathToCre);
+                _userMailer.sendreport(path, to, vm).Send();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("_Form", ex.Message);
+            }
+
+            //
             //get Appointment
 
             var abresults = new List<InvoiceDetail>();

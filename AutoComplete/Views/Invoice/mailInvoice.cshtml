@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<AutoComplete.Models.InvoiceDetail>
+@{
     ViewBag.Title = "Create";
     Layout = null;
     var name = Session["Person"] as AutoComplete.Models.Person;
@@ -26,6 +27,7 @@
          To
         </div>
         <div class="">
+          
             <input style="width:870px;" type="type" name="name" value="@name.Email" />
         </div>
 
